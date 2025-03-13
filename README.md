@@ -1,4 +1,8 @@
 ### kiosk
 
 dd
-asdasdvsdfvsdfvsgvsdfvs
+asdasdvsasdasdasdasas
+ads
+dasd
+asdsa
+s
