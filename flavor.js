@@ -1,12 +1,15 @@
-import { Flover } from "./main.js";
+import { Flover } from "./flavortool.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    const root = document.getElementById("root");
+    const root = document.getElementById("flavors");
 
     const iceCreams = [
         { name: "31요거트", imagepath: "./menuimage/31요거트.png"},
         { name: "그린티", imagepath: "./menuimage/그린티.png"},
         { name: "나주배 소르베", imagepath: "./menuimage/나주배_소르베.png"},
+        { name: "나주배 소르베", imagepath: "./menuimage/나주배_소르베.png"},
+        { name: "나주배 소르베", imagepath: "./menuimage/나주배_소르베.png"},
+        
     ];
 
     iceCreams.forEach(ice => {

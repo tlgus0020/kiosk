@@ -1,8 +1,36 @@
 .imagefile{
-    width: 50px;
-    height: 50px;
+    width: 145px;
+    height: 145px;
 }
 
-#root{
+#flavors{
     display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: 1024px;
+    height: 795px;
+}
+
+.view{
+    position: relative;
+    width: 1024px;
+    height: 1562px;
+    background-color: lightblue;
+}
+
+.menu{
+    display: flex;
+}
+
+.icecream{
+    width: 256px;
+    height: 256px;
+}
+
+footer {
+    display: flex;
+    justify-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }

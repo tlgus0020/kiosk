@@ -1,5 +1,7 @@
 export function Flover(name, imagepath) {
     const div = document.createElement("div");
+    div.classList.add("icecream");
+    
     div.innerHTML = `
         <img src="${imagepath}" alt="${name}" class="imagefile"/>
         <br>
