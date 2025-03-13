@@ -1,14 +1,5 @@
-export function Flover(name, imagepath) {
-    const div = document.createElement("div");
-    div.innerHTML = `
-        <img src="${imagepath}" alt="${name}" class="imagefile"/>
-        <br>
-        <span>${name}</span>
-    `;
+const menu=document.querySelector('#menu');
 
-    div.addEventListener("click", () => {
-        console.log(`${name} 클릭됨!`);
-    });
+const icecreamimg= [{img=''}]
 
-    return div;
-}
+me
