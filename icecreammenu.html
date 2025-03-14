@@ -3,15 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>키오스크</title>
+    <title>아이스크림 메뉴</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css"
+    />
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
+    <header class="header">
+        <img src="./images/로고-removebg-preview.png">
+        <p class="close-button">×</p>
+    </header>
+    
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="#">아이스크림</a></li>
+            <li><a href="#">커피</a></li>
+            <li><a href="#">음료</a></li>
+            <li><a href="#">아이스모찌</a></li>
+            <li><a href="#">아이스모찌</a></li>
+            <li><a href="#">아이스모찌</a></li>
+            <li><a href="#">아이스모찌</a></li>
+            
+            
+        </ul>
+    </nav>
+    
+    <main>
+        <div id="menu" class="menu-container">
+        </div>
+    </main>
 
-    <header id="header"></header>  <!-- 헤더 & 네비바 -->
-    <main id="main"></main>  <!-- 메인 콘텐츠 -->
-    <footer id="footer"></footer>  <!-- 푸터 -->
-
-    <script src="./main.js"></script>
+    <footer>
+        <div class="cart-container">
+            <img src="./images/shopping_bag.png">
+            
+            <button id="checkout">결제하기</button>
+        </div>
+    </footer>
+    
+    <script src="main.js"></script>
 </body>
+
 </html>
