@@ -1,14 +1,18 @@
-import { FloverChoice } from "./flavorChoicetool.js";
+export function flavorChoice(count) {
+    const flavorContainer = document.getElementById("flavorChoice");
 
-document.addEventListener("DOMContentLoaded", () => {
-    const root = document.getElementById("flavorChoice");
+    if (!flavorContainer) {
+        console.error("⚠️ `flavorChoice` 요소를 찾을 수 없습니다!");
+        return;
+    }
 
-    const iceCreams = [
-        { name: "31요거트", imagepath: "./menuimage/31요거트.png"},
-    ];
+    flavorContainer.innerHTML = ""; // 기존 요소 초기화
 
-    iceCreams.forEach(ice => {
-        const iceCreamElement = FloverChoice(ice.name, ice.imagepath);
-        root.appendChild(iceCreamElement);
-    });
-});
+    for (let i = 0; i < count; i++) {
+        const img = document.createElement("img");
+        img.src = "./image/Rectangle 9.png";
+        img.alt = `Flavor ${i + 1}`;
+        img.classList.add("menu-container");
+        flavorContainer.appendChild(img);
+    }
+}

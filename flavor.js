@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: "나주배 소르베", imagepath: "./menuimage/나주배_소르베.png"},
         { name: "나주배 소르베", imagepath: "./menuimage/나주배_소르베.png"},
         { name: "나주배 소르베", imagepath: "./menuimage/나주배_소르베.png"},
-        
     ];
 
     iceCreams.forEach(ice => {

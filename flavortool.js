@@ -4,7 +4,6 @@ export function Flover(name, imagepath) {
     
     div.innerHTML = `
         <img src="${imagepath}" alt="${name}" class="imagefile"/>
-        <br>
         <span>${name}</span>
     `;
 
