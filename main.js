@@ -1,14 +1,31 @@
-export function Flover(name, imagepath) {
-    const div = document.createElement("div");
-    div.innerHTML = `
-        <img src="${imagepath}" alt="${name}" class="imagefile"/>
-        <br>
-        <span>${name}</span>
-    `;
+let content = document.querySelector("#content"); 
 
-    div.addEventListener("click", () => {
-        console.log(`${name} 클릭됨!`);
-    });
+function change(event,path){
+    console.log(event);
+    event.preventDefault();
 
-    return div;
+    console.log(path);
+
+    let url = "";
+
+    if(path == 'icecream'){
+        url = '/icecream';
+        fetchHTML(path);
+    }
+    history.pushState({},"",url);
+}
+
+async function fetchHTML(filename) {
+    const res = await fetch(`${filename}.html`);
+    content.innerHTML=  await res.text();
+
+executeScripts(content);
+}
+function executeScripts(element) {
+  const scripts = element.querySelectorAll("script");
+  scripts.forEach(script => {
+    const newScript = document.createElement("script");
+    newScript.textContent = script.textContent;
+    document.body.appendChild(newScript);
+  })
 }

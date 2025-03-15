@@ -1,4 +1,0 @@
-### kiosk
-
-eee
-asdasdvsdfvsdfvsgvsdfvsasd
