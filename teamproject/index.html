@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body {
+    display: flex; 
+    margin-top: 30px;
+    justify-content: center; 
+    align-items: center; 
+   
+}
+    .container{
+        width:1024px;
+        height:1562px;
+        border:1px solid black;
+      
+    }
+    .header{
+        height:100px;
+        display: flex;
+        justify-content: space-evenly; 
+        align-items: center;
+    }
+    .header-box1 {
+        width:512px;
+        height:100px;
+        display:flex;
+        justify-content: center; 
+        align-items: center;
+    } 
+    .header-box2 {
+        display:flex;
+        justify-content: center; 
+        align-items: center;
+        width:512px;
+        height:100px;
+        background-color:#F8F8F8;
+    }
+    .text1{
+        display:flex;
+        justify-content: center; 
+        align-items: center;
+        width:120px;
+        height:22px;
+        font-size: 30;
+        color:#F20C93;
+        font-weight: bold;
+        font-size:30px;
+        line-height: 1;
+    }
+    .text2{
+        display:flex;
+        justify-content: center; 
+        align-items: center;
+        width:120px;
+        height:22px;
+        color:#CACACA;
+        font-size:30px;
+        line-height: 1;
+    }
+    .main {
+    display:flex;
+    width:1024px;
+    height:187px;
+  
+    }
+   .main_relative{
+    position:relative;
+    display:flex;
+    width:256px;
+    height:187px;
+ 
+    align-items: center;
+
+ 
+   }
+   .main2 {
+    width:512px;
+  
+    height:187px;
+    display:flex;
+    justify-content: right; 
+    align-items: center;
+   }
+   .main_box {
+    display:flex;
+    
+    width:256px;
+    gap: 0; 
+    flex-direction: column; /* 세로로 정렬 */
+    justify-content: center; /* 세로로 정렬된 텍스트를 가운데로 배치 */
+    align-items: center; /* 텍스트를 수평 가운데로 배치 */
+
+}
+   .img_con{
+    position:absolute;
+ 
+    width:77.24px;
+    height:126.58px;
+    left:110px;
+
+}
+   .img_cup{
+    position:absolute;
+ 
+    width:93.01px;
+    height:102.97px;
+    left:160px;
+
+   }
+    .text3 {
+
+      
+        margin:0px;
+    padding: 0;
+    font-weight:bold;
+    font-size:25px;
+    position: relative; /* 상대적인 위치 설정 */
+    left: -10px; /* 글자를 왼쪽으로 이동 */
+   
+    }   
+    .text4 {
+     
+        margin: 0; 
+    padding: 0; 
+    font-weight:bold;
+    font-size:25px;
+    position: relative; /* 상대적인 위치 설정 */
+    left: -10px; /* 글자를 왼쪽으로 이동 */
+    
+   
+    }
+    .text5 {
+        color:#F20C93;
+        font-weight:bold;
+        font-size: 40px;
+        margin-right:110px;
+    }
+    .sidebar1 {
+        width:1024px;
+        height:132px;
+        display:flex;
+        justify-content: center;
+    }
+    .text6 {
+        font-size:30px;
+        color:#989898;
+    }
+    .sidebar2 {
+        width:1024px;
+        height:473px;
+    }
+    .sidebarr2 {
+        display:flex;
+        justify-content: center;
+        align-items:center;
+    }
+    .text7 {
+        color:#F20C0C;
+        font-size:30px;
+    }
+    .menu {
+        margin-top:45px;
+        display:flex;
+        justify-content: space-between;
+        width:100%;
+        gap:45px;
+        
+    }
+    .menu1 {
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* 이미지가 상단에 딱 붙도록 설정 */
+    flex-grow: 1; /* 버튼들이 가용 공간을 채우도록 설정 */
+    /* 각 버튼이 메뉴의 전체 너비를 채우도록 설정 */
+    padding: 10px;
+    box-sizing: border-box; /* 패딩과 테두리를 너비 계산에 포함시켜서 넘치지 않게 설정 */
+    margin-left: 20px;
+    width:280px;
+    height:280px;
+    border: 1px solid #EF9BCD;
+    border-radius: 20px;
+    }
+    .menu1 img {
+    margin-top: -5px; /* 이미지의 상단 마진을 없애서 상단에 딱 붙게 함 */
+}
+.menu1 p:nth-of-type(1) {
+    margin-top: 40px;
+    font-size:20px;
+    color:#F20C93;
+}
+
+/* 두 번째 p 태그만 선택하여 margin-top을 40px로 설정 */
+.menu1 p:nth-of-type(2) {
+    margin-top: 20px;
+    font-size:20px;
+}
+    .menu2 {
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* 버튼들이 가용 공간을 채우도록 설정 */
+    width: 100%; /* 각 버튼이 메뉴의 전체 너비를 채우도록 설정 */
+    padding: 10px;
+    width:280px;
+    height:280px;
+    box-sizing: border-box; /* 패딩과 테두리를 너비 계산에 포함시켜서 넘치지 않게 설정 */
+        border:1px solid #D2D2D2;
+        border-radius: 20px;
+}
+.menu2 img {
+    margin-top: -20px; /* 이미지의 상단 마진을 없애서 상단에 딱 붙게 함 */
+}
+.menu2 p:nth-of-type(1) {
+    margin-top: 30px;
+    font-size:20px;
+    color:#9F9F9F;
+}
+
+/* 두 번째 p 태그만 선택하여 margin-top을 40px로 설정 */
+.menu2 p:nth-of-type(2) {
+    margin-top: 20px;
+    font-size:20px;
+}
+    .menu3 {
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* 버튼들이 가용 공간을 채우도록 설정 */
+    width: 100%; /* 각 버튼이 메뉴의 전체 너비를 채우도록 설정 */
+    padding: 10px;
+    width:280px;
+    height:280px;
+    box-sizing: border-box; /* 패딩과 테두리를 너비 계산에 포함시켜서 넘치지 않게 설정 */
+        margin-right:20px;
+        border:1px solid #D2D2D2;
+        border-radius: 20px;
+}
+.menu3 img {
+    margin-top: -20px; /* 이미지의 상단 마진을 없애서 상단에 딱 붙게 함 */
+}
+.menu3 p:nth-of-type(1) {
+    margin-top: 30px;
+    font-size:20px;
+    color:#9F9F9F;
+}
+
+/* 두 번째 p 태그만 선택하여 margin-top을 40px로 설정 */
+.menu3 p:nth-of-type(2) {
+    margin-top: 20px;
+    font-size:20px;
+}
+    .footer {
+        margin-top: 505px;
+        display:flex;
+        gap:10px;
+
+    }
+    .previous {
+        flex-grow:1;
+        color:pink;
+        background:color;
+        width: 471px;
+        height:114px;
+        margin-left:10px;
+        border-radius: 50px;
+        background-color:white;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        border:1px solid #B9B9B9;
+    }
+    .previous span {
+        font-size:30px;
+        color: #F20C93;
+    }
+    .flavor {
+        flex-grow:1;
+        background-color:pink;
+        color:white;
+        width: 471px;
+        height:114px;
+        margin-right:10px;
+        border-radius: 50px;
+        background-color: #F20C93;
+        font-size:30px;
+        border:1px solid #B9B9B9;
+    }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="header-box1">
+            <p class="text1">상품정보</p>
+        </div>
+        <div class="header-box2">
+            <p class="text2">플레이버</p>
+        </div>
+    </div>
+    <div class="main">
+        <div class="main_relative">
+            <img class="img_con" src="./images/콘-removebg-preview 2.png" alt="" />
+            <img class="img_cup" src="./images/컵-removebg-preview 1.png" alt="" />
+        </div>
+        <div class="main_box">
+            <p class="text3">싱글레귤러</p>
+            <p class="text4">(콘/컵)</p>
+        </div> 
+        <div class="main2">
+            <p class="text5">₩3,200</p>
+        </div>
+</div>
+    
+
+    <div class="sidebar1">
+    <p class="text6">원하는 맛의 아이스크림을 싱글레귤러로 즐기세요!</p>
+    </div>
+    
+    <div class="sidebar2">
+        <div class="sidebarr2">
+        <p class="text7">★★ 본 제품은 포장이 불가합니다 ★★</p>
+        </div>
+        <div class="menu">
+            <button class="menu1"><img src="./images/컵-removebg-preview 11.png" alt="" style="width: 91px; height:101px;" />
+            <p>컵(포장불가)</p>
+            <p> <span style="margin-right: 10px;">-</span> <span style="margin-right: 10px;">4</span> <span>+</span> </p>
+            </button>
+            <button class="menu2">
+            <img src="./images/콘-removebg-preview 22.png" alt="" style="width: 69px; height:112px;"/>
+            <p>콘(포장불가)</p>
+            <p> <span style="margin-right: 10px;">-</span> <span style="margin-right: 10px;">0</span> <span>+</span> </p>
+            </button>
+            <button class="menu3">
+            <img src="./images/콘-removebg-preview 22.png" alt="" style="width: 69px; height:112px;"/>
+            <p>와플콘(포장불가)</p>
+            <p> <span style="margin-right: 10px;">-</span> <span style="margin-right: 10px;">0</span> <span>+</span> </p>
+        </button>
+        </div>
+    </div>
+    <div class="footer">
+        <button class="previous">
+            <span style="margin-right: 110px; width:28px; height:48px; font-size:60px; margin-top:-15px">&lt;</span>
+            <span style="margin-right: 130px;">이전</span>
+          </button> 
+        <button class="flavor"> 플레이버(맛)선택</button>
+    </div>
+</div> 
+</body>
+</html>
