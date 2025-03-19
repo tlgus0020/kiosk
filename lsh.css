@@ -149,3 +149,23 @@ button#checkout {
     border-radius: 99px;
     cursor: pointer;
 }
+.cart-container {
+    position: relative; /* ✅ 부모 요소 기준으로 위치 조정 */
+}
+
+.cart-count {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: red;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    display: none; /* ✅ 기본적으로 숨김 */
+}
