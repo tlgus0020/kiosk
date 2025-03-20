@@ -31,10 +31,10 @@ function listOrder(){
             </div>
         </div>
         <div>
-            <img src="./주문처리/props/Frame 112-1.png">
+            <img src="./props/Frame 112-1.png">
         </div>
         <div id="del">
-            <img src="./주문처리/props/Frame 113.png">
+            <img src="./props/Frame 113.png">
         </div>
     </div>`
     item.querySelector("#plus").addEventListener('click', ()=>{
