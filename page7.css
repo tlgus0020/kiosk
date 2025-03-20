@@ -1,0 +1,283 @@
+html, body {
+    display: flex; 
+    margin-top: 30px;
+    justify-content: center;
+}
+
+.container {
+    width: 1024px;
+    height: 1562px;
+    border: 1px solid black;
+}
+.header {
+  width:1024px;
+  height:114px;
+  display: flex;
+  align-items: center; 
+}
+.sidebar {
+    width: 1024px;
+    height: 100px;
+    display: flex;
+}
+
+.sidebar1, .sidebar2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    position: relative;  
+    width: 512px;
+    height: 100px;
+    background-position: center 8px;  
+    background-repeat: no-repeat;
+}
+
+.sidebar1 {
+    background-image: url('./images/Rectangle 1.png');
+    background-color: #F8F8F8;
+}
+
+.sidebar2 {
+    background-image: url('./images/Rectangle 2.png');
+}
+
+.sidebar1 span {
+    font-size: 9px;
+    color: white;
+    position: absolute; 
+    top: 9%; 
+    left: 50%;
+    transform: translate(-50%);
+}
+.sidebar2 span {
+    font-size: 9px;
+    color:white;
+    position: absolute; 
+    top: 9%; 
+    left: 50%;
+    transform: translate(-50%);
+
+}
+.sidebar1 p {
+    font-size: 30px; 
+    color: #CACACA;
+}
+.sidebar2 p {
+font-size: 30px; 
+    color: #F20C93;
+}
+.main1 {
+    margin-top:70px;
+    width:1024px;
+    height:66px;
+    display: flex;
+    align-items: center;
+
+}
+.main1 span{
+    font-size:35px;
+    margin-left:20px;
+}
+.main2 {
+    width:1024px;
+    height:164px;
+    display:flex;
+}
+.main_sector1{
+    width:512px;
+    display:flex;
+    align-items: center;
+}
+.main_sector2{
+    width:512px;
+}
+.ms {
+    width:122px;
+    height:122px;
+    margin-left:55px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    border:1px solid #D2D2D2;
+    background-color: white;
+    border-radius: 10px;
+    }
+.ms span {
+    margin-top:21px;
+    font-size: 15px;
+}
+
+.main_sector2 p:nth-of-type(1) {
+color:#F20C93;
+font-size:27px;
+margin-top:3px;
+}
+
+.main_sector2 p:nth-of-type(2) {
+font-style: 18px;
+color: #A1A1A1;
+margin-top:-23px;
+margin-left:3px;
+}
+.aside1 {
+margin-top:80px;
+width:1024px;
+height:66px;
+display:flex;
+align-items: center;
+}
+.aside1 p{
+font-size:35px;
+margin-left: 20px;
+}
+.aside2 {
+width:1024px;
+height:165px;
+display:flex;
+justify-content: space-around;
+align-items: center;
+}
+.pay1, .pay2, .pay3, .pay4 {
+    width:122px;
+    height:122px;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid #D2D2D2;
+    }
+.pay1 {
+display:flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
+.pay1 span {
+margin-top:22px;
+font-size:15px;
+}
+.pay2 {
+display:flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+position: relative;  
+}
+.pay2 img:nth-of-type(1) {
+position: absolute;  
+top:28px;  
+
+}
+
+.pay2 img:nth-of-type(2) {
+position: absolute; 
+top:26px;
+z-index: 2;  /* 두 번째 이미지가 첫 번째 이미지 위에 오도록 설정 */
+}
+.pay2 span {
+font-size:15px;
+margin-top:58px;
+}
+.pay3 {
+display:flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+position: relative;
+}
+.pay3 img {
+width: 40px;
+height: 40px;
+position:absolute;
+top:16px;
+}
+
+.pay3 span:nth-of-type(1) {    
+font-size: 10px;
+position:absolute; 
+top:30px; 
+color:white;
+}
+
+.pay3 span:nth-of-type(2) {  
+margin-top: 5px;
+font-size:15px;
+margin-top:60px;
+}
+.pay4 {
+display:flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
+.pay4 span {
+font-size:15px;
+margin-top:13px;
+}
+.footer1 {
+margin-top:200px;
+width:1024px;
+height:282px;
+background-color: #F6F6F6;
+}
+
+.footer1_sector1 {
+display:flex;
+width:1024px;
+height:94px;
+align-items: center;
+justify-content: space-between;
+align-items: center; 
+}
+.footer1_sector2 {
+width:1024px;
+height:188px;
+display:flex;
+justify-content: space-around;
+margin-top:42px;
+}
+.footer1_sector1 span {
+color:#F20C93;
+font-size:30px;
+margin: 0 48px;
+}
+.footer1_sector2 span {
+font-size: 30px;
+}
+
+
+
+.footer2 {
+display:flex;
+gap:10px;
+justify-content: center;
+align-items: center;
+width:1024px;
+height:245px;
+}
+.previous {
+flex-grow:1;
+background:color;
+width: 471px;
+height:114px;
+margin-left: 10px;
+border-radius: 50px;
+background-color:white;
+display:flex;
+justify-content: center;
+align-items: center;
+border:1px solid #B9B9B9;
+}
+.previous span {
+font-size:30px;
+color: #F20C93;
+}
+.paycancel {
+flex-grow:1;
+color:#F20C93;
+width: 471px;
+height:114px;
+margin-right:10px;
+border-radius: 50px;
+font-size:30px;
+border:1px solid #B9B9B9;
+background-color: white;
+}
