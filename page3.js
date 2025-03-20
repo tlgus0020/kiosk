@@ -1,4 +1,4 @@
-import { Flover } from "./flavortool.js";
+import { Flover } from "./page3-1.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const root = document.getElementById("flavors");
