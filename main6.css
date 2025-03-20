@@ -168,7 +168,18 @@ footer > div > button {
     align-items: center;
     position: relative;    
 }
-
+footer > div > a > button {
+    height: 144px;
+    width: 471px;
+    border-radius: 99px;
+    font-size: 30px;
+    color:#F20C93;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;    
+}
 #before img {
     width: 28px;
     height: 48px;
