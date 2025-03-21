@@ -1,4 +1,3 @@
-import './page6.css'
 
 let content = document.querySelector("#content2"); 
 
@@ -11,8 +10,10 @@ function change(event,path){
     let url = "";
 
     if(path == 'pointdiscount'){
+        console.log("if 실행 됬음")
         url = '/pointdiscount';
         fetchHTML(path);
+        console.log("fetchHTML 실행 됬음")
     }
     history.pushState({},"",url);
 }

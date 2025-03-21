@@ -10,8 +10,8 @@ function change(event,path){
 
     let url = "";
 
-    if(path == 'icecream'){
-        url = '/icecream';
+    if(path == 'page1-2'){
+        url = '/page1-2';
         fetchHTML(path);
     }
     history.pushState({},"",url);
