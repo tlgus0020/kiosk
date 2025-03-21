@@ -10,7 +10,7 @@ function listOrder(){
         item.id = "item"
         item.innerHTML = `
         <div class="item">
-        <img src="./props/싱글레귤러-removebg-preview-1.png">
+        <img src="./images/props/싱글레귤러-removebg-preview-1.png">
         <div class="itemtextblock" style="text-align: center;">
             <div style="font-weight: bold;">
                 ${element.name}
@@ -31,10 +31,10 @@ function listOrder(){
             </div>
         </div>
         <div>
-            <img src="./props/Frame 112-1.png">
+            <img src="./images/props/Frame 112-1.png">
         </div>
         <div id="del">
-            <img src="./props/Frame 113.png">
+            <img src="./images/props/Frame 113.png">
         </div>
     </div>`
     item.querySelector("#plus").addEventListener('click', ()=>{
