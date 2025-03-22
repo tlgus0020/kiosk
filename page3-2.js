@@ -10,7 +10,7 @@ export function flavorChoice(count) {
 
     for (let i = 0; i < count; i++) {
         const img = document.createElement("img");
-        img.src = "./image/Rectangle 9.png";
+        img.src = "./images/image/Rectangle 9.png";
         img.alt = `Flavor ${i + 1}`;
         img.classList.add("menu-container");
         flavorContainer.appendChild(img);
