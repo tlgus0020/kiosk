@@ -1,3 +1,37 @@
+
+
+let selectcount = 4;
+let select = [];
+let history;
+let size;
+let count = 1; //page2가 작동을 안해서 1개만 산다고 쳤음..
+export function setDocument(props){
+    const urlParams = new URLSearchParams(window.location.search);
+    size = urlParams.get('size');
+    console.log(size);
+    switch(size){
+        case "싱글레귤러":
+            selectcount = 1 * count;
+            break;
+        case '더블주니어':
+            selectcount = 2 * count;
+            break;
+        case '파인트':
+            selectcount = 3 * count;
+            break;
+        case '쿼터':
+            selectcount = 4 * count;
+            break;
+        case '패밀리':
+            selectcount = 5 * count;
+            break;
+        case '하프갤런':
+            selectcount = 6 * count;
+            break;
+    }
+    history = urlParams.get('now');
+
+}
 export function Flover(name, imagepath) {
     const div = document.createElement("div");
     div.classList.add("icecream");
@@ -8,11 +42,25 @@ export function Flover(name, imagepath) {
     `;
 
     div.addEventListener("click", (event) => {
-        const imgElement = event.currentTarget.querySelector(".imagefile");
-        animateToContainer(imgElement, imagepath);
+        if(select.length != selectcount){
+            const imgElement = event.currentTarget.querySelector(".imagefile");
+            select.push(name);
+            console.log(select);
+            animateToContainer(imgElement, imagepath);
+        }
     });
-
     return div;
+}
+export function send(){
+
+    let sender = document.querySelector("#send");
+    let object = document.querySelector("#now");
+    object.value = `${size}/${select}`;
+    if(history){
+        object.value = object.value+`-${history}`;
+    }
+    sender.submit();
+    console.log("send");
 }
 
 function animateToContainer(imgElement, imagepath) {

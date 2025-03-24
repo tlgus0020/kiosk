@@ -1,6 +1,13 @@
 <div class="container" id="product"></div>
 
+<form id="a" method="get" hidden action="./page3.html">
+    <input id="size" name="size">
+    <input id="history" name="now">
+</form>
+
 <script>
+
+
     console.log("page21234");
     products = [
     {name:"싱글레귤러", price:3200, image:"/images/images2/싱글레귤러.png"},
@@ -21,8 +28,9 @@ products.forEach(product => {
 
 
     productDiv.innerHTML = `
-        <a href="./page2.html">
-        <img src="${product.image}" alt="${product.name}" />
+
+        <a href="#" onclick="select('${product.name}')">
+        <img src=".${product.image}" alt="${product.name}" />
         <p>${product.name}</p>
         <p id=productprice>₩${product.price.toLocaleString()}</p>
         </a>
@@ -31,5 +39,15 @@ products.forEach(product => {
 
     container.appendChild(productDiv);
 });
+
+
+function select(name){
+    console.log(name);
+    let size = document.querySelector("#size");
+    size.value = name;
+    let form = document.querySelector("#a");
+    form.submit();
+
+}
 
 </script>

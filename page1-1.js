@@ -6,6 +6,10 @@ window.onload = (()=>{
   content = document.querySelector("#content")
   scriptmother = document.querySelector(".mother");
   console.log(content);
+  const urlParams = new URLSearchParams(window.location.search);
+  let val = urlParams.get("now");
+  console.log(val);
+  document.querySelector("#history").value = val;
 });
 
 function change(event,path){
