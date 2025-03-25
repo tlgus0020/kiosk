@@ -169,7 +169,7 @@
     margin-left: 20px;
     width:280px;
     height:280px;
-    border: 1px solid #EF9BCD;
+    border:1px solid #D2D2D2;
     border-radius: 20px;
     }
     .menu1 img {
@@ -178,7 +178,7 @@
 .menu1 p:nth-of-type(1) {
     margin-top: 40px;
     font-size:20px;
-    color:#F20C93;
+    color:#9F9F9F;
 }
 
 /* 두 번째 p 태그만 선택하여 margin-top을 40px로 설정 */
@@ -242,6 +242,20 @@
 .menu3 p:nth-of-type(2) {
     margin-top: 20px;
     font-size:20px;
+}
+.menu1.active,.menu2.active, .menu3.active {
+    border: 3px solid #EF98CD;
+    
+}
+.menu1.active p,
+.menu2.active p,
+.menu3.active p {
+    color: #F20C93 /* Change the text color of <p> */
+}
+.menu1 p span,
+.menu2 p span,
+.menu3 p span {
+    color: black; 
 }
     .footer {
         margin-top: 505px;

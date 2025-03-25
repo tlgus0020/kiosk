@@ -42,27 +42,107 @@
         <div class="menu">
             <button class="menu1"><img src="./images/컵-removebg-preview 11.png" alt="" style="width: 91px; height:101px;" />
             <p>컵(포장불가)</p>
-            <p> <span style="margin-right: 10px;">-</span> <span style="margin-right: 10px;">4</span> <span>+</span> </p>
+            <p> <span class="minus" style="margin-right: 10px;">-</span> <span class="quantity" style="margin-right: 10px;">0</span> <span class="plus">+</span> </p>
             </button>
             <button class="menu2">
             <img src="./images/콘-removebg-preview 22.png" alt="" style="width: 69px; height:112px;"/>
             <p>콘(포장불가)</p>
-            <p> <span style="margin-right: 10px;">-</span> <span style="margin-right: 10px;">0</span> <span>+</span> </p>
+            <p> <span class="minus" style="margin-right: 10px;">-</span> <span class="quantity" style="margin-right: 10px;">0</span> <span class="plus">+</span> </p>
             </button>
             <button class="menu3">
             <img src="./images/콘-removebg-preview 22.png" alt="" style="width: 69px; height:112px;"/>
             <p>와플콘(포장불가)</p>
-            <p> <span style="margin-right: 10px;">-</span> <span style="margin-right: 10px;">0</span> <span>+</span> </p>
+            <p> <span class="minus" style="margin-right: 10px;">-</span> <span class="quantity" style="margin-right: 10px;">0</span> <span class="plus">+</span> </p>
         </button>
         </div>
     </div>
     <div class="footer">
-        <button class="previous">
+        <a href="./page1-1.html" style="text-decoration: none;"> <button class="previous">
             <span style="margin-right: 110px; width:28px; height:48px; font-size:60px; margin-top:-15px">&lt;</span>
             <span style="margin-right: 130px;">이전</span>
-          </button> 
+        </button></a>
         <a href="./page3.html"><button class="flavor"> 플레이버(맛)선택</button></a>
     </div>
 </div> 
+
+<script>
+    // 수량 객체 선언
+    let quantities = {
+        cup: 0,
+        cone: 0,
+        waffleCone: 0
+    };
+    
+    // 수량 감소 함수
+    function decreaseQuantity(button) {
+        const quantityElement = button.nextElementSibling;
+        let quantity = parseInt(quantityElement.textContent);
+        if (quantity > 0) {
+            quantity--;
+            quantityElement.textContent = quantity;
+            updateButtonState(button);
+            updateQuantities();
+        }
+    }
+    
+    // 수량 증가 함수
+    function increaseQuantity(button) {
+        const quantityElement = button.previousElementSibling;
+        let quantity = parseInt(quantityElement.textContent);
+        quantity++;
+        quantityElement.textContent = quantity;
+        updateButtonState(button);
+        updateQuantities();
+    }
+    
+    // 버튼 상태 업데이트 (수량이 0 이상일 때 'active' 클래스 추가)
+    function updateButtonState(button) {
+        const quantityElement = button.closest('button').querySelector('.quantity');
+        let quantity = parseInt(quantityElement.textContent);
+        
+        if (quantity > 0) {
+            button.closest('button').classList.add('active');
+        } else {
+            button.closest('button').classList.remove('active');
+        }
+    }
+    
+    // 수량 객체 업데이트 함수
+    function updateQuantities() {
+        quantities.cup = parseInt(document.querySelector('.menu1 .quantity').textContent);
+        quantities.cone = parseInt(document.querySelector('.menu2 .quantity').textContent);
+        quantities.waffleCone = parseInt(document.querySelector('.menu3 .quantity').textContent);
+    }
+    
+    // 수량을 서버로 전송하는 함수
+    function sendQuantitiesToServer() {
+        fetch('/submitQuantities', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(quantities)  // 수량 객체를 JSON 형식으로 전송
+        })
+        .then(response => response.json())  // 서버 응답 처리
+        .then(data => {
+            console.log('서버 응답:', data);
+        })
+        .catch(error => {
+            console.error('서버 오류:', error);
+        });
+    }
+    
+    // - 및 + 버튼에 이벤트 리스너 추가
+    document.querySelectorAll('.minus').forEach(button => {
+        button.addEventListener('click', () => decreaseQuantity(button));
+    });
+    
+    document.querySelectorAll('.plus').forEach(button => {
+        button.addEventListener('click', () => increaseQuantity(button));
+    });
+    
+    // "플레이버(맛)선택" 버튼 클릭 시 수량 전송
+    document.querySelector('.flavor').addEventListener('click', sendQuantitiesToServer);
+    </script>
 </body>
 </html>
