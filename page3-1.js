@@ -1,36 +1,44 @@
 
 
 let selectcount = 4;
-let select = [];
+let select;
 let history;
 let size;
+let nowselecting = 0;
+let imgarr;
 let count = 1; //page2가 작동을 안해서 1개만 산다고 쳤음..
 export function setDocument(props){
+    flavorChoice();
     const urlParams = new URLSearchParams(window.location.search);
     size = urlParams.get('size');
+    count = urlParams.get('count');
     console.log(size);
     switch(size){
         case "싱글레귤러":
-            selectcount = 1 * count;
+            selectcount = 1;
             break;
         case '더블주니어':
-            selectcount = 2 * count;
+            selectcount = 2;
             break;
         case '파인트':
-            selectcount = 3 * count;
+            selectcount = 3;
             break;
         case '쿼터':
-            selectcount = 4 * count;
+            selectcount = 4;
             break;
         case '패밀리':
-            selectcount = 5 * count;
+            selectcount = 5;
             break;
         case '하프갤런':
-            selectcount = 6 * count;
+            selectcount = 6;
             break;
     }
+    select = new Array(parseInt(count)).fill(null).map(()=> []);
+    imgarr = new Array(parseInt(count)).fill(null).map(()=> []);
+    console.log(select);
     history = urlParams.get('now');
-
+    flavorChoice(count);
+    reset();
 }
 export function Flover(name, imagepath) {
     const div = document.createElement("div");
@@ -40,30 +48,91 @@ export function Flover(name, imagepath) {
         <img src="${imagepath}" alt="${name}" class="imagefile"/>
         <span>${name}</span>
     `;
-
     div.addEventListener("click", (event) => {
-        if(select.length != selectcount){
+        if(select[nowselecting].length != selectcount){
             const imgElement = event.currentTarget.querySelector(".imagefile");
-            select.push(name);
-            console.log(select);
-            animateToContainer(imgElement, imagepath);
+            select[nowselecting].push(name);
+            animateToContainer(imgElement, imagepath,select[nowselecting].length);
+            reset();
         }
     });
     return div;
 }
-export function send(){
 
-    let sender = document.querySelector("#send");
-    let object = document.querySelector("#now");
-    object.value = `${size}/${select}`;
-    if(history){
-        object.value = object.value+`-${history}`;
+export function flavorChoice(count) {
+    const flavorContainer = document.getElementById("flavorChoice");
+
+    if (!flavorContainer) {
+        console.error("⚠️ `flavorChoice` 요소를 찾을 수 없습니다!");
+        return;
     }
-    sender.submit();
-    console.log("send");
+
+    flavorContainer.innerHTML = ""; // 기존 요소 초기화
+
+    for (let i = 0; i < count; i++) {
+        let count = i;
+
+        const div = document.createElement("div");
+        const img = document.createElement("img");
+        div.innerText = count+1 +"번 미선택";
+        img.src = "./images/image/Rectangle 9.png";
+        img.alt = `Flavor ${i + 1}`;
+        img.addEventListener('click', () => {
+            nowselecting = count;
+            reset();
+            console.log(count);
+        })
+        //img.classList.add("menu-container");
+        div.classList.add("menu-container");
+        div.appendChild(img);
+
+        flavorContainer.appendChild(div);
+    }
 }
 
-function animateToContainer(imgElement, imagepath) {
+
+export function reset(){
+    let box = document.querySelector("#flavor-cart");
+    box.textContent = `${nowselecting+1}번 선택중! ${select[nowselecting].length}/${selectcount}`
+    const container = document.getElementById("flavor-cart");
+    imgarr[nowselecting].forEach((ele)=>{
+        container.appendChild(ele);
+    })
+}
+export function send(){
+
+    let isok = true;
+    select.forEach(element => {
+        if(element.length != selectcount){
+            isok = false;
+        }
+    });
+    if(isok){
+    let sender = document.querySelector("#send");
+    let object = document.querySelector("#now");
+
+    select.forEach(element => {
+        console.log(element);
+        if(object.value){
+            object.value = object.value + `-${size}/${element}`;
+        }
+        else{
+            object.value = `${size}/${element}`;
+        }
+        if(history){
+            object.value = object.value+`-${history}`;
+        }        
+    });
+
+    sender.submit();
+    console.log("send");
+    }
+    else{
+        alert("선택 다 안함!!")
+    }
+}
+
+function animateToContainer(imgElement, imagepath,value) {
     const container = document.getElementById("flavor-cart");
     const rect = imgElement.getBoundingClientRect();
     const containerRect = container.getBoundingClientRect();
@@ -95,19 +164,37 @@ function animateToContainer(imgElement, imagepath) {
     // ✅ 3단계: 최종 위치 도착 후 컨테이너에 추가
     setTimeout(() => {
         clone.remove();
-        container.appendChild(createChoiceImage(imagepath));
+        container.appendChild(createChoiceImage(imagepath,value));
     }, 1200); // **총 1.2초 후 컨테이너에 추가**
 }
 
-function createChoiceImage(imagepath) {
+
+function createChoiceImage(imagepath,value) {
     const img = document.createElement("img");
     img.src = imagepath;
     img.classList.add("selected-icecream");
-
+    console.log(imgarr);
     // ✅ 클릭하면 삭제되는 이벤트 추가
     img.addEventListener("click", () => {
+        console.log(value);
+        let idx = 0
+        let find = false;
+        console.log()
+        imgarr[nowselecting].forEach(ele => {
+            console.log("소"+ ele.src);
+            if(ele.src === img.src){
+                console.log("찾음");
+                find = true;
+            }else if(!find){
+                idx++;
+            }
+        });
+        imgarr[nowselecting].splice(idx,1);
+        select[nowselecting].splice(idx,1);
+        reset();
         img.remove()
     });
+    imgarr[nowselecting].push(img);
 
     return img;
 }
