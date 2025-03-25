@@ -1,6 +1,9 @@
-header, nav, main, section, footer,#content2 {
+header, nav, main, section, footer {
     width:1024px;
     height: 1562px;
+}
+button {
+    cursor: pointer;
 }
 
 header {
@@ -23,11 +26,10 @@ nav > div {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    background-color: #F8F8F8;
-  
+    align-items: center;  
 }
-nav > div > a {
+
+a {
     text-decoration: none;
 }
 
@@ -49,16 +51,20 @@ nav a:focus {
     color:#F20C93;
 }
 */
-nav div:hover{
+nav #leftdiv{
     background-color: #fff;
 }
 
-nav div:hover .STEP01{
+nav #STEP{
     background-color: #F20C93;
     color: #fff;
 }
-nav div:hover .navname{
+nav #leftdiv > .navname{
     color:#F20C93
+}
+
+nav #rightdiv {
+    background-color: #f8f8f8;
 }
 
 main {
@@ -156,7 +162,7 @@ align-items: center;
 }
 
 
-footer > div > button {
+footer > #footerleft > a > button {
     height: 144px;
     width: 471px;
     border-radius: 99px;
@@ -168,26 +174,7 @@ footer > div > button {
     align-items: center;
     position: relative;    
 }
-footer > div > a > button {
-    height: 144px;
-    width: 471px;
-    border-radius: 99px;
-    font-size: 30px;
-    color:#F20C93;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;    
-}
-#before img {
-    width: 28px;
-    height: 48px;
-    position: absolute;
-    left:87px;
-}
-
-footer button:hover {
+footer > #footerright > a > button {
     height: 144px;
     width: 471px;
     border-radius: 99px;
@@ -197,8 +184,14 @@ footer button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-     
+    position: relative; 
 }
+#before img {
+    width: 28px;
+    height: 48px;
+    position: absolute;
+    left:87px;
+}
+
 
 
