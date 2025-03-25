@@ -1,4 +1,4 @@
-import { Flover } from "./page3-1.js";
+import { Flover,send, setDocument} from "./page3-1.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const root = document.getElementById("flavors");
@@ -21,4 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const iceCreamElement = Flover(ice.name, ice.imagepath);
         root.appendChild(iceCreamElement);
     });
+    
+    
+    setDocument();
+    const sender = document.querySelector("#sender");
+    sender.addEventListener("click", () => {
+        send();
+    })
 });
+
+

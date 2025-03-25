@@ -121,6 +121,13 @@ footer {
     margin-top: 50px;
 }
 
+#flavorChoice{
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+
+    overflow-y: hidden;
+}
 .icecream {
     cursor: pointer;
     transition: transform 0.2s ease-in-out;

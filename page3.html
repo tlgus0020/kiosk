@@ -16,23 +16,22 @@
         <div id="flavors"></div>
         
         <div id="choice-container">
-            <div id = "flavor-cart"></div> 
+            <div id ="flavor-cart">1번 선택중! 0/1</div> 
             <img src="./images/image/Polygon 1.png" id = "polygon">
             <div id="flavorChoice"></div>
         </div>
-
         <footer>
-            <a href="./page2.html"><img src="./images/image/Rectangle 2.png" id="back-button"></a>
-            <a href="./page4.html"><img src="./images/image/Group 28.png" id="add-button" ></a>
+            <a href="#" onclick="history.back()"><img src="./images/image/Rectangle 2.png" id="back-button">
+            <a href="#" id="sender"><img src="./images/image/Group 28.png" id="add-button" ></a>
         </footer>
     </div>
 
-    <script type="module">
-        import { flavorChoice } from "./page3-2.js";
-        document.addEventListener("DOMContentLoaded", () => {
-            flavorChoice(3);
-        });
-    </script>
+
+
+    <form method="get" id="send" action="page1-1.html" hidden>
+        <input id="history" name="history">
+        <input id="now" name="now">
+    </form>
 </body>
 </html>
 <script type="module" src="page3.js"></script>
