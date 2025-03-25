@@ -10,9 +10,10 @@ window.onload = (()=>{
   let val = urlParams.get("now");
 
   console.log(val);
-  const {total, cart} = calculateTotal(val);
+  const {total, cart, info} = calculateTotal(val);
   console.log(`총 가격: ${total}원`);
   console.log(`총 개수: ${cart}개`);
+  console.log(`정보: ${info}`);
 
   document.querySelector("#history").value = val;
 });
@@ -31,13 +32,15 @@ const items = [
 function calculateTotal(val) {
   let total = 0;
   let cart = 0;
+  let info ="";
   items.forEach(item => {
     const count = val.split(item.name).length - 1;
     total += count * item.price;
-    cart += count
+    cart += count;
+    info += item.name + count + " / ";
   });
 
-  return {total, cart};
+  return {total, cart, info};
 }
 
 
