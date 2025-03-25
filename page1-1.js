@@ -10,7 +10,7 @@ window.onload = (()=>{
   let val = urlParams.get("now");
 
   console.log(val);
-  const {total, cart, info} = calculateTotal(val);
+  const {total, cart} = calculateTotal(val);
   console.log(`총 가격: ${total}원`);
   console.log(`총 개수: ${cart}개`);
   console.log(`정보: ${info}`);
@@ -37,10 +37,9 @@ function calculateTotal(val) {
     const count = val.split(item.name).length - 1;
     total += count * item.price;
     cart += count;
-    info += item.name + count + " / ";
   });
 
-  return {total, cart, info};
+  return {total, cart};
 }
 
 
