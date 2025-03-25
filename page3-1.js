@@ -110,10 +110,20 @@ export function send(){
     if(isok){
     let sender = document.querySelector("#send");
     let object = document.querySelector("#now");
-    object.value = `${size}/${select}`;
-    if(history){
-        object.value = object.value+`-${history}`;
-    }
+
+    select.forEach(element => {
+        console.log(element);
+        if(object.value){
+            object.value = object.value + `-${size}/${element}`;
+        }
+        else{
+            object.value = `${size}/${element}`;
+        }
+        if(history){
+            object.value = object.value+`-${history}`;
+        }        
+    });
+
     sender.submit();
     console.log("send");
     }
