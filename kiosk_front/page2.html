@@ -39,7 +39,7 @@
         <div class="sidebarr2">
         <p class="text7">★★ 본 제품은 포장이 불가합니다 ★★</p>
         </div>
-        <form action="./page3.html" method="post" id="orderForm">
+        <form action="./page3.html" method="get" id="orderForm">
             <div class="menu">
                 <button type="button" class="menu1">
                     <img src="./images/컵-removebg-preview 11.png" alt="" style="width: 91px; height:101px;" />
@@ -84,7 +84,7 @@
             <span style="margin-right: 110px; width:28px; height:48px; font-size:60px; margin-top:-15px">&lt;</span>
             <span style="margin-right: 130px;">이전</span>
         </button></a>
-        <a href="./page3.html"><button class="flavor"> 플레이버(맛)선택</button></a>
+        <button class="flavor"> 플레이버(맛)선택</button>
     </div>
 </div> 
 
@@ -95,7 +95,12 @@
         cone: 0,
         waffleCone: 0
     };
-    
+
+    // 기존 URL 파라미터 받기
+    const urlParams = new URLSearchParams(window.location.search);
+    const size = urlParams.get("size");
+    const now = urlParams.get("now");
+
     // 수량 감소 함수
     function decreaseQuantity(button) {
         const quantityElement = button.nextElementSibling;
@@ -107,7 +112,7 @@
             updateQuantities();
         }
     }
-    
+
     // 수량 증가 함수
     function increaseQuantity(button) {
         const quantityElement = button.previousElementSibling;
@@ -117,65 +122,61 @@
         updateButtonState(button);
         updateQuantities();
     }
-    
-    // 버튼 상태 업데이트 (수량이 0 이상일 때 'active' 클래스 추가)
+
+    // 버튼 활성화/비활성화
     function updateButtonState(button) {
         const quantityElement = button.closest('button').querySelector('.quantity');
         let quantity = parseInt(quantityElement.textContent);
-        
+
         if (quantity > 0) {
             button.closest('button').classList.add('active');
         } else {
             button.closest('button').classList.remove('active');
         }
     }
-    
-    // 수량 객체 업데이트 함수
+
+    // 수량 객체와 hidden input 동기화
     function updateQuantities() {
         quantities.cup = parseInt(document.querySelector('.menu1 .quantity').textContent);
         quantities.cone = parseInt(document.querySelector('.menu2 .quantity').textContent);
         quantities.waffleCone = parseInt(document.querySelector('.menu3 .quantity').textContent);
 
-        // 수량을 form에 있는 hidden input에 반영
         document.querySelector('input[name="cup"]').value = quantities.cup;
         document.querySelector('input[name="cone"]').value = quantities.cone;
         document.querySelector('input[name="waffleCone"]').value = quantities.waffleCone;
     }
 
-    // - 및 + 버튼에 이벤트 리스너 추가
+    // -, + 버튼 이벤트 연결
     document.querySelectorAll('.minus').forEach(button => {
         button.addEventListener('click', () => decreaseQuantity(button));
     });
-    
+
     document.querySelectorAll('.plus').forEach(button => {
         button.addEventListener('click', () => increaseQuantity(button));
     });
-    
-    document.querySelector('.flavor').addEventListener('click', (event) => {
-    // 수량 업데이트
-    updateQuantities();
 
-    console.log(quantities);
+    // 플레이버 선택 버튼 클릭 시
+    document.querySelector('.flavor').addEventListener('click', () => {
+        updateQuantities();
 
+        const totalCount = quantities.cup + quantities.cone + quantities.waffleCone;
+        if (totalCount === 0) {
+            alert("하나 이상 선택해주세요!");
+            return;
+        }
 
-    /*
-    // 쿼리 파라미터 생성
-    const queryParams = new URLSearchParams();
-    queryParams.append('size', '싱글레귤러'); // 예시로 '싱글레귤러' 크기 (필요에 맞게 수정)
-    queryParams.append('cup', quantities.cup);
-    queryParams.append('cone', quantities.cone);
-    queryParams.append('waffleCone', quantities.waffleCone);
+        // GET 파라미터 구성
+        const queryParams = new URLSearchParams();
+        queryParams.set("size", size);
+        queryParams.set("now", encodeURIComponent(now));  // JSON 문자열 안전하게 전송
+        queryParams.set("count", totalCount);
 
-    // URL 생성 (예: page3.html?싱글레귤러&cup=3&cone=2&waffleCone=1)
-    const url = `./page3.html?싱글레귤러&${queryParams.toString()}`;
-
-    // 페이지 이동 (폼을 제출하는 대신)
-    window.location.href = url;
-    */
-});
-
-
+        // 이동
+        const url = `./page3.html?${queryParams.toString()}`;
+        window.location.href = url;
+    });
 </script>
+
 
 </body>
 </html>
