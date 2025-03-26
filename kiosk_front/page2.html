@@ -22,11 +22,11 @@
             <img class="img_cup" src="./images/컵-removebg-preview 1.png" alt="" />
         </div>
         <div class="main_box">
-            <p class="text3">싱글레귤러</p>
-            <p class="text4">(콘/컵)</p>
+            <p class="text3"></p>
+            <p class="text4"></p>
         </div> 
         <div class="main2">
-            <p class="text5">₩3,200</p>
+            <p class="text5"></p>
         </div>
 </div>
     
@@ -95,11 +95,76 @@
         cone: 0,
         waffleCone: 0
     };
+    window.onload = () => {
+            // URL에서 size 파라미터를 가져오기
+            const urlParams = new URLSearchParams(window.location.search);
+            const size = urlParams.get('size');
+            const now = urlParams.get("now");
 
-    // 기존 URL 파라미터 받기
-    const urlParams = new URLSearchParams(window.location.search);
-    const size = urlParams.get("size");
-    const now = urlParams.get("now");
+            // 텍스트와 가격을 변경할 변수들
+            let sizeName;
+            let price;
+
+            // size에 따른 텍스트와 가격 설정
+            switch(size) {
+                case '싱글레귤러':
+                    sizeName = '싱글레귤러';
+                    price = '₩3,200';
+                    sizeOptionText = '(콘/컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '싱글킹':
+                    sizeName = '싱글킹';
+                    price = '₩4,000';
+                    sizeOptionText = '(콘/컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '더블주니어':
+                    sizeName = '더블주니어';
+                    price = '₩4,300';
+                    sizeOptionText = '(콘/컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '더블레귤러':
+                    sizeName = '더블레귤러';
+                    price = '₩6,200';
+                    sizeOptionText = '(콘/컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '파인트':
+                    sizeName = '파인트';
+                    price = '₩8,200';
+                    sizeOptionText = '(컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '쿼터':
+                    sizeName = '쿼터';
+                    price = '₩15,500';
+                    sizeOptionText = '(컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '패밀리':
+                    sizeName = '패밀리';
+                    price = '₩22,000';
+                    sizeOptionText = '(컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '하프갤런':
+                    sizeName = '하프갤런';
+                    price = '₩26,500';
+                    sizeOptionText = '(컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+            }
+
+            // 해당 값으로 텍스트 업데이트
+            document.querySelector('.text3').textContent = sizeName;
+            document.querySelector('.text4').textContent = sizeOptionText;
+            document.querySelector('.text5').textContent = price;
+            document.querySelector('.text6').textContent = sidebarText;
+
+        };
+    
 
     // 수량 감소 함수
     function decreaseQuantity(button) {
