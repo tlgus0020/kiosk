@@ -95,11 +95,13 @@
         cone: 0,
         waffleCone: 0
     };
-    window.onload = () => {
-            // URL에서 size 파라미터를 가져오기
-            const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search);
             const size = urlParams.get('size');
             const now = urlParams.get("now");
+            
+    window.onload = () => {
+            // URL에서 size 파라미터를 가져오기
+
 
             // 텍스트와 가격을 변경할 변수들
             let sizeName;
