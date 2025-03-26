@@ -7,12 +7,16 @@ window.onload = () => {
     const finalAmountElement = document.querySelector("#finalAmount");
     if (finalAmountElement) {
         finalAmountElement.textContent = `₩ ${total.toLocaleString()}`;
+        sessionStorage.setItem("finalAmount", total); // finalAmount 값을 sessionStorage에 저장
     }
+
     const finalAmountOrderElement = document.querySelector("#finalAmountOrder");
     if (finalAmountOrderElement) {
         finalAmountOrderElement.textContent = `₩ ${total.toLocaleString()}`; // 총 주문금액을 표시
+        sessionStorage.setItem("finalAmountOrder", total); // finalAmountOrder 값을 sessionStorage에 저장
     }
 };
+
 
 // 주문 내역에서 총 금액 계산
 function calculateTotal(val) {
