@@ -151,13 +151,32 @@
         button.addEventListener('click', () => increaseQuantity(button));
     });
     
-    document.querySelector('.flavor').addEventListener('click', () => {
-        // 수량 업데이트 (필요한 경우 추가적인 로직을 실행)
-        updateQuantities();
-        // 폼 제출
-        document.getElementById('orderForm').submit();
-    });
+    document.querySelector('.flavor').addEventListener('click', (event) => {
+    // 수량 업데이트
+    updateQuantities();
+
+    console.log(quantities);
+
+
+    /*
+    // 쿼리 파라미터 생성
+    const queryParams = new URLSearchParams();
+    queryParams.append('size', '싱글레귤러'); // 예시로 '싱글레귤러' 크기 (필요에 맞게 수정)
+    queryParams.append('cup', quantities.cup);
+    queryParams.append('cone', quantities.cone);
+    queryParams.append('waffleCone', quantities.waffleCone);
+
+    // URL 생성 (예: page3.html?싱글레귤러&cup=3&cone=2&waffleCone=1)
+    const url = `./page3.html?싱글레귤러&${queryParams.toString()}`;
+
+    // 페이지 이동 (폼을 제출하는 대신)
+    window.location.href = url;
+    */
+});
+
+
 </script>
 
 </body>
 </html>
+
