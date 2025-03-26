@@ -162,17 +162,17 @@ align-items: center;
 }
 
 
-footer > #footerleft > a > button {
+footer > #footerleft > #before {
     height: 144px;
     width: 471px;
     border-radius: 99px;
     font-size: 30px;
-    color:#F20C93;
+    color: #F20C93;
     background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;    
+    position: relative;
 }
 footer > #footerright > a > button {
     height: 144px;
