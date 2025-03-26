@@ -27,7 +27,7 @@ function listOrder() {
         let li = document.createElement("li");
         li.classList.add("item");
 
-        let count = 1;
+        let count = entry.count || 1;
 
         li.innerHTML = `
             <div class="item">
@@ -60,6 +60,10 @@ function listOrder() {
             count++;
             countDisplay.textContent = count;
             itemDataObj.count = count;
+
+            data[uuid].count = count;
+            sessionStorage.setItem("now", JSON.stringify(data));
+
             updateTotal();
         });
 
@@ -68,6 +72,10 @@ function listOrder() {
                 count--;
                 countDisplay.textContent = count;
                 itemDataObj.count = count;
+
+                data[uuid].count = count;
+                sessionStorage.setItem("now", JSON.stringify(data));
+
                 updateTotal();
             }
         });
@@ -75,23 +83,19 @@ function listOrder() {
         delBtn.addEventListener("click", () => {
             list.removeChild(li);
             itemList = itemList.filter(i => i.element !== li);
+
+            // ✅ 세션스토리지에서도 삭제
+            delete data[uuid];
+            sessionStorage.setItem("now", JSON.stringify(data));
+
             updateTotal();
         });
 
         editBtn.addEventListener("click", () => {
             const size = entry.size;
+            const count = entry.count || 1;
 
-            let count = 1;
-            switch (size) {
-                case "싱글레귤러": count = 1; break;
-                case "더블주니어": count = 2; break;
-                case "파인트": count = 3; break;
-                case "쿼터": count = 4; break;
-                case "패밀리": count = 5; break;
-                case "하프갤런": count = 6; break;
-            }
-
-            // 세션스토리지에 현재 수정 항목 저장
+            // ✅ 수정할 항목을 따로 저장
             sessionStorage.setItem("edit", JSON.stringify({ [uuid]: entry }));
             sessionStorage.setItem("editingKey", uuid);
 

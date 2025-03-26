@@ -51,6 +51,7 @@ const items = [
 function calculateTotal(val) {
   let total = 0;
   let cart = 0;
+  
 
   if (!val) return { total, cart };
 
@@ -58,9 +59,10 @@ function calculateTotal(val) {
 
   Object.values(obj).forEach(entry => {
     const item = items.find(i => i.name === entry.size);
+    const count = entry.count || 1;
     if (item) {
       total += item.price;
-      cart += 1;
+      cart += count;
     }
   });
 

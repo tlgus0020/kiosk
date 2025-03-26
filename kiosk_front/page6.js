@@ -43,10 +43,11 @@ function calculateTotal(val) {
     // 주문 내역에서 아이템 가격 계산
     Object.values(obj).forEach(entry => {
         const item = items.find(i => i.name === entry.size);
+        const count = entry.count || 1;
         if (item) {
             console.log("아이템 발견:", item); // 아이템 확인
-            total += item.price;
-            cart += 1;
+            total += item.price * count;
+            cart += count;
         } else {
             console.warn("아이템을 찾을 수 없습니다:", entry.size);
         }
