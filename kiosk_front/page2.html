@@ -32,7 +32,7 @@
     
 
     <div class="sidebar1">
-    <p class="text6">원하는 맛의 아이스크림을 싱글레귤러로 즐기세요!</p>
+    <p class="text6"></p>
     </div>
     
     <div class="sidebar2">
@@ -96,8 +96,8 @@
         waffleCone: 0
     };
     const urlParams = new URLSearchParams(window.location.search);
-            const size = urlParams.get('size');
-            const now = urlParams.get("now");
+    const size = urlParams.get('size');
+    const now = urlParams.get("now");
             
     window.onload = () => {
             // URL에서 size 파라미터를 가져오기
@@ -166,7 +166,6 @@
             document.querySelector('.text6').textContent = sidebarText;
 
         };
-    
 
     // 수량 감소 함수
     function decreaseQuantity(button) {
