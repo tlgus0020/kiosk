@@ -2,19 +2,39 @@
 
 let content; 
 let scriptmother;
-window.onload = (()=>{
+window.onload = (() => {
   content = document.querySelector("#content")
   scriptmother = document.querySelector(".mother");
-  console.log(content);
-  const urlParams = new URLSearchParams(window.location.search);
-  let val = urlParams.get("now");
+  document.getElementById("bagbtn").addEventListener("click", () => {
+    // 페이지 이동만 해주면 됨
+    window.location.href = "./page5.html";
+  });
 
-  console.log(val);
-  const {total, cart} = calculateTotal(val);
+  // ✅ 세션스토리지에서 주문 내역 불러오기
+  let val = sessionStorage.getItem("now");
+  console.log("세션스토리지에서 가져온 now:", val);
+
+  const { total, cart } = calculateTotal(val);
   console.log(`총 가격: ${total}원`);
   console.log(`총 개수: ${cart}개`);
 
+  // ✅ form 안 input에 값 저장
   document.querySelector("#history").value = val;
+
+  const paymentLabel = document.querySelector("#payment-label");
+  if (paymentLabel) {
+    paymentLabel.textContent = `₩${total.toLocaleString()} 결제하기`;
+  }
+  const badge = document.getElementById("cart-count");
+
+if (badge) {
+  if (cart > 0) {
+    badge.textContent = cart > 9 ? "9+" : cart;
+    badge.style.display = "flex";
+  } else {
+    badge.style.display = "none";
+  }
+}
 });
 
 const items = [
@@ -31,13 +51,20 @@ const items = [
 function calculateTotal(val) {
   let total = 0;
   let cart = 0;
-  items.forEach(item => {
-    const count = val.split(item.name).length - 1;
-    total += count * item.price;
-    cart += count;
+
+  if (!val) return { total, cart };
+
+  const obj = JSON.parse(val); // ✅ 문자열 → 객체
+
+  Object.values(obj).forEach(entry => {
+    const item = items.find(i => i.name === entry.size);
+    if (item) {
+      total += item.price;
+      cart += 1;
+    }
   });
 
-  return {total, cart};
+  return { total, cart };
 }
 
 
