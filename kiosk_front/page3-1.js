@@ -122,7 +122,7 @@ export function send(){
     let nowvalue;
     select.forEach(element => {
         console.log(element);
-        obj[crypto.randomUUID()] = {flavor : element, size : size};
+        obj[uuidv4()] = {flavor : element, size : size};
     });
     sessionStorage.setItem('now',JSON.stringify(obj));
 
@@ -171,6 +171,13 @@ function animateToContainer(imgElement, imagepath,value) {
 }
 
 
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
 function createChoiceImage(imagepath,value) {
     const img = document.createElement("img");
     img.src = imagepath;
