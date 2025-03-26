@@ -36,7 +36,13 @@ export function setDocument(props){
     select = new Array(parseInt(count)).fill(null).map(()=> []);
     imgarr = new Array(parseInt(count)).fill(null).map(()=> []);
     console.log(select);
-    history = urlParams.get('now');
+
+    history = JSON.parse(sessionStorage.getItem('now'));
+    if(!history){
+        history = {};
+    }
+    console.log(history);
+    //history = urlParams.get('now');
     flavorChoice(count);
     reset();
 }
@@ -111,18 +117,14 @@ export function send(){
     let sender = document.querySelector("#send");
     let object = document.querySelector("#now");
 
+    
+    let obj = history;
+    let nowvalue;
     select.forEach(element => {
         console.log(element);
-        if(object.value){
-            object.value = object.value + `-${size}/${element}`;
-        }
-        else{
-            object.value = `${size}/${element}`;
-        }
-        if(history){
-            object.value = object.value+`-${history}`;
-        }        
+        obj[crypto.randomUUID()] = {flavor : element, size : size};
     });
+    sessionStorage.setItem('now',JSON.stringify(obj));
 
     sender.submit();
     console.log("send");
