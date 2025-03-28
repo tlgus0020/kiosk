@@ -1,17 +1,31 @@
 package com.my.kiosk.stock.classes;
 
+
+
 import java.sql.Date;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import lombok.Data;
 
+@Entity
+@IdClass(StockId.class)
 @Data
 public class Stock {
 	
-	private int menuId;
+	@Id
+	private int menu_id;
 	
-	private int placeId;
+	@Id
+	private int place_id;
 	
-	private int stockQty;
+	@Column(nullable = false)
+	private int stock_qty;
 	
+	@Column(nullable = false)
 	private Date date;
 }
