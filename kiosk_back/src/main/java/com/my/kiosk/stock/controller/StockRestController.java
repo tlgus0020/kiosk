@@ -32,7 +32,7 @@ public class StockRestController {
 		return ResponseEntity.ok(stocklist);
 	}
 	
-	@PostMapping("/consume")
+	@PostMapping("/consume")http://localhost:8080/stock
 	public ResponseEntity<?> consumeStock(){
 		return null;
 	}
@@ -48,15 +48,15 @@ public class StockRestController {
 	}
 	*/
 	
-	 @Autowired
+	 	@Autowired
 	    private StockService stockservice;
 	 
-	 //menu_id로 
-	 @GetMapping("/stock")
+	 	//menu_id로 
+	 	@GetMapping("/stock")
 		public Stock stock(@RequestParam("menu_id") int menu_id) {
 			return stockservice.getStock(menu_id);
 		}
-	 @GetMapping("/stocks")
+	 	@GetMapping("/stocks")
 	    public List<Stock> getAllStock() {
 	        return stockservice.getAllStock();  // 전체 멤버 목록 반환
 	    }
