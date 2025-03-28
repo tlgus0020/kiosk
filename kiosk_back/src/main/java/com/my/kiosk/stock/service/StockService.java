@@ -31,10 +31,9 @@ public class StockService {
 	}
 	
 	
-	public void updateStock(int menu_id, int place_id, int amount, boolean isStockIn) {
+	public void updateStock(int menu_id, int place_id, int amount) {
         Stock stock = stockmapper.getStock(menu_id, place_id);
 
-        // 재고가 없으면 새로 생성
         if (stock == null) {
             stock = new Stock();
             stock.setMenu_id(menu_id);
@@ -42,12 +41,8 @@ public class StockService {
             stock.setStock_qty(0); // 새로 생성하면 재고가 0으로 시작
         }
 
-        // 입고이면 +, 출고이면 -
-        if (isStockIn) {
-            stock.setStock_qty(stock.getStock_qty() + amount);
-        } else {
-            stock.setStock_qty(stock.getStock_qty() - amount);
-        }
+        stock.setStock_qty(stock.getStock_qty() + amount);
+
 
         // 업데이트된 재고 저장
         if (stock.getStock_qty() < 0) {
@@ -56,16 +51,16 @@ public class StockService {
         stockmapper.updateStock(stock);
     }
 
+	
     // 입고 처리
     public void processStockIn(StockIn stockIn) {
         stockmapper.insertStockIn(stockIn); // 입고 데이터 저장
-        updateStock(stockIn.getMenu_id(), stockIn.getPlace_id(), stockIn.getAmount(), true); // 재고 업데이트
+        updateStock(stockIn.getMenu_id(), stockIn.getPlace_id(), stockIn.getAmount()); // 재고 업데이트
     }
 
     // 출고 처리
     public void processStockOut(StockOut stockOut) {
         stockmapper.insertStockOut(stockOut); // 출고 데이터 저장
-        updateStock(stockOut.getMenu_id(), stockOut.getPlace_id(), stockOut.getAmount(), false); // 재고 업데이트
     }
 
 	

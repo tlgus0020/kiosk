@@ -51,6 +51,7 @@ public class StockRestController {
 	 @Autowired
 	    private StockService stockservice;
 	 
+	 //menu_id로 
 	 @GetMapping("/stock")
 		public Stock stock(@RequestParam("menu_id") int menu_id) {
 			return stockservice.getStock(menu_id);
@@ -59,6 +60,7 @@ public class StockRestController {
 	    public List<Stock> getAllStock() {
 	        return stockservice.getAllStock();  // 전체 멤버 목록 반환
 	    }
+	 
 	    @PostMapping("/stock/in")
 	    public void stockIn(@RequestBody StockIn stockIn) {
 	        stockservice.processStockIn(stockIn);
