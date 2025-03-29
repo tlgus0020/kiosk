@@ -24,7 +24,7 @@ public class StockService {
 	//	return stockmapper.selectStockByPlace(placeId);
 	//}
 
-	public Stock getStock(int menu_id) {
+	public List<Stock> getStock(int menu_id) {
 		return stockmapper.findByMenu_Id(menu_id);
 	}
 	

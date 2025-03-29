@@ -57,7 +57,7 @@ public class StockRestController {
 	 
 	 	//menu_id로 
 	 	@GetMapping("/stock")
-		public Stock stock(@RequestParam("menu_id") int menu_id) {
+		public List<Stock> stock(@RequestParam("menu_id") int menu_id) {
 			return stockservice.getStock(menu_id);
 		}
 	 	@GetMapping("/stocks")
