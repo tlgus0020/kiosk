@@ -58,9 +58,30 @@ public class StockService {
         updateStock(stockIn.getMenu_id(), stockIn.getPlace_id(), stockIn.getAmount()); // 재고 업데이트
     }
 
+    
+    //발주state 처리할때..
+    //발주state가 기존에 있다면 기존의 발주 state를 변경해야할 필요가 있음. 가장 최근에 동일한 조건의 출고 내역을 확인해서 내역이 있는지 확인.
+    //있다 -> 재발주, 기존 StockOut의 id로 state를 select해서, 새로 만든 StockOut id로 update하고 state 0으로 바꿈.
     // 출고 처리
-    public void processStockOut(StockOut stockOut) {
-        stockmapper.insertStockOut(stockOut); // 출고 데이터 저장
+    public void processStockOut(int menu, int place, int amount) {
+    	
+    	StockOut history = stockmapper.thereIsSameOrderBefore(menu,place);
+    	StockOut news = new StockOut();
+    	news.setMenu_id(menu);
+    	news.setPlace_id(place);
+    	news.setAmount(amount);
+        stockmapper.insertStockOut(news); // 출고 데이터 저장
+        StockOut newsnow =  stockmapper.thereIsSameOrderBefore(menu,place);
+        if(history == null) {
+        	System.out.println("처음 오더입니다.");
+        	stockmapper.insertStockOrder(newsnow.getId());
+        }
+        else {
+        	System.out.println("이전에 같은 발주 요청이 있었습니다.");
+        	System.out.println(newsnow);
+        	System.out.println(history);
+        	stockmapper.updateStockOrder(newsnow.getId(),history.getId());
+        }
     }
 
 	

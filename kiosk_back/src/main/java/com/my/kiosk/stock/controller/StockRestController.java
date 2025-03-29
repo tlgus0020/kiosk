@@ -65,10 +65,10 @@ public class StockRestController {
 	    public void stockIn(@RequestBody StockIn stockIn) {
 	        stockservice.processStockIn(stockIn);
 	    }
-
+	    
 	    // 재고 출고
 	    @PostMapping("/stock/out")
-	    public void stockOut(@RequestBody StockOut stockOut) {
-	        stockservice.processStockOut(stockOut);
+	    public void stockOut(@RequestParam("menu_id") int menu_id, @RequestParam("place_id") int place_id, @RequestParam("amount") int amount) {
+	        stockservice.processStockOut(menu_id,place_id,amount);
 	    }
 }

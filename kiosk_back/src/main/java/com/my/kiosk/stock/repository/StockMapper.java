@@ -26,6 +26,7 @@ public interface StockMapper {
     void insertStockOut(StockOut stockOut);
 
 	public Stock getStock(int menu_id, int place_id);
-
-	
+	public StockOut thereIsSameOrderBefore(int menu_id, int place_id);
+	public void insertStockOrder(int outid);
+	public void updateStockOrder(int outid, int oldid);
 }

@@ -26,8 +26,18 @@
 
     <!-- 출고 데이터 삽입 -->
     <insert id="insertStockOut" parameterType="com.my.kiosk.stock.classes.StockOut">
-        INSERT INTO stock_out (menu_id, place_id, amount, date)
-        VALUES (#{menu_id}, #{place_id}, #{amount}, #{date})
+        INSERT INTO stockout (menu_id, place_id, amount, date)
+        VALUES (#{menu_id}, #{place_id}, #{amount}, CURDATE())
     </insert>
 	
+	<select id="thereIsSameOrderBefore" resultType="com.my.kiosk.stock.classes.StockOut">
+		select * from stockout where menu_id = #{param1} and place_id = #{param2} order by id desc, date desc limit 1;	
+	</select>
+	
+	<insert id="insertStockOrder">
+	   insert into menu_order values(#{param1},0,null)
+	</insert>
+	<update id="updateStockOrder">
+		update menu_order set out_id = #{param1}, state=0 where id=(select id from menu_order where out_id = #{param2} limit 1)
+	</update>
 </mapper>
