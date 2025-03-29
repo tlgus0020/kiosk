@@ -11,4 +11,6 @@ public class StockDTO {
 	int amount;
 	boolean selling;
 	boolean inOrder;
+	int place_id;
+	int flavor_id;
 }

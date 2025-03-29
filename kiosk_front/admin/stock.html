@@ -28,7 +28,7 @@
             <td>${dat.amount}</td>
             <td>${dat.selling? '판매중' : '판매됨'}</td>
             <td>${dat.inOrder? '발주중' : '발주됨'}</td>
-            <td><button onclick="location.href='order.html?place=1&taste=2'">발주하기</button></td>
+            <td><button onclick="location.href='order.html?place=${dat.place_id}&taste=${dat.flavor_id}'">발주하기</button></td>
             </tr>`
             tab.innerHTML = tab.innerHTML + add;
         });

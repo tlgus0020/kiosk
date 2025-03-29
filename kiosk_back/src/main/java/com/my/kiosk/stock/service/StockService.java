@@ -97,6 +97,8 @@ public class StockService {
     		 r.setAmount(s.getStock_qty());
     		 r.setInOrder(true);
     		 r.setSelling(true);
+    		 r.setFlavor_id(s.getMenu_id());
+    		 r.setPlace_id(s.getPlace_id());
     		 result.add(r);
     	}
     	
