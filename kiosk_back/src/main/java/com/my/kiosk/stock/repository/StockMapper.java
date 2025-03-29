@@ -14,7 +14,7 @@ import com.my.kiosk.stock.classes.StockOut;
 @Mapper
 public interface StockMapper {
 
-	public Stock findByMenu_Id(@Param("menu_id") int menu_id);
+	public List<Stock> findByMenu_Id(@Param("menu_id") int menu_id);
 	
 	public List<Stock> findAll();
 	
