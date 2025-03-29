@@ -4,6 +4,7 @@ package com.my.kiosk.stock.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockIn;
@@ -13,7 +14,7 @@ import com.my.kiosk.stock.classes.StockOut;
 @Mapper
 public interface StockMapper {
 
-	public Stock findByMenu_Id(int menu_id);
+	public Stock findByMenu_Id(@Param("menu_id") int menu_id);
 	
 	public List<Stock> findAll();
 	
