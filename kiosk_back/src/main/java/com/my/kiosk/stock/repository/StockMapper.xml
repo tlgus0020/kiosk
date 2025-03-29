@@ -40,4 +40,11 @@
 	<update id="updateStockOrder">
 		update menu_order set out_id = #{param1}, state=0 where id=(select id from menu_order where out_id = #{param2} limit 1)
 	</update>
+	
+	<select id="getPlaceName">
+		select name from place where id=#{param1};	
+	</select>
+		<select id="getMenuName">
+		select name from menu where id=#{param1};	
+	</select>
 </mapper>

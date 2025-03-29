@@ -29,4 +29,7 @@ public interface StockMapper {
 	public StockOut thereIsSameOrderBefore(int menu_id, int place_id);
 	public void insertStockOrder(int outid);
 	public void updateStockOrder(int outid, int oldid);
+	public String getPlaceName(int id);
+	public String getMenuName(int id);
+
 }

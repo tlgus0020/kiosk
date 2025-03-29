@@ -11,22 +11,29 @@
         <th>발주상태</th>
         <th>#</th>
     </tr>
-    <tr>
-        <td>0</td>
-        <td>A지점</td>
-        <td>딸기</td>
-        <td>35</td>
-        <td>판매중</td>
-        <td>발주진행중</td>
-        <td><button>발주하기</button></td>
-    </tr>
-    <tr>
-        <td>0</td>
-        <td>A지점</td>
-        <td>딸기</td>
-        <td>35</td>
-        <td>판매중</td>
-        <td>발주진행중</td>
-        <td><button>발주하기</button></td>
-    </tr>
 </table>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    function doPost(){
+    axios('http://192.168.0.82:8080/api/getStockList', {
+        method : "get",
+    }).then(res => {
+        console.log(res);
+        res.data.forEach(dat => {
+            let tab = document.querySelector('table');
+            let add = `<tr>
+            <td>0</td>
+            <td>${dat.place_name}</td>
+            <td>${dat.flavor_name}</td>
+            <td>${dat.amount}</td>
+            <td>${dat.selling? '판매중' : '판매됨'}</td>
+            <td>${dat.inOrder? '발주중' : '발주됨'}</td>
+            <td><button onclick="location.href='order.html?place=1&taste=2'">발주하기</button></td>
+            </tr>`
+            tab.innerHTML = tab.innerHTML + add;
+        });
+    });
+    }
+
+    doPost();
+</script>

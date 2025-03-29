@@ -1,10 +1,12 @@
 	package com.my.kiosk.stock.controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.my.kiosk.stock.classes.Stock;
+import com.my.kiosk.stock.classes.StockDTO;
 import com.my.kiosk.stock.classes.StockIn;
 import com.my.kiosk.stock.classes.StockOut;
 import com.my.kiosk.stock.service.StockService;
 
+@CrossOrigin(origins = "*")
 @RestController
 //@RequestMapping("/api/stock")
 @RequestMapping("/api")
@@ -65,10 +69,19 @@ public class StockRestController {
 	    public void stockIn(@RequestBody StockIn stockIn) {
 	        stockservice.processStockIn(stockIn);
 	    }
+	    	
+	    
+	    @GetMapping("/getStockList")
+	    public List<StockDTO> getStockList() {
+	    	return stockservice.getStockList();
+	    	
+	    }
+	    
 	    
 	    // 재고 출고
 	    @PostMapping("/stock/out")
-	    public void stockOut(@RequestParam("menu_id") int menu_id, @RequestParam("place_id") int place_id, @RequestParam("amount") int amount) {
-	        stockservice.processStockOut(menu_id,place_id,amount);
+	    public ResponseEntity<?> stockOut(@RequestParam("menu_id") String menu_id, @RequestParam("place_id") String place_id, @RequestParam("amount") String amount) {
+	        stockservice.processStockOut(Integer.parseInt(menu_id),  Integer.parseInt(place_id),Integer.parseInt(amount) );
+	        return ResponseEntity.ok().body("good");
 	    }
 }

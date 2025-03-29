@@ -3,7 +3,34 @@
 <h2>{맛}</h2>
 <p>
 </p>
-개수 <input type="number"></input>
+개수 <input type="number" id="val"></input>
 
 
-<button>발주하기</button>
+<button onclick="doPost()">발주하기</button>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+</script>
+<script>
+    let param = new URLSearchParams(window.location.search);
+    console.log(param);
+    let place = param.get('place');
+    let taste = param.get('taste'); 
+    function doPost(){
+    let data = {
+        'menu_id': taste,
+        'place_id' : place,
+        'amount' : document.querySelector("#val").value
+    }
+    console.log(data);
+    axios('http://192.168.0.82:8080/api/stock/out', {
+        method : "post",
+        params : data,
+    }).then(res => {
+        console.log(res);
+        alert('done!')
+        location.href="/kiosk_front/admin/main.html"
+    });
+    }
+</script>
