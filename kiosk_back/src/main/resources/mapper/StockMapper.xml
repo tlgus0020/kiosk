@@ -59,5 +59,17 @@
 	<!-- 로그인처리 -->
 	<select id="findByUserId" resultType="com.my.kiosk.stock.classes.User">
 		select * from user where userid=#{userid};
+	<select id="getPlaceNames">
+	    select name from place;
+	</select>
+	<select id="getPlaceId">
+		select id from place;
+	</select>
+	<select id="getPlaceSellingById">
+		select selling from stock where menu_id=#{param1} and place_id=#{param2};
+	</select>
+	
+	<select id="getAllMenu" resultType="com.my.kiosk.stock.classes.Menu">
+		select * from menu;
 	</select>
 </mapper>

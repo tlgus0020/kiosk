@@ -7,11 +7,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.my.kiosk.stock.classes.Menu;
+import com.my.kiosk.stock.classes.MerchDTO;
+import com.my.kiosk.stock.classes.Place_SellDTO;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockDTO;
 import com.my.kiosk.stock.classes.StockIn;
 import com.my.kiosk.stock.classes.StockOut;
 import com.my.kiosk.stock.classes.User;
+import com.my.kiosk.stock.classes.placeDTO;
 import com.my.kiosk.stock.repository.StockMapper;
 
 
@@ -20,10 +24,6 @@ public class StockService {
 
 	@Autowired
 	StockMapper stockmapper;
-	
-	//public List<Stock> getStockByPlace(int placeId) {
-	//	return stockmapper.selectStockByPlace(placeId);
-	//}
 
 	public List<Stock> getStock(int place_id) {
 		return stockmapper.findByPlaecID(place_id);
@@ -89,22 +89,19 @@ public class StockService {
 
     public List<StockDTO> getStockList(){
     	List<Stock> stocks = stockmapper.findAll();
-    	
+    	System.out.println(stocks);
     	List<StockDTO> result = new ArrayList<>();
     	for(Stock s : stocks) {
     		StockDTO r = new StockDTO();
     		 r.setPlace_name(stockmapper.getPlaceName(s.getPlace_id()));
     		 r.setFlavor_name(stockmapper.getMenuName(s.getMenu_id()));
     		 r.setAmount(s.getStock_qty());
-    		 r.setInOrder(true);
-    		 r.setSelling(true);
+    		 r.setInOrder(false); // 발주중
+    		 r.setSelling(s.isSelling()); // 판매중
     		 r.setFlavor_id(s.getMenu_id());
     		 r.setPlace_id(s.getPlace_id());
     		 result.add(r);
     	}
-    	
-    	
-    	
     	return result;
     }
     
@@ -118,5 +115,38 @@ public class StockService {
         }
 
         return user; // 로그인 성공
+    public List<placeDTO> getPlaceList(){
+    	List<String> s = stockmapper.getPlaceNames();
+    	List<placeDTO> pc = new ArrayList<>();
+    	for(String st : s) {
+    		 placeDTO p = new placeDTO();
+    		 p.setPlace_name(st);
+    		 pc.add(p);
+    	}
+    	
+    	return pc ;
+    }
+    
+   
+    
+    public List<MerchDTO> getMerchList(){
+    	List<Menu> m =  stockmapper.getAllMenu();
+    	List<MerchDTO> dto = new ArrayList<>();
+    	for(Menu me : m) {
+    		MerchDTO dtos = new MerchDTO();
+    		dtos.setMenu_id(me.getId());
+    		dtos.setMenu_name(me.getName());
+    		dtos.setSelling(me.isState());
+    		List<Place_SellDTO> psl = new ArrayList<Place_SellDTO>();
+    		for(Integer i : stockmapper.getPlaceId()) {
+        		Place_SellDTO ps = new Place_SellDTO();
+        		ps.setPlace_id(i);
+        		ps.setSelling(stockmapper.getPlaceSellingById(me.getId(),i));
+        		psl.add(ps);
+    		}
+    		dtos.setSellstate(psl);
+    		dto.add(dtos);
+    	}
+    	return dto;
     }
 }

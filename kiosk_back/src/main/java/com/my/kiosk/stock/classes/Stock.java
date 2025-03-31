@@ -16,4 +16,6 @@ public class Stock {
 
 	private Date date;
 
+	private boolean selling;
 }
+

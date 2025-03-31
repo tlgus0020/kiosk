@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.my.kiosk.stock.classes.Menu;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockIn;
 import com.my.kiosk.stock.classes.StockOut;
@@ -38,4 +39,8 @@ public interface StockMapper {
 	public User findByUserId(@Param("userid") String userid);
 		
 
+	public List<String> getPlaceNames();
+	public List<Menu> getAllMenu();
+	public List<Integer> getPlaceId();
+	public boolean getPlaceSellingById(int menu, int place);
 }
