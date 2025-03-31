@@ -42,5 +42,11 @@ public interface StockMapper {
 	public List<String> getPlaceNames();
 	public List<Menu> getAllMenu();
 	public List<Integer> getPlaceId();
-	public boolean getPlaceSellingById(int menu, int place);
+	public Integer getPlaceSellingById(int menu, int place);
+	
+	void setRetire(int menu);
+	
+	void setRetireStock(int menu, int place);
+	
+	public Integer isRetired(int menu);
 }

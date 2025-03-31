@@ -56,6 +56,27 @@
 		select name from menu where id=#{param1};	
 	</select>
 	
+	<update id="setRetire">
+UPDATE menu
+SET state = CASE state
+               WHEN 0 THEN 1
+               WHEN 1 THEN 0
+            END
+WHERE id = #{param1};
+	</update>
+	
+		<update id="setRetireStock">
+UPDATE stock
+SET selling = CASE selling
+               WHEN 0 THEN 1
+               WHEN 1 THEN 0
+            END
+WHERE menu_id = #{param1} and place_id = #{param2};
+	</update>
+	
+	<select id="isRetired" resultType="java.lang.Integer">
+		select state from menu where id=#{param1};
+	</select>
 	<!-- 로그인처리 -->
 	<select id="findByUserId" resultType="com.my.kiosk.stock.classes.User">
 		select * from user where userid=#{userid};
@@ -66,7 +87,7 @@
 	<select id="getPlaceId">
 		select id from place;
 	</select>
-	<select id="getPlaceSellingById">
+	<select id="getPlaceSellingById" resultType="java.lang.Integer">
 		select selling from stock where menu_id=#{param1} and place_id=#{param2};
 	</select>
 	

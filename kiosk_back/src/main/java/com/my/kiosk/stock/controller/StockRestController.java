@@ -104,6 +104,22 @@ public class StockRestController {
 	        return ResponseEntity.ok().body("good");
 	    }
 	    
+	    @PostMapping("/retire")
+	    public ResponseEntity<?> RetireProduct(@RequestParam("menu_id") String menu_id){
+	    	
+	    	stockservice.doRetire(menu_id);
+	    	
+	    	return ResponseEntity.ok("z");
+	    }
+	    
+	    @PostMapping("/retireproduct")
+	    public ResponseEntity<?> RetireProduct(@RequestParam("menu_id") String menu_id,@RequestParam("place_id") String place_id){
+	    	
+	    	stockservice.doRetire(menu_id,place_id);
+	    	
+	    	return ResponseEntity.ok("z");
+	    }
+	    
 	    @PostMapping("/login")
 	    public ResponseEntity<?> login(@RequestParam("userid") String userid, @RequestParam("userpwd") String userpwd){
 	    	User user=stockservice.login(userid,userpwd);

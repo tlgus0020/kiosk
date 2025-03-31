@@ -15,7 +15,7 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     function doPost(){
-    axios('http://192.168.0.82:8080/api/getStockList', {
+    axios('http://127.0.0.1:8080/api/getStockList', {
         method : "get",
     }).then(res => {
         console.log(res);

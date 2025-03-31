@@ -24,7 +24,7 @@
         'amount' : document.querySelector("#val").value
     }
     console.log(data);
-    axios('http://192.168.0.82:8080/api/stock/out', {
+    axios('http://127.0.0.1:8080/api/stock/out', {
         method : "post",
         params : data,
     }).then(res => {

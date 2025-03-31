@@ -14,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
 </script>
 <script>
-    axios('http://192.168.0.82:8080/api/getPlaceList', {
+    axios('http://127.0.0.1:8080/api/getPlaceList', {
         method : "get",
     }).then(res => {
         const id = document.querySelector("#header");
@@ -27,7 +27,7 @@
         console.log(res);
     });
 
-    axios('http://192.168.0.82:8080/api/getMerchList', {
+    axios('http://127.0.0.1:8080/api/getMerchList', {
         method : "get",
     }).then(res => {
         const id = document.querySelector("#tbl");
@@ -42,14 +42,36 @@
             
 
             element.sellstate.forEach(item => {
-                temp += `<td><input type="checkbox" onchange="alert('${item.place_id} 번지점 ${element.menu_id} 번 메뉴 이벤트')" ${item.selling === false? "": "checked"}></td>`
+                temp += `<td><input type="checkbox" onchange="판매중지('${item.place_id}','${element.menu_id}')" ${item.selling === false? "": "checked"}></td>`
             });
             hed.innerHTML+=temp;
-            hed.innerHTML += `<button onClick='alert("단종이벤트 ${element.menu_id}")'>단종하기</button>`
+            hed.innerHTML += `<button onClick='단종("${element.menu_id}")'>단종하기</button>`
             
             id.appendChild(hed);
         });
 
         console.log(res);
     });
+
+    function 판매중지(코드,지점){
+        axios('http://127.0.0.1:8080/api/retireproduct', {
+        method : "post",
+        params : {
+            'menu_id' : 지점,
+            'place_id' : 코드
+        }
+    }).then(res => {
+        location.reload();
+    });
+    }
+    function 단종(코드){
+        axios('http://127.0.0.1:8080/api/retire', {
+        method : "post",
+        params : {
+            'menu_id' : 코드
+        }
+    }).then(res => {
+        location.reload();
+    });
+    }
 </script>

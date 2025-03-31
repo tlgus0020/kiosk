@@ -97,7 +97,13 @@ public class StockService {
     		 r.setFlavor_name(stockmapper.getMenuName(s.getMenu_id()));
     		 r.setAmount(s.getStock_qty());
     		 r.setInOrder(false); // 발주중
-    		 r.setSelling(s.isSelling()); // 판매중
+    		 
+    		 if(stockmapper.isRetired(s.getMenu_id()) == null || stockmapper.isRetired(s.getMenu_id()) == 0){
+    			 r.setSelling(false);
+    		 }
+    		 else {
+        		 r.setSelling(s.isSelling());
+    		 }
     		 r.setFlavor_id(s.getMenu_id());
     		 r.setPlace_id(s.getPlace_id());
     		 result.add(r);
@@ -130,6 +136,17 @@ public class StockService {
     
    
     
+    public boolean doRetire(String menu) {
+    	stockmapper.setRetire(Integer.parseInt(menu));
+    	
+    	return true;
+    }
+    
+    public boolean doRetire(String menu,String place) {
+    	stockmapper.setRetireStock(Integer.parseInt(menu), Integer.parseInt(place));
+    	return true;
+    }
+    
     public List<MerchDTO> getMerchList(){
     	List<Menu> m =  stockmapper.getAllMenu();
     	List<MerchDTO> dto = new ArrayList<>();
@@ -142,7 +159,8 @@ public class StockService {
     		for(Integer i : stockmapper.getPlaceId()) {
         		Place_SellDTO ps = new Place_SellDTO();
         		ps.setPlace_id(i);
-        		ps.setSelling(stockmapper.getPlaceSellingById(me.getId(),i));
+        		Integer a = stockmapper.getPlaceSellingById(me.getId(),i);
+        		ps.setSelling(a == null? false : (a == 1? true : false));
         		psl.add(ps);
     		}
     		dtos.setSellstate(psl);
