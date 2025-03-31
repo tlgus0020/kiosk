@@ -1,27 +1,55 @@
 <h1>판매품 관리</h1>
 
 <button onclick="location.href='main.html'">돌아가기</button>
-<table>
-    <tr>
+<table id="tbl">
+    <tr id="header">
         <th>NO</th>
         <th>품목</th>
         <th>상태</th>
-        <th>A지점</th>
-        <th>B지점</th>
     </tr>
-    <tr>
-        <td>0</td>
-        <td>딸기</td>
-        <td>판매중</td>
-        <td><input type="checkbox" checked></td>
-        <td><input type="checkbox" checked></td>
-        <td><button>전원 단종하기</button></td>
-        <td><button>판매재개</button></td>
-    </tr>
+
 </table>
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
-    axios(){
 
-    }
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+</script>
+<script>
+    axios('http://192.168.0.82:8080/api/getPlaceList', {
+        method : "get",
+    }).then(res => {
+        const id = document.querySelector("#header");
+        res.data.forEach(element => {
+            let hed = document.createElement("th");
+            hed.innerText = element.place_name;
+            id.appendChild(hed);
+        });
+
+        console.log(res);
+    });
+
+    axios('http://192.168.0.82:8080/api/getMerchList', {
+        method : "get",
+    }).then(res => {
+        const id = document.querySelector("#tbl");
+        res.data.forEach(element => {
+            let hed = document.createElement("tr");
+            hed.innerHTML = `
+                <td>0</td>
+                <td>${element.menu_name}</td>
+                <td>${element.selling? "판매중" : "단종됨"}</td>
+            `;
+            let temp = ``;
+            
+
+            element.sellstate.forEach(item => {
+                temp += `<td><input type="checkbox" onchange="alert('${item.place_id} 번지점 ${element.menu_id} 번 메뉴 이벤트')" ${item.selling === false? "": "checked"}></td>`
+            });
+            hed.innerHTML+=temp;
+            hed.innerHTML += `<button onClick='alert("단종이벤트 ${element.menu_id}")'>단종하기</button>`
+            
+            id.appendChild(hed);
+        });
+
+        console.log(res);
+    });
 </script>
