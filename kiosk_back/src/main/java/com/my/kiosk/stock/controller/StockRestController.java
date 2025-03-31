@@ -64,6 +64,7 @@ public class StockRestController {
 	 	@GetMapping("/stock")
 		public List<Stock> stock(@RequestParam("place_id") int place_id) {
 			return stockservice.getStock(place_id);
+	 	}
 	 	@GetMapping("/menu/{menu_id}")
 		public List<Stock> getStocksByMenuId(@PathVariable("menu_id") int menu_id) {
 			return stockservice.getStock(menu_id);

@@ -59,6 +59,7 @@
 	<!-- 로그인처리 -->
 	<select id="findByUserId" resultType="com.my.kiosk.stock.classes.User">
 		select * from user where userid=#{userid};
+	</select>
 	<select id="getPlaceNames">
 	    select name from place;
 	</select>
