@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.my.kiosk.stock.classes.MerchDTO;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockDTO;
 import com.my.kiosk.stock.classes.StockIn;
 import com.my.kiosk.stock.classes.StockOut;
+import com.my.kiosk.stock.classes.placeDTO;
 import com.my.kiosk.stock.service.StockService;
 
 @CrossOrigin(origins = "*")
@@ -76,8 +78,15 @@ public class StockRestController {
 	    	return stockservice.getStockList();
 	    	
 	    }
+	    @GetMapping("/getPlaceList")
+	    public List<placeDTO> getPlaceList(){
+	    	return stockservice.getPlaceList();
+	    }
 	    
-	    
+	    @GetMapping("/getMerchList")
+	    public List<MerchDTO> getMerchLIst(){
+	    	return stockservice.getMerchList();
+	    }
 	    // 재고 출고
 	    @PostMapping("/stock/out")
 	    public ResponseEntity<?> stockOut(@RequestParam("menu_id") String menu_id, @RequestParam("place_id") String place_id, @RequestParam("amount") String amount) {
