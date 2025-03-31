@@ -19,10 +19,6 @@ public class StockService {
 
 	@Autowired
 	StockMapper stockmapper;
-	
-	//public List<Stock> getStockByPlace(int placeId) {
-	//	return stockmapper.selectStockByPlace(placeId);
-	//}
 
 	public List<Stock> getStock(int menu_id) {
 		return stockmapper.findByMenu_Id(menu_id);
