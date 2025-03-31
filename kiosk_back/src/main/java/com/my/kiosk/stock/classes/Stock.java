@@ -15,4 +15,5 @@ public class Stock {
 	private int stock_qty;
 
 	private Date date;
+
 }

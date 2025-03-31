@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+
 <mapper namespace="com.my.kiosk.stock.repository.StockMapper">
-    <select id="findByMenu_Id" resultType="com.my.kiosk.stock.classes.Stock">
-	select * from stock where menu_id=#{menu_id}
+
+    <select id="findByPlaecID" resultType="com.my.kiosk.stock.classes.Stock">
+	select * from stock where place_id=#{place_id}
 	</select>
-	 <select id="findAll" resultType="com.my.kiosk.stock.classes.Stock">
-        SELECT * FROM stock
-    </select>
+
+<select id="findAll" resultType="com.my.kiosk.stock.classes.Stock">
+    SELECT * FROM stock
+</select>
+
+
 <select id="getStock" resultType="com.my.kiosk.stock.classes.Stock">
     SELECT * FROM stock WHERE menu_id = #{menu_id} AND place_id = #{place_id}
 </select>
@@ -26,12 +34,12 @@
 
     <!-- 출고 데이터 삽입 -->
     <insert id="insertStockOut" parameterType="com.my.kiosk.stock.classes.StockOut">
-        INSERT INTO stockout (menu_id, place_id, amount, date)
+        INSERT INTO stock_out (menu_id, place_id, amount, date)
         VALUES (#{menu_id}, #{place_id}, #{amount}, CURDATE())
     </insert>
 	
 	<select id="thereIsSameOrderBefore" resultType="com.my.kiosk.stock.classes.StockOut">
-		select * from stockout where menu_id = #{param1} and place_id = #{param2} order by id desc, date desc limit 1;	
+		select * from stock_out where menu_id = #{param1} and place_id = #{param2} order by id desc, date desc limit 1;	
 	</select>
 	
 	<insert id="insertStockOrder">
@@ -46,5 +54,10 @@
 	</select>
 		<select id="getMenuName">
 		select name from menu where id=#{param1};	
+	</select>
+	
+	<!-- 로그인처리 -->
+	<select id="findByUserId" resultType="com.my.kiosk.stock.classes.User">
+		select * from user where userid=#{userid};
 	</select>
 </mapper>

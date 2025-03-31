@@ -11,6 +11,7 @@ import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockDTO;
 import com.my.kiosk.stock.classes.StockIn;
 import com.my.kiosk.stock.classes.StockOut;
+import com.my.kiosk.stock.classes.User;
 import com.my.kiosk.stock.repository.StockMapper;
 
 
@@ -24,8 +25,8 @@ public class StockService {
 	//	return stockmapper.selectStockByPlace(placeId);
 	//}
 
-	public List<Stock> getStock(int menu_id) {
-		return stockmapper.findByMenu_Id(menu_id);
+	public List<Stock> getStock(int place_id) {
+		return stockmapper.findByPlaecID(place_id);
 	}
 	
 	public List<Stock> getAllStock() {
@@ -105,5 +106,17 @@ public class StockService {
     	
     	
     	return result;
+    }
+    
+    public User login(String userid,String userpwd) {
+    	User user= stockmapper.findByUserId(userid);
+		if(user == null) {
+			return null;
+		} 
+		if(!user.getUserpwd().equals(userpwd)) {
+            return null;
+        }
+
+        return user; // 로그인 성공
     }
 }

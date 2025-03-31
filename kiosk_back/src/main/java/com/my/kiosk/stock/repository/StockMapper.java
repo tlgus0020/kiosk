@@ -9,12 +9,13 @@ import org.apache.ibatis.annotations.Param;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockIn;
 import com.my.kiosk.stock.classes.StockOut;
+import com.my.kiosk.stock.classes.User;
 
 
 @Mapper
 public interface StockMapper {
 
-	public List<Stock> findByMenu_Id(@Param("menu_id") int menu_id);
+	public List<Stock> findByPlaecID(@Param("place_id") int place_id);
 	
 	public List<Stock> findAll();
 	
@@ -32,5 +33,9 @@ public interface StockMapper {
 	public void updateStockOrder(int outid, int oldid);
 	public String getPlaceName(int id);
 	public String getMenuName(int id);
+	
+	// 로그인처리
+	public User findByUserId(@Param("userid") String userid);
+		
 
 }
