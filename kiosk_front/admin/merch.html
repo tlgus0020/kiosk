@@ -42,7 +42,7 @@
             
 
             element.sellstate.forEach(item => {
-                temp += `<td><input type="checkbox" onchange="alert('${item.place_id} 번지점 ${element.menu_id} 번 메뉴 이벤트')" checked=${item.selling}></td>`
+                temp += `<td><input type="checkbox" onchange="alert('${item.place_id} 번지점 ${element.menu_id} 번 메뉴 이벤트')" ${item.selling === false? "": "checked"}></td>`
             });
             hed.innerHTML+=temp;
             hed.innerHTML += `<button onClick='alert("단종이벤트 ${element.menu_id}")'>단종하기</button>`
