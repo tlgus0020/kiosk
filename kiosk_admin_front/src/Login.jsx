@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function Login({ onLoginSuccess }) {
   const [userId, setUserId] = useState('');
@@ -15,12 +16,19 @@ function Login({ onLoginSuccess }) {
     console.log(password);
     axios({
       method: 'POST',
-      url: 'http://192.168.0.31:8080/api/login',
+      url: 'http://192.168.0.89:8080/api/login',
       data: {
-        userId : userId,
-        password : password
+        userid : userId,
+        userpwd : password
       }
-    }).then
+    })
+    .then((res) => {
+      console.log('로그인 성공');
+      onLoginSuccess();
+    })
+    .catch((err) => {
+      console.error('로그인 실패:', err);
+    });
     
   }
   

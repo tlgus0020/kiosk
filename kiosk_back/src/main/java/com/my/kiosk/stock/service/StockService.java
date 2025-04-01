@@ -113,6 +113,7 @@ public class StockService {
     
     public User login(String userid,String userpwd) {
     	User user= stockmapper.findByUserId(userid);
+    	System.out.println("서비스 : "+user);
 		if(user == null) {
 			return null;
 		} 

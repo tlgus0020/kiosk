@@ -94,13 +94,21 @@ public class StockRestController {
 	    }
 	    
 	    @PostMapping("/login")
-	    public ResponseEntity<?> login(@RequestParam("userid") String userid, @RequestParam("userpwd") String userpwd){
-	    	User user=stockService.login(userid,userpwd);
-	    	
-	    	if (user == null) {
+	    public ResponseEntity<?> login(@RequestBody User userinfo) {
+	        String userid = userinfo.getUserid();
+	        String userpwd = userinfo.getUserpwd();
+	        
+	        System.out.println(userid);
+	        System.out.println(userpwd);
+	        
+	        User user = stockService.login(userid, userpwd);
+	        System.out.println(user);
+	        
+	        if (user == null) {
 	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디/비번이 잘못되었습니다");
 	        }
 
 	        return ResponseEntity.ok("로그인 성공! 관리자 ID: " + user.getUserid());
 	    }
+
 }
