@@ -123,6 +123,7 @@ public class StockService {
 
         return user; // 로그인 성공
     }
+    
     public List<placeDTO> getPlaceList(){
     	List<String> s = stockmapper.getPlaceNames();
     	List<placeDTO> pc = new ArrayList<>();

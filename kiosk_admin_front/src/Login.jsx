@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+const REST = process.env.REACT_APP_REST;
+
 function Login({ onLoginSuccess }) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +18,7 @@ function Login({ onLoginSuccess }) {
     console.log(password);
     axios({
       method: 'POST',
-      url: 'http://192.168.0.89:8080/api/login',
+      url: `${REST}/api/login`,
       data: {
         userid : userId,
         userpwd : password
