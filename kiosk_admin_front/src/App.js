@@ -4,6 +4,7 @@ import Stock from './pages/Stock';
 import Pay from './pages/Pay';
 import Menu from './pages/Menu';
 import Nav from './pages/Nav';
+import PayDetail from './pages/PayDetail';
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                 <Route path="/stock" element={<Stock />} />
                 <Route path="/pay" element={<Pay />} />
                 <Route path="/menu" element={<Menu />} />
+                <Route path="/pay/:id" element={<PayDetail />} />
             </Routes>
         </Router>
     );
