@@ -8,6 +8,10 @@
         SELECT * FROM pay
     </select>
     
+    <select id="findById" parameterType="int" resultType="com.my.kiosk.pay.classes.Pay">
+    	SELECT * FROM pay WHERE id = #{id}
+	</select>
+    
     <select id="findSizeById" parameterType="int" resultType="com.my.kiosk.global.classes.Size">
     	SELECT * FROM size WHERE id = #{id}
 	</select>
@@ -15,5 +19,13 @@
 	<select id="findPlaceById" parameterType="int" resultType="com.my.kiosk.global.classes.Place">
     	SELECT * FROM place WHERE id = #{id}
 	</select>
+	
+	<select id="findPayDetailByPayId" parameterType="int" resultType="com.my.kiosk.pay.classes.PayDetail">
+        SELECT * FROM pay_detail WHERE pay_id = #{id}
+    </select>
+    
+    <select id="findMenuNameById" parameterType="int" resultType="java.lang.String">
+        SELECT name FROM menu WHERE id = #{menuId}
+    </select>
     
 </mapper>
