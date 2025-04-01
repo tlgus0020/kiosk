@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.my.kiosk.pay.repository.PayMapper">
+    <select id="findAll" resultType="com.my.kiosk.pay.classes.Pay">
+        SELECT * FROM pay
+    </select>
+    
+    <select id="findSizeById" parameterType="int" resultType="com.my.kiosk.global.classes.Size">
+    	SELECT * FROM size WHERE id = #{id}
+	</select>
+	
+	<select id="findPlaceById" parameterType="int" resultType="com.my.kiosk.global.classes.Place">
+    	SELECT * FROM place WHERE id = #{id}
+	</select>
+    
+</mapper>
