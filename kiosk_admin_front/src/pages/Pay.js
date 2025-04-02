@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../css/Pay.css';
 
 const Pay = () => {
   const [payList, setPayList] = useState([]);
@@ -19,21 +20,33 @@ const Pay = () => {
   }, []);
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>결제 내역 페이지</h1>
-      <ul>
-        {payList.map((item) => (
-          <li key={item.id} onClick={() => navigate(`/pay/${item.id}`)}>
-            <strong> 아이디:</strong> {item.id} |
-            <strong> 주문번호:</strong> {item.pay_num} |
-            <strong> 메뉴:</strong> {item.size} |
-            <strong> 결제방법:</strong> {item.pay_method} |
-            <strong> 가격:</strong> {item.price.toLocaleString()}원 |
-            <strong> 지점:</strong> {item.pay_place} |
-            <strong> 날짜:</strong> {item.pay_date.split('T')[0]}
-          </li>
-        ))}
-      </ul>
+    <div className="pay-container">
+      <table className="pay-table">
+        <thead>
+          <tr>
+            <th>NO</th>
+            <th>결제수단</th>
+            <th>결제내역</th>
+            <th>결제금액</th>
+            <th>결제일</th>
+            <th>결제지점</th>
+            <th>결제일련번호</th>
+          </tr>
+        </thead>
+        <tbody>
+          {payList.map((item, index) => (
+            <tr key={item.id} onClick={() => navigate(`/pay/${item.id}`)}>
+              <td>{index + 1}</td>
+              <td>{item.pay_method}</td>
+              <td>{item.size}</td>
+              <td>{item.price.toLocaleString()}</td>
+              <td>{item.pay_date}</td>
+              <td>{item.pay_place}</td>
+              <td>{item.pay_num}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

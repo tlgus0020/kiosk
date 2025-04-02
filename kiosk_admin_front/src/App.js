@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Stock from './pages/Stock';
 import Pay from './pages/Pay';
-import Menu from './pages/Menu';
 import Nav from './pages/Nav';
 import PayDetail from './pages/PayDetail';
+import './App.css';
 
 function App() {
     return (
@@ -13,7 +13,6 @@ function App() {
             <Routes>
                 <Route path="/stock" element={<Stock />} />
                 <Route path="/pay" element={<Pay />} />
-                <Route path="/menu" element={<Menu />} />
                 <Route path="/pay/:id" element={<PayDetail />} />
             </Routes>
         </Router>
