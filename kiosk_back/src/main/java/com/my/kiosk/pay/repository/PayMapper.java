@@ -22,6 +22,7 @@ public interface PayMapper {
 	public List<PayDetail> findPayDetailByPayId(int id);
 	public String findMenuNameById(int menu_id);
 	public List<Pay> findPayByDate(@Param("start")LocalDateTime start,@Param("end") LocalDateTime end);
-	List<PayDTO> findAllFast();
+	public List<PayDTO> findAllFast();
+	public List<PayDTO> findPayFastByDate(@Param("start")LocalDateTime start,@Param("end") LocalDateTime end);
 
 }

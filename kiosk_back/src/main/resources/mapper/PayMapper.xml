@@ -45,6 +45,21 @@
 	  JOIN size s ON p.size_id = s.id
 	  JOIN place pl ON p.place_id = pl.id
 	</select>
+	
+	<select id="findPayFastByDate" resultType="com.my.kiosk.pay.classes.PayDTO" parameterType="map">
+	  SELECT 
+	    p.id,
+	    p.pay_method,
+	    s.size,
+	    s.price,
+	    p.pay_date,
+	    pl.name AS pay_place,
+	    p.pay_num
+	  FROM pay p
+	  JOIN size s ON p.size_id = s.id
+	  JOIN place pl ON p.place_id = pl.id
+	  WHERE p.pay_date BETWEEN #{start} AND #{end}
+	</select>
     
     
 </mapper>

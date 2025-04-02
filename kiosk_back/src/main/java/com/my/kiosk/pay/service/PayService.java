@@ -19,25 +19,9 @@ public class PayService {
 
 	@Autowired
 	PayMapper payMapper;
-	/*
-	 * public List<PayDTO> getPayList() { List<Pay> paylist = payMapper.findAll();
-	 * List<PayDTO> payDTOList = new ArrayList<PayDTO>();
-	 * 
-	 * for(Pay pay:paylist) { PayDTO payDTO = new PayDTO();
-	 * 
-	 * payDTO.setId(pay.getId()); payDTO.setPay_method(pay.getPay_method()); Size
-	 * size = payMapper.findSizeById(pay.getSize_id());
-	 * payDTO.setSize(size.getSize()); payDTO.setPrice(size.getPrice());
-	 * payDTO.setPay_date(pay.getPay_date());
-	 * payDTO.setPay_place(payMapper.findPlaceById(pay.getPlace_id()).getName());
-	 * payDTO.setPay_num(pay.getPay_num());
-	 * 
-	 * payDTOList.add(payDTO); }
-	 * 
-	 * return payDTOList; }
-	 */
+
 	public List<PayDTO> getPayList() {
-	    return payMapper.findAllFast();
+		return payMapper.findAllFast();
 	}
 
 	public PayDetailDTO getPayDetailById(int id) {
@@ -46,42 +30,23 @@ public class PayService {
 		payDetailDTO.setId(pay.getId());
 		payDetailDTO.setPay_method(pay.getPay_method());
 		Size size = payMapper.findSizeById(pay.getSize_id());
-		payDetailDTO.setSize(size.getSize()); 
+		payDetailDTO.setSize(size.getSize());
 		payDetailDTO.setPrice(size.getPrice());
 		payDetailDTO.setPay_date(pay.getPay_date());
 		payDetailDTO.setPay_place(payMapper.findPlaceById(pay.getPlace_id()).getName());
 		payDetailDTO.setPay_num(pay.getPay_num());
-		
+
 		List<PayDetail> payDetails = payMapper.findPayDetailByPayId(pay.getId());
 		List<String> menuNames = new ArrayList<String>();
-		for(PayDetail payDetail:payDetails) {
+		for (PayDetail payDetail : payDetails) {
 			menuNames.add(payMapper.findMenuNameById(payDetail.getMenu_id()));
 		}
 		payDetailDTO.setFlavor(menuNames);
 		return payDetailDTO;
 	}
 
-	public List<PayDTO> getdateFilter(LocalDateTime start, LocalDateTime end){
-	List<Pay> pays = payMapper.findPayByDate(start, end);
-	List<PayDTO> payDTOList = new ArrayList<PayDTO>();
-		
-		for(Pay pay:pays) {
-			PayDTO payDTO = new PayDTO();
-			
-			payDTO.setId(pay.getId());
-			payDTO.setPay_method(pay.getPay_method());
-			Size size = payMapper.findSizeById(pay.getSize_id());
-			payDTO.setSize(size.getSize()); 
-			payDTO.setPrice(size.getPrice());
-			payDTO.setPay_date(pay.getPay_date());
-			payDTO.setPay_place(payMapper.findPlaceById(pay.getPlace_id()).getName());
-			payDTO.setPay_num(pay.getPay_num());
-			
-			payDTOList.add(payDTO);
-		}
-		
-		return payDTOList;
+	public List<PayDTO> getdateFilter(LocalDateTime start, LocalDateTime end) {
+		return payMapper.findPayFastByDate(start, end);
 	}
 
-	
 }
