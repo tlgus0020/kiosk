@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar"; 
 import './css/DateFilter.css';
 
-const DateFilter = ({ onSubmit, onSortChange }) => {
+const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {  // setShowDateFilter 추가
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
   const [calendarType, setCalendarType] = useState(""); 
   const [showSortDropdown, setShowSortDropdown] = useState(false); 
 
-  
   const handleStartDateChange = (date) => {
     const localDate = new Date(date);
     setStartDate(localDate.toLocaleDateString("en-CA"));
@@ -47,14 +46,13 @@ const DateFilter = ({ onSubmit, onSortChange }) => {
         method: "GET", 
       });
   
-      
       if (response.ok) {
         const data = await response.json(); 
         console.log("서버 응답:", data);
         if (onSubmit) {
           onSubmit(data); 
         }
-
+        setShowDateFilter(false); // **적용 후 모달 닫기**
       } else {
         console.error("서버 오류 발생", response.status);
       }
@@ -96,14 +94,11 @@ const DateFilter = ({ onSubmit, onSortChange }) => {
     setShowSortDropdown(false); 
   };
 
-  
   const tileClassName = ({ date, view, activeStartDate }) => {
     if (view === 'month') {
-  
       const selectedMonth = activeStartDate.getMonth();
       const selectedYear = activeStartDate.getFullYear();
-      
-  
+
       if (date.getMonth() !== selectedMonth || date.getFullYear() !== selectedYear) {
         return 'hidden-date'; 
       }

@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Pay.css';
 import DateFilter from '../DateFilter';
+
 const Pay = () => {
   const [payList, setPayList] = useState([]);
   const REST = process.env.REACT_APP_REST;
   const navigate = useNavigate();
   const [showDateFilter, setShowDateFilter] = useState(false);  
+
   const handleDataSubmit = (filteredData) => {
     setPayList(filteredData);  
+    setShowDateFilter(false); // **적용 후 DateFilter 모달 닫기**
   };
 
   useEffect(() => {
@@ -26,15 +29,18 @@ const Pay = () => {
   return (
     <div className="pay-container">
       <button onClick={() => setShowDateFilter(true)}>DATE</button>
+
+      {/* DateFilter 모달 */}
       {showDateFilter && (
         <>
           <div className="overlay" onClick={() => setShowDateFilter(false)}></div>          
           <div className="modal">
-            <DateFilter onSubmit={handleDataSubmit} />
+            <DateFilter onSubmit={handleDataSubmit} setShowDateFilter={setShowDateFilter} />
           </div>
-          </>
+        </>
       )}
 
+      {/* 결제 내역 테이블 */}
       <table className="pay-table">
         <thead>
           <tr>

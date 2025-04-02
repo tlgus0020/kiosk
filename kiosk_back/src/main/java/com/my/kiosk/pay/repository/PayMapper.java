@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.my.kiosk.global.classes.Place;
 import com.my.kiosk.global.classes.Size;
@@ -19,5 +20,5 @@ public interface PayMapper {
 	public Pay findById(int id);
 	public List<PayDetail> findPayDetailByPayId(int id);
 	public String findMenuNameById(int menu_id);
-	public List<Pay> findPayByDate(LocalDateTime start,LocalDateTime end);
+	public List<Pay> findPayByDate(@Param("start")LocalDateTime start,@Param("end") LocalDateTime end);
 }
