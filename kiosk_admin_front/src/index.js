@@ -7,8 +7,8 @@ import Login from './Login';
 
 
 function Root() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(true);
 
   useEffect(()=>{
     console.log(isAdmin);

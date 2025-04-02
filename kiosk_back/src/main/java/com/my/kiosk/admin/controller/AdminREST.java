@@ -1,0 +1,55 @@
+package com.my.kiosk.admin.controller;
+
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.my.kiosk.stock.classes.StockDTO;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+@RestController
+@RequestMapping("/admin")
+public class AdminREST {
+
+	
+	/**
+	 * To do
+	 * Stock 리스트 : <완료>
+	 * Stock 발주 상태 변경. <진행중>
+	 * 
+	 * 
+	 * Pay 리스트;
+	 * Pay 필터해서 리스트;
+	 *
+	 * Menu 리스트;
+	 * Menu 단종 설정;
+	 * Menu 등록;
+	 * 이미지 업로드;
+	 * 
+	 */
+	
+	@Autowired
+	AdminService serv;
+	
+	@GetMapping("/test")
+	public ResponseEntity<?> getMethodName() {
+		System.out.println("zz");
+		return ResponseEntity.ok("ㅋ");
+	}
+	
+	
+	@GetMapping("/GetStock")
+	public List<StockDTO> getStock(){
+		return serv.getStockList();
+	}
+	
+	
+	
+}

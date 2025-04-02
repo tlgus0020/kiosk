@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import styles from '../css/Nav.module.css';
+import '../css/AdminTable.css';
 
 export function Head_nav(props){
   const nav = useNavigate()
