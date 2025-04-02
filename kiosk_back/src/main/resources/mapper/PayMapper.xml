@@ -32,4 +32,19 @@
         SELECT * FROM pay WHERE pay_date BETWEEN #{start} AND #{end}
     </select>
     
+    <select id="findAllFast" resultType="com.my.kiosk.pay.classes.PayDTO">
+	  SELECT 
+	    p.id,
+	    p.pay_method,
+	    s.size,
+	    s.price,
+	    p.pay_date,
+	    pl.name AS pay_place,
+	    p.pay_num
+	  FROM pay p
+	  JOIN size s ON p.size_id = s.id
+	  JOIN place pl ON p.place_id = pl.id
+	</select>
+    
+    
 </mapper>

@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import com.my.kiosk.global.classes.Place;
 import com.my.kiosk.global.classes.Size;
 import com.my.kiosk.pay.classes.Pay;
+import com.my.kiosk.pay.classes.PayDTO;
 import com.my.kiosk.pay.classes.PayDetail;
 
 @Mapper
@@ -21,4 +22,6 @@ public interface PayMapper {
 	public List<PayDetail> findPayDetailByPayId(int id);
 	public String findMenuNameById(int menu_id);
 	public List<Pay> findPayByDate(@Param("start")LocalDateTime start,@Param("end") LocalDateTime end);
+	List<PayDTO> findAllFast();
+
 }

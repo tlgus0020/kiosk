@@ -19,27 +19,25 @@ public class PayService {
 
 	@Autowired
 	PayMapper payMapper;
-
+	/*
+	 * public List<PayDTO> getPayList() { List<Pay> paylist = payMapper.findAll();
+	 * List<PayDTO> payDTOList = new ArrayList<PayDTO>();
+	 * 
+	 * for(Pay pay:paylist) { PayDTO payDTO = new PayDTO();
+	 * 
+	 * payDTO.setId(pay.getId()); payDTO.setPay_method(pay.getPay_method()); Size
+	 * size = payMapper.findSizeById(pay.getSize_id());
+	 * payDTO.setSize(size.getSize()); payDTO.setPrice(size.getPrice());
+	 * payDTO.setPay_date(pay.getPay_date());
+	 * payDTO.setPay_place(payMapper.findPlaceById(pay.getPlace_id()).getName());
+	 * payDTO.setPay_num(pay.getPay_num());
+	 * 
+	 * payDTOList.add(payDTO); }
+	 * 
+	 * return payDTOList; }
+	 */
 	public List<PayDTO> getPayList() {
-		List<Pay> paylist = payMapper.findAll();
-		List<PayDTO> payDTOList = new ArrayList<PayDTO>();
-		
-		for(Pay pay:paylist) {
-			PayDTO payDTO = new PayDTO();
-			
-			payDTO.setId(pay.getId());
-			payDTO.setPay_method(pay.getPay_method());
-			Size size = payMapper.findSizeById(pay.getSize_id());
-			payDTO.setSize(size.getSize()); 
-			payDTO.setPrice(size.getPrice());
-			payDTO.setPay_date(pay.getPay_date());
-			payDTO.setPay_place(payMapper.findPlaceById(pay.getPlace_id()).getName());
-			payDTO.setPay_num(pay.getPay_num());
-			
-			payDTOList.add(payDTO);
-		}
-		
-		return payDTOList;
+	    return payMapper.findAllFast();
 	}
 
 	public PayDetailDTO getPayDetailById(int id) {
