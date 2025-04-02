@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import styles from '../src/css/login.module.css'
 
 const REST = process.env.REACT_APP_REST;
 
@@ -36,30 +37,32 @@ function Login({ onLoginSuccess }) {
   
   ;
   return (
-    <div style={{ padding: '2rem', maxWidth: '400px', margin: 'auto' }}>
-      <h2>로그인</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>아이디</label>
-          <input
-            type="text"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>비밀번호</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">로그인</button>
-      </form>
-    </div>
+    <div className={styles.loginbody}>
+      <div className={styles.Logincontainer}>
+        <h2>지점관리페이지</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <input
+              type="text"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+              placeholder='id'
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder='Password'
+              required
+            />
+          </div>
+          <button type="submit">로그인</button>
+        </form>
+      </div>
+    </div>  
   );
 }
 
