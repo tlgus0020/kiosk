@@ -1,0 +1,33 @@
+.sort-dropdown {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 10;
+  }
+  
+  .sort-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .sort-dropdown button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .hidden-date {
+    color: #ddd; /* 색상을 흐리게 하여 표시되지 않도록 */
+    pointer-events: none; /* 클릭 이벤트를 비활성화 */
+  }
+
+  .react-calendar__navigation__prev2-button {
+    display: none; /* 버튼 숨기기 */
+  }
+
+  .react-calendar__navigation__next2-button {
+    display: none; /* 버튼 숨기기 */
+  }

@@ -4,7 +4,7 @@ import styles from '../src/css/login.module.css'
 
 const REST = process.env.REACT_APP_REST;
 
-function Login({ onLoginSuccess }) {
+function Login({ onLoginSuccess,checkAdmin }) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
 
@@ -28,6 +28,9 @@ function Login({ onLoginSuccess }) {
     .then((res) => {
       console.log('로그인 성공');
       onLoginSuccess();
+      if(userId == "admin"){
+        checkAdmin();
+      }
     })
     .catch((err) => {
       console.error('로그인 실패:', err);

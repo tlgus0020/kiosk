@@ -27,5 +27,9 @@
     <select id="findMenuNameById" parameterType="int" resultType="java.lang.String">
         SELECT name FROM menu WHERE id = #{menuId}
     </select>
+
+    <select id="findPayByDate" parameterType="java.time.LocalDateTime" resultType="com.my.kiosk.pay.classes.Pay">
+        SELECT * FROM pay WHERE pay_date BETWEEN #{start} AND #{end}
+    </select>
     
 </mapper>

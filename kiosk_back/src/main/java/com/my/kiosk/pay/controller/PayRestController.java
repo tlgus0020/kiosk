@@ -1,5 +1,7 @@
 package com.my.kiosk.pay.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.my.kiosk.pay.service.PayService;
@@ -27,5 +30,20 @@ public class PayRestController {
 	@GetMapping("/detail/{id}")
 	public ResponseEntity<?> getPayDetailById(@PathVariable("id") int id) {
 		return ResponseEntity.ok().body(payService.getPayDetailById(id));
+	}
+
+	@GetMapping("/datefilter")
+	public ResponseEntity<?> getdateFilter(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate){
+		System.out.println(startDate);
+		System.out.println(endDate);
+			startDate = startDate + " 00:00:00";
+			endDate = endDate + " 23:59:59";
+			LocalDateTime start = LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+			LocalDateTime end = LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+			System.out.println("startDate:"+start);
+			System.out.println("endDate:"+end);
+
+		return ResponseEntity.ok().body(payService.getdateFilter(start,end));
+    	
 	}
 }

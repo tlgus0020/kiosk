@@ -1,5 +1,6 @@
 package com.my.kiosk.pay.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,5 +62,28 @@ public class PayService {
 		payDetailDTO.setFlavor(menuNames);
 		return payDetailDTO;
 	}
+
+	public List<PayDTO> getdateFilter(LocalDateTime start, LocalDateTime end){
+	List<Pay> pays = payMapper.findPayByDate(start, end);
+	List<PayDTO> payDTOList = new ArrayList<PayDTO>();
+		
+		for(Pay pay:pays) {
+			PayDTO payDTO = new PayDTO();
+			
+			payDTO.setId(pay.getId());
+			payDTO.setPay_method(pay.getPay_method());
+			Size size = payMapper.findSizeById(pay.getSize_id());
+			payDTO.setSize(size.getSize()); 
+			payDTO.setPrice(size.getPrice());
+			payDTO.setPay_date(pay.getPay_date());
+			payDTO.setPay_place(payMapper.findPlaceById(pay.getPlace_id()).getName());
+			payDTO.setPay_num(pay.getPay_num());
+			
+			payDTOList.add(payDTO);
+		}
+		
+		return payDTOList;
+	}
+
 	
 }
