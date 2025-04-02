@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -7,12 +7,17 @@ import Login from './Login';
 
 
 function Root() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(true);
+
+  useEffect(()=>{
+    console.log(isAdmin);
+  },[isAdmin])
 
   return isLoggedIn ? (
-    <App />
+    <App admin={isAdmin}/>
   ) : (
-    <Login onLoginSuccess={() => setIsLoggedIn(true)} />
+    <Login onLoginSuccess={() => setIsLoggedIn(true)} checkAdmin={() => setIsAdmin(true)} />
   );
 }
 
