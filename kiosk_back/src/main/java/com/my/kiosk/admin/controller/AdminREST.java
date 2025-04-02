@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -40,10 +41,16 @@ public class AdminREST {
 	
 	@GetMapping("/test")
 	public ResponseEntity<?> getMethodName() {
-		System.out.println("zz");
+		System.out.println("zz");	
 		return ResponseEntity.ok("ㅋ");
 	}
 	
+	
+	@PostMapping("/setStockState")
+	public ResponseEntity<?> setStockState(@RequestParam("id") String id, @RequestParam("state") String state) {
+		System.out.println(id +  state);
+		return ResponseEntity.ok("ㅋ");
+	}
 	
 	@GetMapping("/GetStock")
 	public List<StockDTO> getStock(){

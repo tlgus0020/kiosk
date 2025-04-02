@@ -12,6 +12,16 @@ export function Head_Center(props){
       setPayList(filteredData);  
     };
   
+    const handleChangeOrder = (idx,e) => {
+        axios(`${REST}/admin/setStockState`,  
+            {
+            method : "POST",
+            data: {
+                id: idx,
+                state: e.target.value
+            }
+        })
+    }
     useEffect(() => {
       fetch(`${REST}/admin/GetStock`)
         .then((res) => res.json())
@@ -56,7 +66,7 @@ export function Head_Center(props){
                 <td>{item.place_name}</td>
                 <td>{item.selling? "판매중" : "판매중단"}</td>
                 <td id="orderState">
-                    <select id="orderState" defaultValue={item.inOrder? 2 : 0}>
+                    <select onChange={(e) => handleChangeOrder(index,e)} id="orderState" defaultValue={item.inOrder? 2 : 0}>
                         <option value={0}>발주됨</option>
                         <option value={1}>배송중</option>
                         <option value={2}>확인중</option>
