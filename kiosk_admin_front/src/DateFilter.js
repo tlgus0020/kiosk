@@ -47,7 +47,7 @@ const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {
       }).toString();
   
     try {
-      const response = await fetch(`${REST}?${queryParams}`, {
+      const response = await fetch(`${REST}/api/pay/datefilter?${queryParams}`, {
         method: "GET", 
       });
   
