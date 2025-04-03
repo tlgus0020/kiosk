@@ -22,15 +22,16 @@ function Login({ onLoginSuccess,checkAdmin }) {
       url: `${REST}/api/login`,
       data: {
         userid : userId,
-        userpwd : password
+        userpwd : password,
+        
       }
     })
     .then((res) => {
       console.log('로그인 성공');
-      onLoginSuccess();
-      if(userId == "admin"){
-        checkAdmin();
-      }
+      const role = res.data.role;
+
+      console.log('받은 role:', role);
+      onLoginSuccess(role); 
     })
     .catch((err) => {
       console.error('로그인 실패:', err);
@@ -42,7 +43,7 @@ function Login({ onLoginSuccess,checkAdmin }) {
   return (
     <div className={styles.loginbody}>
       <div className={styles.Logincontainer}>
-        <h2>지점관리페이지</h2>
+        <h2>관리자페이지</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <input

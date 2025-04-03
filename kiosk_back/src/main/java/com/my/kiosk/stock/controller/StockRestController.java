@@ -1,8 +1,8 @@
 	package com.my.kiosk.stock.controller;
 
-import java.sql.Date;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,6 @@ import com.my.kiosk.stock.classes.MerchDTO;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockDTO;
 import com.my.kiosk.stock.classes.StockIn;
-import com.my.kiosk.stock.classes.StockOut;
 import com.my.kiosk.stock.classes.User;
 import com.my.kiosk.stock.classes.placeDTO;
 import com.my.kiosk.stock.service.StockService;
@@ -108,7 +107,13 @@ public class StockRestController {
 	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디/비번이 잘못되었습니다");
 	        }
 
-	        return ResponseEntity.ok("로그인 성공! 관리자 ID: " + user.getUserid());
+	        Map<String, Object> result = new HashMap<>();
+	        result.put("userid", user.getUserid());
+	        result.put("role", user.getRole());
+	        result.put("placeid", user.getPlaceid());
+
+	        return ResponseEntity.ok(result);
+
 	    }
 
 }

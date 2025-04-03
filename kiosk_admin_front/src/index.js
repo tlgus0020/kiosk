@@ -5,19 +5,23 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Login from './Login';
 
-
 function Root() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isAdmin, setIsAdmin] = useState(false);       
 
-  useEffect(()=>{
-    console.log(isAdmin);
-  },[isAdmin])
+  useEffect(() => {
+    console.log('isAdmin:', isAdmin);
+  }, [isAdmin]);
+
+  const handleLoginSuccess = (role) => {
+    setIsLoggedIn(true);
+    setIsAdmin(role === 'admin');
+  };
 
   return isLoggedIn ? (
-    <App admin={isAdmin}/>
+    <App admin={isAdmin} />
   ) : (
-    <Login onLoginSuccess={() => setIsLoggedIn(true)} checkAdmin={() => setIsAdmin(true)} />
+    <Login onLoginSuccess={handleLoginSuccess} />
   );
 }
 

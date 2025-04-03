@@ -8,4 +8,5 @@ public class User {
 	private String userid;
 	private String userpwd;
 	private int placeid;
+	private String role;
 }
