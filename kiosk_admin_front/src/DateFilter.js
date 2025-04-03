@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar"; 
 import './css/DateFilter.css';
 
-const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {  // setShowDateFilter 추가
+const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {
+  const REST = process.env.REACT_APP_REST;
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
@@ -12,14 +13,18 @@ const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {  // setS
   const handleStartDateChange = (date) => {
     const localDate = new Date(date);
     setStartDate(localDate.toLocaleDateString("en-CA"));
-    console.log("Start Date changed:", localDate.toLocaleDateString("en-CA")); // 디버깅
+    console.log("Start Date changed:", localDate.toLocaleDateString("en-CA")); 
     setCalendarType(""); 
   };
 
   const handleEndDateChange = (date) => {
+    if (!startDate) {
+      alert("먼저 시작 날짜를 선택해주세요.");
+      return;
+    }
     const localDate = new Date(date); 
     setEndDate(localDate.toLocaleDateString("en-CA"));
-    console.log("End Date changed:", localDate.toLocaleDateString("en-CA")); // 디버깅
+    console.log("End Date changed:", localDate.toLocaleDateString("en-CA")); 
     setCalendarType(""); 
   };
 
@@ -42,7 +47,7 @@ const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {  // setS
       }).toString();
   
     try {
-      const response = await fetch(`http://localhost:8080/api/pay/datefilter?${queryParams}`, {
+      const response = await fetch(`${REST}?${queryParams}`, {
         method: "GET", 
       });
   
@@ -52,7 +57,7 @@ const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {  // setS
         if (onSubmit) {
           onSubmit(data); 
         }
-        setShowDateFilter(false); // **적용 후 모달 닫기**
+        setShowDateFilter(false); 
       } else {
         console.error("서버 오류 발생", response.status);
       }
@@ -170,7 +175,8 @@ const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {  // setS
               <Calendar
                 onChange={calendarType === "start" ? handleStartDateChange : handleEndDateChange}
                 value={calendarType === "start" ? new Date() : new Date()} 
-                tileClassName={tileClassName}  
+                tileClassName={tileClassName}
+                minDate={calendarType === "end" && startDate ? new Date(startDate) : null}
               />
             </div>
           </div>

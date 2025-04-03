@@ -8,10 +8,10 @@ const Pay = () => {
   const REST = process.env.REACT_APP_REST;
   const navigate = useNavigate();
   const [showDateFilter, setShowDateFilter] = useState(false);  
-
+  const [searchTerm, setSearchTerm] = useState('');
   const handleDataSubmit = (filteredData) => {
     setPayList(filteredData);  
-    setShowDateFilter(false); // **적용 후 DateFilter 모달 닫기**
+    setShowDateFilter(false); 
   };
 
   useEffect(() => {
@@ -26,9 +26,21 @@ const Pay = () => {
       });
   }, []);
 
+  const filterPayList = payList.filter((item) => {
+    return item.size.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
   return (
     <div className="pay-container">
       <button onClick={() => setShowDateFilter(true)}>DATE</button>
+
+      <input 
+        type="text" 
+        placeholder="메뉴명을 입력해주세요." 
+        value={searchTerm} 
+        onChange={(e) => setSearchTerm(e.target.value)} 
+        className="search-input" 
+      />
 
       {/* DateFilter 모달 */}
       {showDateFilter && (
@@ -54,7 +66,7 @@ const Pay = () => {
           </tr>
         </thead>
         <tbody>
-          {payList.map((item, index) => (
+          {filterPayList.map((item, index) => (
             <tr key={item.id} onClick={() => navigate(`/pay/${item.id}`)}>
               <td>{index + 1}</td>
               <td>{item.pay_method}</td>
