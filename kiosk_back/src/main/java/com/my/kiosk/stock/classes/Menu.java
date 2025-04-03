@@ -8,7 +8,7 @@ import lombok.Setter;
 public class Menu {
 	int id;
 	String name;
-	int price;
 	String img;
+	String code;
 	boolean state;
 }

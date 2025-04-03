@@ -49,4 +49,5 @@ public interface StockMapper {
 	void setRetireStock(int menu, int place);
 	
 	public Integer isRetired(int menu);
+
 }

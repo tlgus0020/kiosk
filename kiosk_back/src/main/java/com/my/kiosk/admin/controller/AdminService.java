@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.my.kiosk.stock.classes.Menu;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockDTO;
 import com.my.kiosk.stock.repository.StockMapper;
@@ -44,4 +45,8 @@ public class AdminService {
     	}
     	return result;
     }
+
+	public List<Menu> getMenuList() {
+		return stockmapper.getAllMenu();
+	}
 }

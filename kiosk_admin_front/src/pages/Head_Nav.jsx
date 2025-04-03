@@ -28,6 +28,12 @@ export function Head_nav(props){
         >
           Pay
         </NavLink>
+        <NavLink
+          to="/head/menu"
+          className={({ isActive }) => isActive ? styles.active : styles.inactive}
+        >
+          Menu
+        </NavLink>
       </div>
     </nav>
   );

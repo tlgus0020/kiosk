@@ -7,6 +7,7 @@ import PayDetail from './pages/PayDetail';
 import './App.css';
 import { Head_Center } from './pages/Head_Center';
 import { Head_nav } from './pages/Head_Nav';
+import { Head_menu } from './pages/Head_menu';
 
 
 function App(props) {
@@ -19,6 +20,8 @@ function App(props) {
                 
                 <Route path="/pay/:id" element={<PayDetail />} />
                 {props.admin? <Route path="/head/stock" element={<Head_Center></Head_Center>}></Route> : null}
+                {props.admin? <Route path="/head/pay" element={<Pay></Pay>}></Route> : null}
+                {props.admin? <Route path="/head/menu" element={<Head_menu />}></Route> : null}
             </Routes>
         </Router>
     );

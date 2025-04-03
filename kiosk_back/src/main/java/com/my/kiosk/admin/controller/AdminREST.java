@@ -4,6 +4,7 @@ package com.my.kiosk.admin.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.my.kiosk.stock.classes.Menu;
 import com.my.kiosk.stock.classes.StockDTO;
 
 import java.util.List;
@@ -55,6 +56,13 @@ public class AdminREST {
 	@GetMapping("/GetStock")
 	public List<StockDTO> getStock(){
 		return serv.getStockList();
+	}
+	
+	@GetMapping("/menulist")
+	public ResponseEntity<?> getMenu(){
+		List<Menu> menulist = serv.getMenuList();
+
+		return ResponseEntity.ok().body(menulist);
 	}
 	
 	
