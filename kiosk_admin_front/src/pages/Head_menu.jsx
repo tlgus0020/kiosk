@@ -4,9 +4,10 @@ import '../css/Pay.css';
 
 export const Head_menu = () => {
   const [menus, setMenus] = useState([]);
+  const REST = process.env.REACT_APP_REST;
 
   useEffect(() => {
-    axios.get('http://192.168.0.89:8080/admin/menulist')
+    axios.get(`${REST}/admin/menulist`)
       .then(res => {
         setMenus(res.data);
       })
@@ -37,6 +38,7 @@ export const Head_menu = () => {
               <td>{menu.code}</td>
               <td>{menu.img}</td>
               <td>{menu.state ? '활성' : '비활성'}</td>
+              <td></td>
             </tr>
           ))}
         </tbody>
