@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../css/Pay.css'; 
+import '../css/AdminTable.css';
+import { AddMenu } from './AddMenu';
 
 export const Head_menu = () => {
   const [menus, setMenus] = useState([]);
   const REST = process.env.REACT_APP_REST;
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     axios.get(`${REST}/admin/menulist`)
@@ -17,8 +20,12 @@ export const Head_menu = () => {
   }, []);
 
   return (
+    <div>
     <div className="pay-container">
-      <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '1rem' }}>메뉴 리스트</h2>
+      <div id='menutitle'>
+        <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '1rem' }}>메뉴 리스트</h2>
+        <button onClick={()=> setMenuOpen(!menuOpen) }>메뉴 추가</button>
+      </div>
       <table className="pay-table">
         <thead>
           <tr>
@@ -43,6 +50,11 @@ export const Head_menu = () => {
           ))}
         </tbody>
       </table>
+    </div>
+    {menuOpen == true? 
+      <AddMenu handle={() => setMenuOpen(!menuOpen)}></AddMenu>
+      : null
+    }
     </div>
   );
 };

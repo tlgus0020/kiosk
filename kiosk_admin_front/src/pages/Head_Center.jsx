@@ -2,6 +2,7 @@ import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DateFilter from "../DateFilter";
 import axios from "axios";
+import { AddMenu } from "./AddMenu";
 
 export function Head_Center(props){
     const [payList, setPayList] = useState([]);
