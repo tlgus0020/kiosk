@@ -9,16 +9,20 @@ export const Head_menu = () => {
   const REST = process.env.REACT_APP_REST;
 
   useEffect(() => {
+    fetchMenus();
+  }, []);
+  
+  const fetchMenus = () => {
     axios.get(`${REST}/admin/menulist`)
       .then(res => setMenus(res.data))
       .catch(err => console.error('메뉴 불러오기 실패:', err));
-  }, []);
+  };
 
   return (
     <div className="pay-container">
       <input type="button" value="메뉴추가" onClick={() => setShowModal(true)} />
       
-      {showModal && <AddMenuModal onClose={() => setShowModal(false)} />}
+      {showModal && <AddMenuModal onClose={() => setShowModal(false)} onComplete={fetchMenus} />}
 
       <table className="pay-table">
         <thead>

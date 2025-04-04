@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../css/AddMenuModal.css';
 
-const AddMenuModal = ({ onClose }) => {
+const AddMenuModal = ({ onClose, onComplete }) => {
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
   const [imgFile, setImgFile] = useState(null);
   const modalRef = useRef();
+  const REST = process.env.REACT_APP_REST;
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -26,7 +27,7 @@ const AddMenuModal = ({ onClose }) => {
     formData.append('img', imgFile);
 
     try {
-      const res = await fetch('http://localhost:8080/admin/addmenu', {
+      const res = await fetch(`${REST}/admin/addmenu`, {
         method: 'POST',
         body: formData
       });
@@ -34,6 +35,7 @@ const AddMenuModal = ({ onClose }) => {
       if (res.ok) {
         alert('등록 완료!');
         onClose();
+        if (onComplete) onComplete(); // ✅ 등록 후 부모에서 리스트 갱신
       } else {
         alert('등록 실패');
       }
