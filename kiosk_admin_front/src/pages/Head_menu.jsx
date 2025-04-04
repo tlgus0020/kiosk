@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import AddMenuModal from '../util/AddMenuModal';
 import '../css/Pay.css'; 
 
 export const Head_menu = () => {
   const [menus, setMenus] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const REST = process.env.REACT_APP_REST;
 
   useEffect(() => {
-    axios.get(`${REST}/admin/menulist`)
-      .then(res => {
-        setMenus(res.data);
-      })
-      .catch(err => {
-        console.error('메뉴 불러오기 실패:', err);
-      });
+    fetchMenus();
   }, []);
+  
+  const fetchMenus = () => {
+    axios.get(`${REST}/admin/menulist`)
+      .then(res => setMenus(res.data))
+      .catch(err => console.error('메뉴 불러오기 실패:', err));
+  };
 
   return (
     <div className="pay-container">
-      <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '1rem' }}>메뉴 리스트</h2>
+      <input type="button" value="메뉴추가" onClick={() => setShowModal(true)} />
+      
+      {showModal && <AddMenuModal onClose={() => setShowModal(false)} onComplete={fetchMenus} />}
+
       <table className="pay-table">
         <thead>
           <tr>

@@ -53,6 +53,10 @@ public interface StockMapper {
 	
 	public Integer isRetired(int menu);
 
+
 	public List<StockListDTO> getStockTotalList();
+
+	public int saveMenu(Menu menu);
+
 
 }

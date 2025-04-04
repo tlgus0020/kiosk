@@ -1,17 +1,27 @@
 package com.my.kiosk.admin.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.my.kiosk.stock.classes.Menu;
+import com.my.kiosk.stock.classes.MenuDTO;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockDTO;
 import com.my.kiosk.stock.classes.StockOut;
 import com.my.kiosk.stock.classes.MenuOrder;
 import com.my.kiosk.stock.repository.StockMapper;
+
 
 @Service
 public class AdminService {
@@ -93,7 +103,48 @@ public class AdminService {
     	return result;
     }
 
+    /****************** 메뉴 기능 *********************/
 	public List<Menu> getMenuList() {
 		return stockmapper.getAllMenu();
 	}
+
+
+	public int addMenu(MenuDTO menudto) {
+		Map<String,Object> response = new HashMap<>();
+        
+        if(menudto.getImg().isEmpty()) {
+        	return 0;
+        }
+        
+        String path = "C:\\Users\\admin\\Documents\\tlgus\\kiosk\\kiosk_back\\src\\main\\resources\\static\\img";
+        File filePath = new File(path);
+        
+        if(!filePath.exists()) {
+        	filePath.mkdir();
+        	System.out.println("파일생성");
+        }
+        
+        String originalName = menudto.getImg().getOriginalFilename();
+        String filePullPath = path + File.separator + originalName;
+        String fileLink = "http://localhost:8080/admin/img/" + originalName;
+        
+        try {
+        	File destfile = new File(filePullPath);
+        	menudto.getImg().transferTo(destfile);
+        	
+        	Menu menu = new Menu();
+        	menu.setName(menudto.getName());
+        	menu.setCode(menudto.getCode());
+        	menu.setImg(fileLink);
+        	menu.setState(false);
+        	
+        	return stockmapper.saveMenu(menu);
+        	
+        } catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+        
+		return 0;
+	}
+	/****************** 메뉴 기능 *********************/
 }

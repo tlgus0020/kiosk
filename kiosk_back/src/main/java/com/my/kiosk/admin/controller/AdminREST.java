@@ -5,13 +5,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.my.kiosk.stock.classes.Menu;
+import com.my.kiosk.stock.classes.MenuDTO;
 import com.my.kiosk.stock.classes.StockDTO;
 
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -59,12 +67,39 @@ public class AdminREST {
 		return serv.getStockList();
 	}
 	
+	/****************** 메뉴 기능 *********************/
 	@GetMapping("/menulist")
 	public ResponseEntity<?> getMenu(){
 		List<Menu> menulist = serv.getMenuList();
 
 		return ResponseEntity.ok().body(menulist);
 	}
+	
+	@PostMapping("/addmenu")
+	public ResponseEntity<?> addMenu(@ModelAttribute MenuDTO menudto){
+		serv.addMenu(menudto);
+		return ResponseEntity.ok().body("good");
+	}
+	
+    @GetMapping("/img/{imgPath}")
+    public ResponseEntity<?> getBookImg(@PathVariable("imgPath") String imgPath){
+    	Path filePath = Paths.get("src/main/resources/static/img").resolve(imgPath);
+    	Resource resource;
+		try {
+			resource = new UrlResource(filePath.toUri());
+	    	if(resource.exists() && resource.isReadable()) {
+	    		return ResponseEntity.ok()
+	    				.header("Content-Type", "image/jpeg")
+	    				.body(resource);
+	    	}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+    	
+    	
+    	return ResponseEntity.notFound().build();
+    }
+	/****************** 메뉴 기능 *********************/
 	
 	
 	
