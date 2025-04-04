@@ -2,8 +2,9 @@
     padding: 2rem;
     font-family: 'Pretendard', sans-serif;
   }
-  
+
   .pay-table {
+    table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
     border-radius: 8px;
@@ -27,12 +28,37 @@
     font-size: 14px;
   }
   
+  
   .pay-table tbody tr:hover {
     background-color: #f7f5fc;
     cursor: pointer;
   }
   
-  
+.date-btn {
+  background-color: #fff;
+  border : 1px solid #000;
+  width : 88px;
+  height: 40px;
+}
+.place-btn {
+  width: 99px;
+  height: 39px;
+  background-color: #D8D8D8;
+  color: #7A7A7A;
+  border-radius: 6px;
+}
+
+.place-btn.clicked {
+  background-color: #6D5BD0; 
+  color: white;  
+}
+
+.search-input {
+  background-color: #f4f2ff;
+  width: 392px;
+  height: 40px;
+  box-sizing: border-box;
+}
 .overlay {
   position: fixed;
   top: 0;
@@ -42,7 +68,6 @@
   background: rgba(0, 0, 0, 0.5);  
   z-index: 999;  
 }
-
 
 .modal {
   position: fixed;
@@ -74,3 +99,4 @@
   width: 100%;
   height: 100%;
 }
+

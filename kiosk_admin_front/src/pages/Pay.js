@@ -9,7 +9,11 @@ const Pay = () => {
   const navigate = useNavigate();
   const [showDateFilter, setShowDateFilter] = useState(false);  
   const [searchTerm, setSearchTerm] = useState('');
-  const handleDataSubmit = (filteredData) => {
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [filterPlaces, setFilterPlaces] = useState([]);
+  const [isClicked, setIsClicked] = useState(false);
+  const handleDataSubmit = (filteredData , sortOrder) => {
+    setSortOrder(sortOrder);
     setPayList(filteredData);  
     setShowDateFilter(false); 
   };
@@ -26,22 +30,43 @@ const Pay = () => {
       });
   }, []);
 
-  const filterPayList = payList.filter((item) => {
+  const filterPayList = payList
+  .filter((item) => {
     return item.size.toLowerCase().includes(searchTerm.toLowerCase());
+  })
+  .filter((item) => {
+    if (filterPlaces.length > 0) {
+      return filterPlaces.includes(item.pay_place)
+    }
+    return true; 
+  })
+  .sort((a, b) => {
+    const dateA = new Date(a.pay_date);
+    const dateB = new Date(b.pay_date);
+
+    if (sortOrder === "desc") {
+      return dateB - dateA;
+    } else {
+      return dateA - dateB;  
+    }
   });
+
+  const handlePlaceFilter = (place) => {
+    setFilterPlaces((prevFilterPlaces) => {
+      if (prevFilterPlaces.includes(place)) {
+        return prevFilterPlaces.filter((p) => p !== place); 
+      } else {
+        return [...prevFilterPlaces, place]; 
+      }
+    });
+  };
+
+  const handleButtonClick = () => {
+    setIsClicked(!isClicked);
+  };
 
   return (
     <div className="pay-container">
-      <button onClick={() => setShowDateFilter(true)}>DATE</button>
-
-      <input 
-        type="text" 
-        placeholder="메뉴명을 입력해주세요." 
-        value={searchTerm} 
-        onChange={(e) => setSearchTerm(e.target.value)} 
-        className="search-input" 
-      />
-
       {/* DateFilter 모달 */}
       {showDateFilter && (
         <>
@@ -55,6 +80,23 @@ const Pay = () => {
       {/* 결제 내역 테이블 */}
       <table className="pay-table">
         <thead>
+          <tr>
+            <th>
+            <button className="date-btn" onClick={() => setShowDateFilter(true)}>DATE</button>
+            </th>
+            <th>
+              <input 
+                type="text" 
+                placeholder="메뉴명을 입력해주세요." 
+                value={searchTerm} 
+                onChange={(e) => setSearchTerm(e.target.value)} 
+                className="search-input" 
+              />
+            </th>
+            <th><button className="place-btn" onClick={() =>{ handlePlaceFilter('강서지점'); handleButtonClick();}}>강서지점</button></th>
+            <th><button className="place-btn" onClick={() =>{ handlePlaceFilter('상봉지점'); handleButtonClick();}}>상봉지점</button></th>
+            <th><button className="place-btn" onClick={() =>{ handlePlaceFilter('하남지점'); handleButtonClick();}}>하남지점</button></th>
+          </tr>
           <tr>
             <th>NO</th>
             <th>결제수단</th>

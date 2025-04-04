@@ -6,7 +6,7 @@ const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {
   const REST = process.env.REACT_APP_REST;
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortOrder, setSortOrder] = useState("desc");
   const [calendarType, setCalendarType] = useState(""); 
   const [showSortDropdown, setShowSortDropdown] = useState(false); 
 
@@ -28,19 +28,10 @@ const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {
     setCalendarType(""); 
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (onSubmit) {
-      onSubmit(startDate, endDate);
-    }
-  }; 
-
   const handleapply = async (e) => {
     e.preventDefault();
-    console.log("form submit");
-    console.log(startDate);
-    console.log(endDate);
-    
+    console.log("선택날짜:"+startDate+"~"+endDate+",정렬방식:"+sortOrder);
+  
     const queryParams = new URLSearchParams({
         startDate: startDate,
         endDate: endDate
@@ -55,7 +46,7 @@ const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {
         const data = await response.json(); 
         console.log("서버 응답:", data);
         if (onSubmit) {
-          onSubmit(data); 
+          onSubmit(data,sortOrder); 
         }
         setShowDateFilter(false); 
       } else {
@@ -95,6 +86,8 @@ const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {
   };
 
   const handleSortChange = (order) => {
+    console.log(order);
+    
     setSortOrder(order);
     setShowSortDropdown(false); 
   };
@@ -119,7 +112,7 @@ const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <form onSubmit={handleSubmit}>
+        <form>
           <div>
             <label htmlFor="startDate">From</label>
             <input
