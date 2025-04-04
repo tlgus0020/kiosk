@@ -20,6 +20,7 @@ import com.my.kiosk.stock.classes.MerchDTO;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockDTO;
 import com.my.kiosk.stock.classes.StockIn;
+import com.my.kiosk.stock.classes.StockListDTO;
 import com.my.kiosk.stock.classes.User;
 import com.my.kiosk.stock.classes.placeDTO;
 import com.my.kiosk.stock.service.StockService;
@@ -114,6 +115,11 @@ public class StockRestController {
 
 	        return ResponseEntity.ok(result);
 
+	    }
+	    
+	    @GetMapping("/stocktotalList")
+	    public List<StockListDTO> getStocktotalList(){
+	    	return stockService.getStockTotalList();
 	    }
 
 }

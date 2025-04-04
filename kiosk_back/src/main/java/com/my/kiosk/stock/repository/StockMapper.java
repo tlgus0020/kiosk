@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import com.my.kiosk.stock.classes.Menu;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockIn;
+import com.my.kiosk.stock.classes.StockListDTO;
 import com.my.kiosk.stock.classes.StockOut;
 import com.my.kiosk.stock.classes.User;
 import com.my.kiosk.stock.classes.MenuOrder;
@@ -51,5 +52,7 @@ public interface StockMapper {
 	void setRetireStock(int menu, int place);
 	
 	public Integer isRetired(int menu);
+
+	public List<StockListDTO> getStockTotalList();
 
 }

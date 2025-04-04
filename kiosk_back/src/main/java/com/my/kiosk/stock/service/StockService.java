@@ -13,6 +13,7 @@ import com.my.kiosk.stock.classes.Place_SellDTO;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockDTO;
 import com.my.kiosk.stock.classes.StockIn;
+import com.my.kiosk.stock.classes.StockListDTO;
 import com.my.kiosk.stock.classes.StockOut;
 import com.my.kiosk.stock.classes.User;
 import com.my.kiosk.stock.classes.placeDTO;
@@ -169,4 +170,8 @@ public class StockService {
     	}
     	return dto;
     }
+
+	public List<StockListDTO> getStockTotalList() {
+		return stockmapper.getStockTotalList();
+	}
 }
