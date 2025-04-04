@@ -67,7 +67,7 @@ export function Head_Center(props){
                 <td>{item.selling? "판매중" : "판매중단"}</td>
                 <td id="orderState">
                   {item.inOrder == -1? null : 
-                    <select onChange={(e) => handleChangeOrder(item.out_id,e)} id="orderState" defaultValue={item.inOrder? 2 : 0}>
+                    <select onChange={(e) => handleChangeOrder(item.out_id,e)} id="orderState" defaultValue={item.inOrder}>
                         <option value={0}>발주됨</option>
                         <option value={1}>배송중</option>
                         <option value={2}>확인중</option>
