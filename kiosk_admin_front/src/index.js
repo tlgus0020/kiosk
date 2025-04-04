@@ -6,8 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import Login from './Login';
 
 function Root() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true); 
-  const [isAdmin, setIsAdmin] = useState(true);       
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isAdmin, setIsAdmin] = useState(false);       
 
   useEffect(() => {
     console.log('isAdmin:', isAdmin);

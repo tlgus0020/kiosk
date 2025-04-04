@@ -52,4 +52,6 @@ public interface StockMapper {
 	
 	public Integer isRetired(int menu);
 
+	public int saveMenu(Menu menu);
+
 }

@@ -106,7 +106,13 @@
 		select selling from stock where menu_id=#{param1} and place_id=#{param2};
 	</select>
 	
+	<!-- 메뉴 처리 -->
 	<select id="getAllMenu" resultType="com.my.kiosk.stock.classes.Menu">
 		select * from menu;
 	</select>
+	
+	<insert id="saveMenu" parameterType="com.my.kiosk.stock.classes.Menu" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO menu (name, code, img, state)
+        VALUES (#{name}, #{code}, #{img}, #{state})
+    </insert>
 </mapper>
