@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.my.kiosk.stock.classes.Menu;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockDTO;
+import com.my.kiosk.stock.classes.StockOut;
+import com.my.kiosk.stock.classes.MenuOrder;
 import com.my.kiosk.stock.repository.StockMapper;
 
 @Service
@@ -22,6 +24,38 @@ public class AdminService {
 		
 	}
 	
+	
+    
+    /**발주state 처리할때..
+    /발주state가 기존에 있다면 기존의 발주 state를 변경해야할 필요가 있음. 가장 최근에 동일한 조건의 출고 내역을 확인해서 내역이 있는지 확인.
+    /있다 -> 재발주, 기존 StockOut의 id로 state를 select해서, 새로 만든 StockOut id로 update하고 state 0으로 바꿈.
+    **/
+    public void processStockOut(int menu, int place, int amount) {
+    	
+    	StockOut history = stockmapper.thereIsSameOrderBefore(menu,place);
+    	StockOut news = new StockOut();
+    	news.setMenu_id(menu);
+    	news.setPlace_id(place);
+    	news.setAmount(amount);
+        stockmapper.insertStockOut(news); // 출고 데이터 저장
+        StockOut newsnow =  stockmapper.thereIsSameOrderBefore(menu,place);
+        if(history == null) {
+        	System.out.println("처음 오더입니다.");
+        	stockmapper.insertStockOrder(newsnow.getId());
+        }
+        else {
+        	System.out.println("이전에 같은 발주 요청이 있었습니다.");
+        	System.out.println(newsnow);
+        	System.out.println(history);
+        	stockmapper.updateStockOrder(newsnow.getId(),history.getId());
+        }
+    }
+
+    
+    
+    public void setStockState(int outid, int state) {
+    	stockmapper.updateStockOrderState(outid, state);
+    }
     public List<StockDTO> getStockList(){
     	List<Stock> stocks = stockmapper.findAll();
     	System.out.println(stocks);
@@ -31,8 +65,21 @@ public class AdminService {
     		 r.setPlace_name(stockmapper.getPlaceName(s.getPlace_id()));
     		 r.setFlavor_name(stockmapper.getMenuName(s.getMenu_id()));
     		 r.setAmount(s.getStock_qty());
-    		 r.setInOrder(false); // 발주중
     		 
+    		 StockOut out = stockmapper.thereIsSameOrderBefore(s.getPlace_id(), s.getMenu_id());
+    		 if(out != null) {
+    			 MenuOrder ord = stockmapper.getStockOrderState(out.getId());
+    			 if(ord == null) {
+    				 r.setInOrder(-1);
+    			 }
+    		 	else {
+    		 		r.setInOrder(ord.getState()); // 발주중
+    		 		r.setOut_id(out.getId());
+    		 	}
+    		 }
+    		 else {
+    			 r.setInOrder(-1);
+    		 }
     		 if(stockmapper.isRetired(s.getMenu_id()) == null || stockmapper.isRetired(s.getMenu_id()) == 0){
     			 r.setSelling(false);
     		 }

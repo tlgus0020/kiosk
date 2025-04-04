@@ -50,6 +50,7 @@ public class AdminREST {
 	@PostMapping("/setStockState")
 	public ResponseEntity<?> setStockState(@RequestParam("id") String id, @RequestParam("state") String state) {
 		System.out.println(id +  state);
+		serv.setStockState(Integer.parseInt(id),Integer.parseInt(state));
 		return ResponseEntity.ok("ㅋ");
 	}
 	

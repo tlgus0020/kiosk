@@ -96,7 +96,6 @@ public class StockService {
     		 r.setPlace_name(stockmapper.getPlaceName(s.getPlace_id()));
     		 r.setFlavor_name(stockmapper.getMenuName(s.getMenu_id()));
     		 r.setAmount(s.getStock_qty());
-    		 r.setInOrder(false); // 발주중
     		 
     		 if(stockmapper.isRetired(s.getMenu_id()) == null || stockmapper.isRetired(s.getMenu_id()) == 0){
     			 r.setSelling(false);

@@ -11,6 +11,7 @@ import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockIn;
 import com.my.kiosk.stock.classes.StockOut;
 import com.my.kiosk.stock.classes.User;
+import com.my.kiosk.stock.classes.MenuOrder;
 
 
 @Mapper
@@ -45,7 +46,8 @@ public interface StockMapper {
 	public Integer getPlaceSellingById(int menu, int place);
 	
 	void setRetire(int menu);
-	
+	MenuOrder getStockOrderState(int id);
+	void updateStockOrderState(int state,int code);
 	void setRetireStock(int menu, int place);
 	
 	public Integer isRetired(int menu);

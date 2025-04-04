@@ -16,7 +16,7 @@ export function Head_Center(props){
         axios(`${REST}/admin/setStockState`,  
             {
             method : "POST",
-            data: {
+            params: {
                 id: idx,
                 state: e.target.value
             }
@@ -66,11 +66,12 @@ export function Head_Center(props){
                 <td>{item.place_name}</td>
                 <td>{item.selling? "판매중" : "판매중단"}</td>
                 <td id="orderState">
-                    <select onChange={(e) => handleChangeOrder(index,e)} id="orderState" defaultValue={item.inOrder? 2 : 0}>
+                  {item.inOrder == -1? null : 
+                    <select onChange={(e) => handleChangeOrder(item.out_id,e)} id="orderState" defaultValue={item.inOrder? 2 : 0}>
                         <option value={0}>발주됨</option>
                         <option value={1}>배송중</option>
                         <option value={2}>확인중</option>
-                    </select>
+                    </select> }
                 </td>
               </tr>
             ))}

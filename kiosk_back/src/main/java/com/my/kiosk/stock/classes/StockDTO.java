@@ -10,7 +10,8 @@ public class StockDTO {
 	String flavor_name;
 	int amount;
 	boolean selling;
-	boolean inOrder;
+	int inOrder;
 	int place_id;
 	int flavor_id;
+	int out_id;
 }
