@@ -113,21 +113,25 @@
 	
 
 	<select id="getStockTotalList" resultType="com.my.kiosk.stock.classes.StockListDTO">
-		SELECT p.name AS place_name,
-		m.name AS menu_name,
-		m.img AS img_path,
-		s.stock_qty,
-		m.state AS product_state,
-		o.state AS order_state
-		FROM stock s
-		JOIN menu m ON s.menu_id = m.id
-		JOIN place p ON s.place_id = p.id
-		LEFT JOIN (
-		    SELECT menu_id, MAX(out_id) AS latest_order_id
-		    FROM `order`
-		    GROUP BY menu_id
-		) lo ON s.menu_id = lo.menu_id
-		LEFT JOIN `order` o ON o.out_id = lo.latest_order_id
+		SELECT 
+	    p.name AS place_name,
+	    m.name AS menu_name,
+	    m.img AS img_path,
+	    s.stock_qty,
+	    m.state AS product_state,
+	    o.state AS order_state
+	FROM stock s
+	JOIN menu m ON s.menu_id = m.id
+	JOIN place p ON s.place_id = p.id
+	LEFT JOIN (
+	    SELECT so.menu_id, so.place_id, MAX(mo.id) AS latest_order_id
+	    FROM menu_order mo
+	    JOIN stock_out so ON mo.out_id = so.id
+	    GROUP BY so.menu_id, so.place_id
+	) lo ON s.menu_id = lo.menu_id AND s.place_id = lo.place_id
+	LEFT JOIN menu_order o ON o.id = lo.latest_order_id
+
+
 	</select>
 
 	<insert id="saveMenu" parameterType="com.my.kiosk.stock.classes.Menu" useGeneratedKeys="true" keyProperty="id">

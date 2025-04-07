@@ -8,5 +8,5 @@ import lombok.Setter;
 public class MenuOrder {
 	private int id;
 	private int out_id;
-	private int state;
+	private int state;	
 }
