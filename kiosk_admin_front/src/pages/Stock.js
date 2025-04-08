@@ -23,8 +23,8 @@ const Stock = () => {
 
   return (
     <div className="pay-container">
-      <div className="pay-table">
-        <table>
+      <table className="pay-table">
+        
           <thead>
             <tr>
               <th>NO</th>
@@ -49,26 +49,26 @@ const Stock = () => {
                 {console.log('order_state:', item.order_state)}
 
                 <td id="orderState">
-  {item.order_state == null ? null : (
-    Number(item.order_state) === 0 ? (
-      <span className="badge badge-waiting">
-        <span className="dot orange" /> 확인중
-      </span>
-    ) : Number(item.order_state) === 1 ? (
-      <span className="badge badge-progress">
-        <span className="dot purple" /> 배송중
-      </span>
-    ) : Number(item.order_state) === 2 ? (
-      <span className="badge badge-success">
-        <span className="dot green" /> 발주됨
-      </span>
-    ) : (
-      <span className="badge badge-unknown">
-        <span className="dot gray" /> 알 수 없음
-      </span>
-    )
-  )}
-</td>
+                {item.order_state == null ? null : (
+                  Number(item.order_state) === 0 ? (
+                    <span className="badge badge-waiting">
+                      <span className="dot orange" /> 확인중
+                    </span>
+                  ) : Number(item.order_state) === 1 ? (
+                    <span className="badge badge-progress">
+                      <span className="dot purple" /> 배송중
+                    </span>
+                  ) : Number(item.order_state) === 2 ? (
+                    <span className="badge badge-success">
+                      <span className="dot green" /> 발주됨
+                    </span>
+                  ) : (
+                    <span className="badge badge-unknown">
+                      <span className="dot gray" /> 알 수 없음
+                    </span>
+                  )
+                )}
+              </td>
 
 
                 <td>
@@ -85,8 +85,8 @@ const Stock = () => {
               </tr>
             ))}
           </tbody>
-        </table>
-      </div>
+        
+      </table>
 
       {/* 모달 렌더링 */}
       {showOrderModal && selectedItem && (
