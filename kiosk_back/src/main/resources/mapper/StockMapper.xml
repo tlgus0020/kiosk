@@ -120,10 +120,10 @@
 	    s.stock_qty,
 	    m.state AS product_state,
 	    o.state AS order_state
-	FROM stock s
-	JOIN menu m ON s.menu_id = m.id
-	JOIN place p ON s.place_id = p.id
-	LEFT JOIN (
+		FROM stock s
+		JOIN menu m ON s.menu_id = m.id
+		JOIN place p ON s.place_id = p.id
+		LEFT JOIN (
 	    SELECT so.menu_id, so.place_id, MAX(mo.id) AS latest_order_id
 	    FROM menu_order mo
 	    JOIN stock_out so ON mo.out_id = so.id

@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../css/Pay.css';
 import OrderModal from '../util/orderModal';
 
-const Stock = () => {
+  const Stock = () => {
   const [stockList, setStockTotalList] = useState([]);
   const REST = process.env.REACT_APP_REST;
   const [showOrderModal, setShowOrderModal] = useState(false);
@@ -52,7 +52,7 @@ const Stock = () => {
                 {item.order_state == null ? null : (
                   Number(item.order_state) === 0 ? (
                     <span className="badge badge-waiting">
-                      <span className="dot orange" /> 확인중
+                      <span className="dot orange" /> 발주됨
                     </span>
                   ) : Number(item.order_state) === 1 ? (
                     <span className="badge badge-progress">
@@ -60,7 +60,7 @@ const Stock = () => {
                     </span>
                   ) : Number(item.order_state) === 2 ? (
                     <span className="badge badge-success">
-                      <span className="dot green" /> 발주됨
+                      <span className="dot green" /> 확인중
                     </span>
                   ) : (
                     <span className="badge badge-unknown">

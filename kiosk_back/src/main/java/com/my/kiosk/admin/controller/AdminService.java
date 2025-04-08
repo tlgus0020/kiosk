@@ -76,7 +76,7 @@ public class AdminService {
     		 r.setFlavor_name(stockmapper.getMenuName(s.getMenu_id()));
     		 r.setAmount(s.getStock_qty());
     		 
-    		 StockOut out = stockmapper.thereIsSameOrderBefore(s.getPlace_id(), s.getMenu_id());
+    		 StockOut out = stockmapper.thereIsSameOrderBefore(s.getMenu_id(), s.getPlace_id());
     		 if(out != null) {
     			 MenuOrder ord = stockmapper.getStockOrderState(out.getId());
     			 if(ord == null) {
@@ -110,42 +110,48 @@ public class AdminService {
 
 
 	public int addMenu(MenuDTO menudto) {
-		Map<String,Object> response = new HashMap<>();
-        
-        if(menudto.getImg().isEmpty()) {
-        	return 0;
-        }
-        
-        String path = "C:\\Users\\admin\\Documents\\tlgus\\kiosk\\kiosk_back\\src\\main\\resources\\static\\img";
-        File filePath = new File(path);
-        
-        if(!filePath.exists()) {
-        	filePath.mkdir();
-        	System.out.println("파일생성");
-        }
-        
-        String originalName = menudto.getImg().getOriginalFilename();
-        String filePullPath = path + File.separator + originalName;
-        String fileLink = "http://localhost:8080/admin/img/" + originalName;
-        
-        try {
-        	File destfile = new File(filePullPath);
-        	menudto.getImg().transferTo(destfile);
-        	
-        	Menu menu = new Menu();
-        	menu.setName(menudto.getName());
-        	menu.setCode(menudto.getCode());
-        	menu.setImg(fileLink);
-        	menu.setState(false);
-        	
-        	return stockmapper.saveMenu(menu);
-        	
-        } catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-        
-		return 0;
+	    if (menudto.getImg().isEmpty()) {
+	        return 0;
+	    }
+
+	    // 실행 환경 기준 상대 경로 설정 (src/main/resources/static/img)
+	    String path = System.getProperty("user.dir") + File.separator +
+	                  "src" + File.separator + "main" + File.separator + "resources" +
+	                  File.separator + "static" + File.separator + "img";
+
+	    File filePath = new File(path);
+
+	    // 디렉토리가 없으면 생성 (상위 폴더 포함)
+	    if (!filePath.exists()) {
+	        filePath.mkdirs();
+	        System.out.println("이미지 저장 경로 생성됨: " + path);
+	    }
+
+	    String originalName = menudto.getImg().getOriginalFilename();
+	    String fileFullPath = path + File.separator + originalName;
+
+	    // 클라이언트가 접근할 수 있는 이미지 URL 경로
+	    String fileLink = "http://localhost:8080/admin/img/" + originalName;
+
+	    try {
+	        File destfile = new File(fileFullPath);
+	        menudto.getImg().transferTo(destfile);  // 실제 파일 저장
+
+	        Menu menu = new Menu();
+	        menu.setName(menudto.getName());
+	        menu.setCode(menudto.getCode());
+	        menu.setImg(fileLink);  // DB에는 접근 가능한 URL만 저장
+	        menu.setState(false);
+
+	        return stockmapper.saveMenu(menu);
+
+	    } catch (Exception e) {
+	        System.out.println("파일 업로드 중 오류: " + e.getMessage());
+	    }
+
+	    return 0;
 	}
+
 	/****************** 메뉴 기능 *********************/
 
 

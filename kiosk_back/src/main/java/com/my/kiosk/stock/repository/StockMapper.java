@@ -48,7 +48,8 @@ public interface StockMapper {
 	
 	void setRetire(int menu);
 	MenuOrder getStockOrderState(int id);
-	void updateStockOrderState(int state,int code);
+	void updateStockOrderState(@Param("code") int outId, @Param("state") int state);
+
 	void setRetireStock(int menu, int place);
 	
 	public Integer isRetired(int menu);
