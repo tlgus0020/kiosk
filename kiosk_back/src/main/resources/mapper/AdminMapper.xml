@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.my.kiosk.admin.repository.AdminMapper">
+	<select id="getFullStocks" resultType="com.my.kiosk.stock.classes.StockFullDTO">
+	SELECT 
+	    stock.*, 
+	    menu.name AS menu_name, 
+	    place.name AS place_name,
+	    menu.state AS state
+	FROM stock
+	INNER JOIN menu ON stock.menu_id = menu.id
+	INNER JOIN place ON stock.place_id = place.id;
+	</select>
+    
+    
+</mapper>

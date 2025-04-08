@@ -13,11 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.my.kiosk.admin.repository.AdminMapper;
 import com.my.kiosk.stock.classes.Menu;
 import com.my.kiosk.stock.classes.MenuDTO;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockDTO;
+import com.my.kiosk.stock.classes.StockFullDTO;
 import com.my.kiosk.stock.classes.StockOut;
 import com.my.kiosk.stock.classes.MenuOrder;
 import com.my.kiosk.stock.repository.StockMapper;
@@ -29,6 +32,9 @@ public class AdminService {
 	
 	@Autowired
 	StockMapper stockmapper;
+	
+	@Autowired
+	AdminMapper adminmapper;
 	
 	public void Method() {
 		
@@ -67,14 +73,20 @@ public class AdminService {
     	stockmapper.updateStockOrderState(outid, state);
     }
     
+    
+    public List<StockFullDTO> tester(){
+    	return adminmapper.getFullStocks();
+    }
+    
+    @Transactional
     public List<StockDTO> getStockList(){
-    	List<Stock> stocks = stockmapper.findAll();
+    	List<StockFullDTO> stocks = adminmapper.getFullStocks();
     	System.out.println(stocks);
     	List<StockDTO> result = new ArrayList<>();
-    	for(Stock s : stocks) {
-    		StockDTO r = new StockDTO();
-    		 r.setPlace_name(stockmapper.getPlaceName(s.getPlace_id()));
-    		 r.setFlavor_name(stockmapper.getMenuName(s.getMenu_id()));
+    	for(StockFullDTO s : stocks) {
+    		 StockDTO r = new StockDTO();
+    		 r.setPlace_name(s.getPlace_name());
+    		 r.setFlavor_name(s.getMenu_name());
     		 r.setAmount(s.getStock_qty());
     		 
     		 StockOut out = stockmapper.thereIsSameOrderBefore(s.getMenu_id(), s.getPlace_id());
@@ -91,12 +103,7 @@ public class AdminService {
     		 else {
     			 r.setInOrder(-1);
     		 }
-    		 if(stockmapper.isRetired(s.getMenu_id()) == null || stockmapper.isRetired(s.getMenu_id()) == 0){
-    			 r.setSelling(false);
-    		 }
-    		 else {
-        		 r.setSelling(s.isSelling());
-    		 }
+    		 r.setSelling(!s.isState());
     		 r.setFlavor_id(s.getMenu_id());
     		 r.setPlace_id(s.getPlace_id());
     		 result.add(r);

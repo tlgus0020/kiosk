@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.my.kiosk.stock.classes.Menu;
 import com.my.kiosk.stock.classes.MenuDTO;
 import com.my.kiosk.stock.classes.StockDTO;
+import com.my.kiosk.stock.classes.StockFullDTO;
 
 import java.net.MalformedURLException;
 import java.nio.file.Path;
@@ -49,9 +50,9 @@ public class AdminREST {
 	AdminService serv;
 	
 	@GetMapping("/test")
-	public ResponseEntity<?> getMethodName() {
+	public List<StockFullDTO> getMethodName() {
 		System.out.println("zz");	
-		return ResponseEntity.ok("ㅋ");
+		return serv.tester();
 	}
 	
 	
