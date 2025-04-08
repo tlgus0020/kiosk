@@ -139,4 +139,16 @@
         VALUES (#{name}, #{code}, #{img}, #{state})
     </insert>
 
+	<select id="findMenuByCode" resultType="int">
+	    SELECT id FROM menu WHERE code = #{code}
+	</select>
+	
+	<select id="findPlaceIdAll" resultType="java.lang.Integer">
+    	SELECT id FROM place
+	</select>
+	
+	<insert id="setupInitialStock">
+	    INSERT INTO stock (menu_id, place_id, stock_qty, date)
+	    VALUES (#{menuId}, #{placeId}, 0, NOW())
+	</insert>
 </mapper>
