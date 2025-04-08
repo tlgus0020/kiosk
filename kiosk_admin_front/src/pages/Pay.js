@@ -61,7 +61,14 @@ const Pay = () => {
     });
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (e) => {
+
+    const ele = document.querySelectorAll(".place-btn");
+    ele.forEach(element => {
+      element.classList.remove("selected");
+    });
+    e.target.classList.add("selected");
+
     setIsClicked(!isClicked);
   };
 
@@ -93,9 +100,9 @@ const Pay = () => {
                 className="search-input" 
               />
             </th>
-            <th><button className="place-btn" onClick={() =>{ handlePlaceFilter('강서지점'); handleButtonClick();}}>강서지점</button></th>
-            <th><button className="place-btn" onClick={() =>{ handlePlaceFilter('상봉지점'); handleButtonClick();}}>상봉지점</button></th>
-            <th><button className="place-btn" onClick={() =>{ handlePlaceFilter('하남지점'); handleButtonClick();}}>하남지점</button></th>
+            <th><button className="place-btn" onClick={(e) =>{ handlePlaceFilter('강서지점'); handleButtonClick(e);}}>강서지점</button></th>
+            <th><button className="place-btn" onClick={(e) =>{ handlePlaceFilter('상봉지점'); handleButtonClick(e);}}>상봉지점</button></th>
+            <th><button className="place-btn" onClick={(e) =>{ handlePlaceFilter('하남지점'); handleButtonClick(e);}}>하남지점</button></th>
           </tr>
           <tr>
             <th>NO</th>
