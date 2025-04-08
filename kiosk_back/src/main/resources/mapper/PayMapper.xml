@@ -16,7 +16,7 @@
     	SELECT * FROM size WHERE id = #{id}
 	</select>
 	
-	<select id="findPlaceById" parameterType="int" resultType="com.my.kiosk.global.classes.Place">
+	<select id="findPlaceById" parameterType="int" resultType="com.my.kiosk.place.classes.Place">
     	SELECT * FROM place WHERE id = #{id}
 	</select>
 	
