@@ -6,11 +6,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.my.kiosk.global.classes.Place;
 import com.my.kiosk.global.classes.Size;
 import com.my.kiosk.pay.classes.Pay;
 import com.my.kiosk.pay.classes.PayDTO;
 import com.my.kiosk.pay.classes.PayDetail;
+import com.my.kiosk.place.classes.Place;
 
 @Mapper
 public interface PayMapper {

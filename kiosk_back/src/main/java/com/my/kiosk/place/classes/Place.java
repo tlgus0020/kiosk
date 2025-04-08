@@ -1,4 +1,4 @@
-package com.my.kiosk.global.classes;
+package com.my.kiosk.place.classes;
 
 import lombok.Data;
 

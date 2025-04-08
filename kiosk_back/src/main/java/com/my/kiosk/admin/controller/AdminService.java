@@ -66,6 +66,7 @@ public class AdminService {
     public void setStockState(int outid, int state) {
     	stockmapper.updateStockOrderState(outid, state);
     }
+    
     public List<StockDTO> getStockList(){
     	List<Stock> stocks = stockmapper.findAll();
     	System.out.println(stocks);

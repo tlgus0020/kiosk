@@ -7,17 +7,20 @@ const Pay = () => {
   const [payList, setPayList] = useState([]);
   const REST = process.env.REACT_APP_REST;
   const navigate = useNavigate();
-  const [showDateFilter, setShowDateFilter] = useState(false);  
+  const [showDateFilter, setShowDateFilter] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortOrder, setSortOrder] = useState("desc");
+  const [sortOrder, setSortOrder] = useState('desc');
   const [filterPlaces, setFilterPlaces] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
-  const handleDataSubmit = (filteredData , sortOrder) => {
+  const [placeNames, setPlaceNames] = useState([]); // ✅ 지점 이름 리스트 상태
+
+  const handleDataSubmit = (filteredData, sortOrder) => {
     setSortOrder(sortOrder);
-    setPayList(filteredData);  
-    setShowDateFilter(false); 
+    setPayList(filteredData);
+    setShowDateFilter(false);
   };
 
+  // ✅ 결제 내역 불러오기
   useEffect(() => {
     fetch(`${REST}/api/pay/list`)
       .then((res) => res.json())
@@ -30,45 +33,51 @@ const Pay = () => {
       });
   }, []);
 
-  const filterPayList = payList
-  .filter((item) => {
-    return item.size.toLowerCase().includes(searchTerm.toLowerCase());
-  })
-  .filter((item) => {
-    if (filterPlaces.length > 0) {
-      return filterPlaces.includes(item.pay_place)
-    }
-    return true; 
-  })
-  .sort((a, b) => {
-    const dateA = new Date(a.pay_date);
-    const dateB = new Date(b.pay_date);
+  // ✅ 지점 목록 불러오기
+  useEffect(() => {
+    fetch(`${REST}/api/place/getnames`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('지점 목록:', data);
+        setPlaceNames(data);
+      })
+      .catch((err) => console.error('지점 목록 가져오기 실패:', err));
+  }, []);
 
-    if (sortOrder === "desc") {
-      return dateB - dateA;
-    } else {
-      return dateA - dateB;  
-    }
-  });
+  // ✅ 필터링 처리
+  const filterPayList = payList
+    .filter((item) => {
+      return item.size.toLowerCase().includes(searchTerm.toLowerCase());
+    })
+    .filter((item) => {
+      if (filterPlaces.length > 0) {
+        return filterPlaces.includes(item.pay_place);
+      }
+      return true;
+    })
+    .sort((a, b) => {
+      const dateA = new Date(a.pay_date);
+      const dateB = new Date(b.pay_date);
+
+      return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+    });
 
   const handlePlaceFilter = (place) => {
     setFilterPlaces((prevFilterPlaces) => {
       if (prevFilterPlaces.includes(place)) {
-        return prevFilterPlaces.filter((p) => p !== place); 
+        return prevFilterPlaces.filter((p) => p !== place);
       } else {
-        return [...prevFilterPlaces, place]; 
+        return [...prevFilterPlaces, place];
       }
     });
   };
 
   const handleButtonClick = (e) => {
-
-    const ele = document.querySelectorAll(".place-btn");
-    ele.forEach(element => {
-      element.classList.remove("selected");
+    const ele = document.querySelectorAll('.place-btn');
+    ele.forEach((element) => {
+      element.classList.remove('selected');
     });
-    e.target.classList.add("selected");
-
+    e.target.classList.add('selected');
     setIsClicked(!isClicked);
   };
 
@@ -77,7 +86,7 @@ const Pay = () => {
       {/* DateFilter 모달 */}
       {showDateFilter && (
         <>
-          <div className="overlay" onClick={() => setShowDateFilter(false)}></div>          
+          <div className="overlay" onClick={() => setShowDateFilter(false)}></div>
           <div className="modal">
             <DateFilter onSubmit={handleDataSubmit} setShowDateFilter={setShowDateFilter} />
           </div>
@@ -89,20 +98,34 @@ const Pay = () => {
         <thead>
           <tr>
             <th>
-            <button className="date-btn" onClick={() => setShowDateFilter(true)}>DATE</button>
+              <button className="date-btn" onClick={() => setShowDateFilter(true)}>
+                DATE
+              </button>
             </th>
             <th>
-              <input 
-                type="text" 
-                placeholder="메뉴명을 입력해주세요." 
-                value={searchTerm} 
-                onChange={(e) => setSearchTerm(e.target.value)} 
-                className="search-input" 
+              <input
+                type="text"
+                placeholder="메뉴명을 입력해주세요."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
               />
             </th>
-            <th><button className="place-btn" onClick={(e) =>{ handlePlaceFilter('강서지점'); handleButtonClick(e);}}>강서지점</button></th>
-            <th><button className="place-btn" onClick={(e) =>{ handlePlaceFilter('상봉지점'); handleButtonClick(e);}}>상봉지점</button></th>
-            <th><button className="place-btn" onClick={(e) =>{ handlePlaceFilter('하남지점'); handleButtonClick(e);}}>하남지점</button></th>
+
+            {/* ✅ 동적으로 생성된 지점 버튼들 */}
+            {placeNames.map((placeName) => (
+              <th key={placeName}>
+                <button
+                  className="place-btn"
+                  onClick={(e) => {
+                    handlePlaceFilter(placeName);
+                    handleButtonClick(e);
+                  }}
+                >
+                  {placeName}
+                </button>
+              </th>
+            ))}
           </tr>
           <tr>
             <th>NO</th>
