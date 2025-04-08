@@ -58,5 +58,11 @@ public interface StockMapper {
 
 	public int saveMenu(Menu menu);
 
+	public int findMenuByCode(String code);
+
+	public List<Integer> findPlaceIdAll();
+
+	public void setupInitialStock(@Param("menuId") int menuId, @Param("placeId") int placeId);
+
 
 }

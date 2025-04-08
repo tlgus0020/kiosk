@@ -38,10 +38,10 @@ public class AdminREST {
 	 * Pay 리스트;
 	 * Pay 필터해서 리스트;
 	 *
-	 * Menu 리스트;
+	 * Menu 리스트; <완료>
 	 * Menu 단종 설정;
-	 * Menu 등록;
-	 * 이미지 업로드;
+	 * Menu 등록;  <완료>
+	 * 이미지 업로드; <완료>
 	 * 
 	 */
 	
@@ -78,6 +78,7 @@ public class AdminREST {
 	@PostMapping("/addmenu")
 	public ResponseEntity<?> addMenu(@ModelAttribute MenuDTO menudto){
 		serv.addMenu(menudto);
+		serv.setupInitialStock(menudto.getCode());
 		return ResponseEntity.ok().body("good");
 	}
 	

@@ -147,4 +147,18 @@ public class AdminService {
 		return 0;
 	}
 	/****************** 메뉴 기능 *********************/
+
+
+
+	public void setupInitialStock(String code) {
+		// 먼저 code로 메뉴 id를 찾고 placeList를 받아와서 stock에 추가
+		int menuId = stockmapper.findMenuByCode(code);
+		List<Integer> placeIdList = stockmapper.findPlaceIdAll();
+		
+		for(Integer placeid:placeIdList) {
+			stockmapper.setupInitialStock(menuId, placeid);
+		}
+		
+	}
+	
 }
