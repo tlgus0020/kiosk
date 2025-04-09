@@ -1,6 +1,7 @@
 .pay-container {
   padding: 2rem;
   font-family: 'Pretendard', sans-serif;
+  overflow-x: auto; /* 테이블 깨짐 방지 */
 }
 
 .pay-table {
@@ -12,13 +13,15 @@
   background-color: white;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.12);
 }
-.pay-table th:nth-child(1) { width: 40px; }   /* NO */
-.pay-table th:nth-child(2) { width: 180px; }  /* 메뉴명 */
-.pay-table th:nth-child(3) { width: 120px; }  /* 메뉴코드 */
-.pay-table th:nth-child(4) { width: 300px; }  /* 이미지경로 */
-.pay-table th:nth-child(5) { width: 80px; }   /* 판매상태 */
-.pay-table th:nth-child(6) { width: 100px; }  /* 비고 */
 
+/* 테이블 컬럼 너비: 현재 구조 기준 (7개) */
+.pay-table th:nth-child(1) { width: 60px; }   /* NO */
+.pay-table th:nth-child(2) { width: 100px; }  /* 결제수단 */
+.pay-table th:nth-child(3) { width: 160px; }  /* 결제내역 */
+.pay-table th:nth-child(4) { width: 100px; }  /* 결제금액 */
+.pay-table th:nth-child(5) { width: 180px; }  /* 결제일 */
+.pay-table th:nth-child(6) { width: 120px; }  /* 결제지점 */
+.pay-table th:nth-child(7) { width: 160px; }  /* 결제일련번호 */
 
 .pay-table thead {
   background-color: #F4F2FF;
@@ -34,7 +37,6 @@
   border-bottom: 1px solid #eee;
   font-size: 14px;
 
-  /* 텍스트 줄바꿈 처리 */
   word-wrap: break-word;
   word-break: break-all;
   white-space: normal;
@@ -45,6 +47,7 @@
   cursor: pointer;
 }
 
+/* 상단 필터 버튼들 */
 .date-btn {
   background-color: #fff;
   border: 1px solid #000;
@@ -58,20 +61,25 @@
   background-color: #D8D8D8;
   color: #7A7A7A;
   border-radius: 6px;
+  transition: all 0.2s;
 }
 
-.place-btn.clicked {
+.place-btn.selected {
   background-color: #6D5BD0;
   color: white;
 }
 
+/* 입력창 */
 .search-input {
   background-color: #f4f2ff;
   width: 392px;
   height: 40px;
   box-sizing: border-box;
+  border: none;
+  padding: 0 10px;
 }
 
+/* 모달용 */
 .overlay {
   position: fixed;
   top: 0;
@@ -96,6 +104,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* 캘린더용 (추가적으로 분리된 경우 대비) */
 .calendar-overlay {
   position: fixed;
   top: 50%;
@@ -114,6 +123,7 @@
   height: 100%;
 }
 
+/* 상태 뱃지 (추후 사용 예정 대비 유지) */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -154,4 +164,82 @@
 .badge-unknown {
   background-color: #f3f4f6;
   color: #6b7280;
+}
+
+.pay-filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap; /* 지점 버튼 많을 경우 자동 줄바꿈 */
+}
+
+.pay-filters .date-btn {
+  background-color: #fff;
+  border: 1px solid #000;
+  width: 88px;
+  height: 40px;
+}
+
+.pay-filters .search-input {
+  background-color: #f4f2ff;
+  width: 392px;
+  height: 40px;
+  padding: 0 10px;
+  border: solid 1px #000;
+  box-sizing: border-box;
+}
+
+.pay-filters .place-btn {
+  width: 99px;
+  height: 39px;
+  background-color: #D8D8D8;
+  color: #7A7A7A;
+  border-radius: 6px;
+  border: none;
+  transition: 0.2s;
+}
+
+.pay-filters .place-btn.selected {
+  background-color: #6D5BD0;
+  color: white;
+}
+
+.pay-filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.date-btn {
+  background-color: #fff;
+  border: 1px solid #000;
+  width: 88px;
+  height: 40px;
+}
+
+.search-input {
+  background-color: #f4f2ff;
+  width: 392px;
+  height: 40px;
+  box-sizing: border-box;
+  border: none;
+  padding: 0 10px;
+}
+
+.place-btn {
+  width: 99px;
+  height: 39px;
+  background-color: #D8D8D8;
+  color: #7A7A7A;
+  border-radius: 6px;
+  border: none;
+  transition: 0.2s;
+}
+
+.place-btn.selected {
+  background-color: #6D5BD0;
+  color: white;
 }

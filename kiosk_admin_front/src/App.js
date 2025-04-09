@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Stock from './pages/Stock';
 import Pay from './pages/Pay';
 import Nav from './pages/Nav';
@@ -9,21 +9,19 @@ import { Head_Center } from './pages/Head_Center';
 import { Head_nav } from './pages/Head_Nav';
 import { Head_menu } from './pages/Head_menu';
 
-
 function App(props) {
     return (
-        <Router>
-            {props.admin? <Head_nav admin={props.admin}></Head_nav>  : <Nav></Nav>}
+        <>
+            {props.admin ? <Head_nav admin={props.admin} /> : <Nav />}
             <Routes>
                 <Route path="/stock" element={<Stock />} />
                 <Route path="/pay" element={<Pay />} />
-                
                 <Route path="/pay/:id" element={<PayDetail />} />
-                {props.admin? <Route path="/head/stock" element={<Head_Center></Head_Center>}></Route> : null}
-                {props.admin? <Route path="/head/pay" element={<Pay></Pay>}></Route> : null}
-                {props.admin? <Route path="/head/menu" element={<Head_menu />}></Route> : null}
+                {props.admin && <Route path="/head/stock" element={<Head_Center />} />}
+                {props.admin && <Route path="/head/pay" element={<Pay />} />}
+                {props.admin && <Route path="/head/menu" element={<Head_menu />} />}
             </Routes>
-        </Router>
+        </>
     );
 }
 
