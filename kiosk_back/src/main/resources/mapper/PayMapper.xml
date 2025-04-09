@@ -60,6 +60,16 @@
 	  JOIN place pl ON p.place_id = pl.id
 	  WHERE p.pay_date BETWEEN #{start} AND #{end}
 	</select>
+	
+    <!-- 결제정보넣기 테스트 -->
+    <insert id="insert" parameterType="com.my.kiosk.pay.classes.Pay" useGeneratedKeys="true" keyProperty="id">
+	    insert into pay (size_id, place_id, pay_method, pay_num, pay_date)
+	    values (#{size_id}, #{place_id}, #{pay_method}, #{pay_num}, #{pay_date})
+	</insert>
     
+    <insert id="insertPayDetail">
+    	insert into pay_detail values(null, #{pay_id}, #{menu})
+    </insert>
     
+    <!--     test       -->
 </mapper>

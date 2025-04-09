@@ -3,15 +3,19 @@ package com.my.kiosk.pay.controller;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.my.kiosk.pay.classes.PayMentDTO;
 import com.my.kiosk.pay.service.PayService;
 import com.my.kiosk.stock.classes.Stock;
 
@@ -46,4 +50,14 @@ public class PayRestController {
 		return ResponseEntity.ok().body(payService.getdateFilter(start,end));
     	
 	}
+	
+	//결제완료 시 데이터 저장 테스트
+	@PostMapping("/payment")
+	public ResponseEntity<?> insertPayData(@RequestBody PayMentDTO PayData){
+		if(payService.insertPayData(PayData) == 1) {
+			return ResponseEntity.ok().body("성공");
+		}
+		return ResponseEntity.badRequest().body("실패");
+	}
+	
 }

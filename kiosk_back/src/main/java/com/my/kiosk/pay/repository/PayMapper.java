@@ -24,5 +24,9 @@ public interface PayMapper {
 	public List<Pay> findPayByDate(@Param("start")LocalDateTime start,@Param("end") LocalDateTime end);
 	public List<PayDTO> findAllFast();
 	public List<PayDTO> findPayFastByDate(@Param("start")LocalDateTime start,@Param("end") LocalDateTime end);
+	
+	//키오스크 결제시 내용저장 테스트
+	public int insert(Pay pay);
+	public int insertPayDetail(@Param("pay_id")int pay_id, @Param("menu")Integer menu);
 
 }

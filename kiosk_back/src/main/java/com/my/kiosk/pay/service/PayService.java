@@ -12,6 +12,7 @@ import com.my.kiosk.pay.classes.Pay;
 import com.my.kiosk.pay.classes.PayDTO;
 import com.my.kiosk.pay.classes.PayDetail;
 import com.my.kiosk.pay.classes.PayDetailDTO;
+import com.my.kiosk.pay.classes.PayMentDTO;
 import com.my.kiosk.pay.repository.PayMapper;
 
 @Service
@@ -48,5 +49,28 @@ public class PayService {
 	public List<PayDTO> getdateFilter(LocalDateTime start, LocalDateTime end) {
 		return payMapper.findPayFastByDate(start, end);
 	}
-
+	
+	/******************************* 결제 테스트 *******************************************/
+	public int insertPayData(PayMentDTO payData) {
+		Pay pay = new Pay();
+		pay.setSize_id(payData.getSize_id());
+		pay.setPlace_id(payData.getPlace_id());
+		pay.setPay_method(payData.getPay_method());
+		pay.setPay_num(payData.getPay_num());
+		pay.setPay_date(LocalDateTime.now());
+		
+		int insertPay = payMapper.insert(pay);
+		if(insertPay == 1) {
+			int pay_id = pay.getId(); 
+			for(Integer menu:payData.getMenuList()) {
+				if(payMapper.insertPayDetail(pay_id, menu) != 1) {
+					return 0;
+				}
+			}
+			return 1;
+		}
+		
+		return 0;
+	}
+	/***********************************************************************************/
 }
