@@ -45,18 +45,21 @@ const Pay = () => {
 
   // 필터링
   const filterPayList = payList
-    .filter((item) => item.size.toLowerCase().includes(searchTerm.toLowerCase()))
-    .filter((item) => {
-      if (filterPlaces.length > 0) {
-        return filterPlaces.includes(item.pay_place);
-      }
-      return true;
-    })
-    .sort((a, b) => {
-      const dateA = new Date(a.pay_date);
-      const dateB = new Date(b.pay_date);
-      return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
-    });
+  .filter((item) =>
+    item.size?.toLowerCase().includes(searchTerm?.toLowerCase() ?? '')
+  )
+  .filter((item) => {
+    if (filterPlaces.length > 0) {
+      return filterPlaces.includes(item.pay_place);
+    }
+    return true;
+  })
+  .sort((a, b) => {
+    const dateA = new Date(a.pay_date);
+    const dateB = new Date(b.pay_date);
+    return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+  });
+
 
   const handlePlaceFilter = (place) => {
     setFilterPlaces((prev) =>

@@ -36,14 +36,16 @@
 	  SELECT 
 	    p.id,
 	    p.pay_method,
-	    s.size,
-	    s.price,
+		GROUP_CONCAT(s.size SEPARATOR ',') as size,
+	    sum(s.price) as price,
 	    p.pay_date,
 	    pl.name AS pay_place,
 	    p.pay_num
 	  FROM pay p
-	  JOIN size s ON p.size_id = s.id
+	  JOIN size s ON s.id = p.size_id
 	  JOIN place pl ON p.place_id = pl.id
+	  GROUP BY p.pay_num
+	  
 	</select>
 	
 	<select id="findPayFastByDate" resultType="com.my.kiosk.pay.classes.PayDTO" parameterType="map">
