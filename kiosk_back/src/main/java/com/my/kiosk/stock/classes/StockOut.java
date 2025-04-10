@@ -10,24 +10,17 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.Getter;
 
-@Entity
+
 @Data
-@Getter
 public class StockOut {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private int id;
-	
-	@Column(nullable = false)
+
 	private int menu_id;
-	
-	@Column(nullable = false)
+
 	private int place_id;
-	
-	@Column(nullable = false)
+
 	private int amount;
-	
-	@Column(nullable = false)
+
 	private Date date;
 }

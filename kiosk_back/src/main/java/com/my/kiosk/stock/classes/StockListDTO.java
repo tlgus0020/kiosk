@@ -11,4 +11,6 @@ public class StockListDTO {
 	private int stock_qty;
 	private boolean product_state;
 	private String order_state;
+	private int menu_id;
+    private int place_id;
 }

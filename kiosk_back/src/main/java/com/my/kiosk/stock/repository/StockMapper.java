@@ -48,7 +48,8 @@ public interface StockMapper {
 	
 	void setRetire(int menu);
 	MenuOrder getStockOrderState(int id);
-	void updateStockOrderState(@Param("code") int outId, @Param("state") int state);
+	void updateStockOrderState(@Param("outid") int outid, @Param("state") int state);
+
 
 	void setRetireStock(int menu, int place);
 	
@@ -64,6 +65,14 @@ public interface StockMapper {
 	public List<Integer> findPlaceIdAll();
 
 	public void setupInitialStock(@Param("menuId") int menuId, @Param("placeId") int placeId);
+
+	public StockOut getStockOutById(int outid);
+
+	void insertStockOrder(@Param("outid") int outid, @Param("amount") int amount);
+
+	public void increaseStockQty(@Param("menuid") int menuId,@Param("placeid") int placeId,@Param("amount") int amount);
+	void insertOrder(@Param("out_id") int out_id, @Param("amount") int amount);
+
 
 
 }

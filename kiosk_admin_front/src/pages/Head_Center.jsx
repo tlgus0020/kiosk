@@ -12,17 +12,26 @@ export function Head_Center(props){
     const handleDataSubmit = (filteredData) => {
       setPayList(filteredData);  
     };
-  
-    const handleChangeOrder = (idx,e) => {
-        axios(`${REST}/admin/setStockState`,  
-            {
-            method : "POST",
-            params: {
-                id: idx,
-                state: e.target.value
-            }
-        })
-    }
+    const handleChangeOrder = (idx, e) => {
+      const stateValue = parseInt(e.target.value, 10);
+    
+      axios.post(`${REST}/admin/setStockState`, null, {
+        params: {
+          id: idx,
+          state: stateValue
+        }
+      })
+      .then(res => {
+        console.log("✅ 상태 변경 완료:", res.data);
+        alert("상태 변경 성공!");
+      })
+      .catch(err => {
+        console.error("❌ 상태 변경 실패:", err);
+        alert("서버 오류로 상태 변경에 실패했습니다.");
+      });
+    };
+    
+    
     useEffect(() => {
       fetch(`${REST}/admin/GetStock`)
         .then((res) => res.json())

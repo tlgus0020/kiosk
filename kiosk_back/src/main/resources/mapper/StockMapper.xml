@@ -27,6 +27,12 @@
     </update>
 
     <!-- 입고 데이터 삽입 -->
+    <update id="increaseStockQty">
+	  UPDATE stock
+	  SET stock_qty = stock_qty + #{amount}
+	  WHERE menu_id = #{menuid} AND place_id = #{placeid}
+	</update>
+	
     <insert id="insertStockIn" parameterType="com.my.kiosk.stock.classes.StockIn">
         INSERT INTO stock_in (menu_id, place_id, amount, date)
         VALUES (#{menu_id}, #{place_id}, #{amount}, #{date})
@@ -38,6 +44,9 @@
         VALUES (#{menu_id}, #{place_id}, #{amount}, CURDATE())
     </insert>
 	
+	<select id="getStockOutById" resultType="com.my.kiosk.stock.classes.StockOut">
+ 		 select * from stock_out WHERE id = #{id}
+	</select>
 	
 	
 	<select id="thereIsSameOrderBefore" resultType="com.my.kiosk.stock.classes.StockOut">
@@ -45,15 +54,20 @@
 	</select>
 	
 	<insert id="insertStockOrder">
-	   insert into menu_order values(#{param1},0,null)
+	   insert into menu_order (out_id, state, amount) values(#{outid},2,#{amount})
 	</insert>
 	
+	<insert id="insertOrder">
+        INSERT INTO menu_order (out_id, state, amount)
+        VALUES (#{outid}, 2, #{amount})
+    </insert>
+    
 	<select id="getStockOrderState" resultType="com.my.kiosk.stock.classes.MenuOrder">
-	select * from menu_order where out_id = #{param1};	
+		SELECT * FROM menu_order WHERE out_id = #{out_id}	
 	</select>
 	
 	<update id="updateStockOrderState">
-			update menu_order set state = #{param2} where out_id = #{param1};
+			update menu_order set state = #{state}  WHERE out_id = #{outid}
 	</update>
 	<update id="updateStockOrder">
 		update menu_order set out_id = #{param1}, state=0 where id=(select id from menu_order where out_id = #{param2} limit 1)
@@ -119,7 +133,9 @@
 	    m.img AS img_path,
 	    s.stock_qty,
 	    m.state AS product_state,
-	    o.state AS order_state
+	    o.state AS order_state,
+	    s.menu_id,
+    	s.place_id
 		FROM stock s
 		JOIN menu m ON s.menu_id = m.id
 		JOIN place p ON s.place_id = p.id

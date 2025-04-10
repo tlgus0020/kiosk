@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.my.kiosk.order.repository.StockOrderMapper">
+      <insert id="insertOrder" parameterType="com.my.kiosk.order.classes.OrderRequestDTO" >
+	    INSERT INTO menu_order (out_id, state, amount)
+	    VALUES (#{out_id}, 2, #{amount})
+	  </insert>
+  
+  		<insert id="insertStockOut" parameterType="com.my.kiosk.stock.classes.StockOut" useGeneratedKeys="true"
+        keyProperty="id">
+		    INSERT INTO stock_out (menu_id, place_id, amount, date)
+		    VALUES (#{menu_id}, #{place_id}, #{amount}, CURDATE())
+		</insert>
+</mapper>

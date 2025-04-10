@@ -243,3 +243,24 @@
   background-color: #6D5BD0;
   color: white;
 }
+
+/* 재고없음 뱃지 */
+.badge-outofstock {
+  background-color: #f5f2fd;
+  color: #6b5ca5;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.dot.purple {
+  width: 8px;
+  height: 8px;
+  background-color: #6b5ca5;
+  border-radius: 50%;
+}
