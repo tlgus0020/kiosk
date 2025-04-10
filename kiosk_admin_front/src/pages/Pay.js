@@ -45,18 +45,21 @@ const Pay = () => {
 
   // 필터링
   const filterPayList = payList
-    .filter((item) => item.size.toLowerCase().includes(searchTerm.toLowerCase()))
-    .filter((item) => {
-      if (filterPlaces.length > 0) {
-        return filterPlaces.includes(item.pay_place);
-      }
-      return true;
-    })
-    .sort((a, b) => {
-      const dateA = new Date(a.pay_date);
-      const dateB = new Date(b.pay_date);
-      return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
-    });
+  .filter((item) =>
+    item.size?.toLowerCase().includes(searchTerm?.toLowerCase() ?? '')
+  )
+  .filter((item) => {
+    if (filterPlaces.length > 0) {
+      return filterPlaces.includes(item.pay_place);
+    }
+    return true;
+  })
+  .sort((a, b) => {
+    const dateA = new Date(a.pay_date);
+    const dateB = new Date(b.pay_date);
+    return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+  });
+
 
   const handlePlaceFilter = (place) => {
     setFilterPlaces((prev) =>
@@ -70,9 +73,7 @@ const Pay = () => {
       {showDateFilter && (
         <>
           <div className="overlay" onClick={() => setShowDateFilter(false)}></div>
-          <div className="modal">
             <DateFilter onSubmit={handleDataSubmit} setShowDateFilter={setShowDateFilter} />
-          </div>
         </>
       )}
 
@@ -114,7 +115,7 @@ const Pay = () => {
         </thead>
         <tbody>
           {filterPayList.map((item, index) => (
-            <tr key={item.id} onClick={() => navigate(`/pay/${item.id}`)}>
+            <tr key={item.id} onClick={() => navigate(`/pay/${item.pay_num}`)}>
               <td>{index + 1}</td>
               <td>{item.pay_method}</td>
               <td>{item.size}</td>

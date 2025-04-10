@@ -101,6 +101,9 @@ const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {
         return 'hidden-date'; 
       }
     }
+    if (view === 'month' && date.getDay() === 0) { // 일요일 (0)
+      return 'sunday';
+    }
     return null; 
   };
 
@@ -110,57 +113,71 @@ const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <form>
-          <div>
-            <label htmlFor="startDate">From</label>
-            <input
-              type="date"
-              id="startDate"
-              name="startDate"
-              value={startDate || ""} 
-              readOnly
-            />
-            <button type="button" onClick={() => toggleCalendar("start")}>📅</button> {/* 달력 버튼 */}
-          </div>
-
-          <div>
-            <label htmlFor="endDate">To</label>
-            <input
-              type="date"
-              id="endDate"
-              name="endDate"
-              value={endDate || ""}  
-              readOnly
-            />
-            <button type="button" onClick={() => toggleCalendar("end")}>📅</button> {/* 달력 버튼 */}
-          </div>
-        </form>
-
-        <div>
-          <button onClick={() => handlePresetRange("Today")}>Today</button>
-          <button onClick={() => handlePresetRange("This Week")}>This Week</button>
-          <button onClick={() => handlePresetRange("This Month")}>This Month</button>
-        </div>
-
-        <div>
-          <label>Sort by</label>
-          <button type="button" onClick={toggleSortDropdown}>
-            {sortOrder === "asc" ? "오름차순 ▼" : "내림차순 ▼"}
-          </button>
-          {showSortDropdown && (
-            <div className="sort-dropdown">
-              <button onClick={() => handleSortChange("asc")}>오름차순</button>
-              <button onClick={() => handleSortChange("desc")}>내림차순</button>
+      <div className="modal-date">
+        <div className="container-div">
+          <form className="container">
+            <div>
+              <label htmlFor="startDate">From</label>
+              <div className="inputdiv">
+                <input
+                  type="date"
+                  id="startDate"
+                  name="startDate"
+                  value={startDate || ""} 
+                  readOnly
+                />
+                <button className="btn1" type="button" onClick={() => toggleCalendar("start")}>📅</button> {/* 달력 버튼 */}
+              </div>
             </div>
-          )}
+
+            <div>
+              <label htmlFor="endDate">To</label>
+              <div className="inputdiv">
+                <input
+                  type="date"
+                  id="endDate"
+                  name="endDate"
+                  value={endDate || ""}  
+                  readOnly
+                />
+                <button className="btn1" type="button" onClick={() => toggleCalendar("end")}>📅</button> {/* 달력 버튼 */}
+              </div>
+            </div>
+          </form>
+
+          <div className="day-div">
+            <button className="day-btn" onClick={() => handlePresetRange("Today")}>Today</button>
+            <button className="day-btn" onClick={() => handlePresetRange("This Week")}>This Week</button>
+            <button className="day-btn" onClick={() => handlePresetRange("This Month")}>This Month</button>
+          </div>
+
+          <div>
+            <label>Sort by</label>
+            <div className="sort-div">
+              <input 
+                className="sort-input"
+                type="text" 
+                value={sortOrder === 'asc' ? '오름차순' : '내림차순'} 
+                readOnly 
+              />
+              <button className="btn1" type="button" onClick={toggleSortDropdown}>
+                ∨
+              </button>
+            </div>
+              {showSortDropdown && (
+                <div className="sort-dropdown">
+                  <button onClick={() => handleSortChange("asc")}>오름차순</button>
+                  <button onClick={() => handleSortChange("desc")}>내림차순</button>
+                </div>
+              )}
+          </div>
         </div>
 
         <div className="button-container">
-          <button type="button" onClick={handleReset}>리셋</button> 
-          <button type="submit" onClick={handleapply}>적용하기</button>
+          <button className="reset-btn" type="button" onClick={handleReset}>리셋</button> 
+          <button className="submit-btn" type="submit" onClick={handleapply}>적용하기</button>
         </div>
+        
 
         {calendarType && (
           <div className="calendar-overlay">
@@ -175,7 +192,6 @@ const DateFilter = ({ onSubmit, onSortChange, setShowDateFilter }) => {
           </div>
         )}
       </div>
-    </div>
   );
 };
 

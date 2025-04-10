@@ -1,33 +1,244 @@
+.modal-date {
+  padding: 13px 22px 54px 22px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 398px;
+  height: 350px;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 8px;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-date label {
+  font : Hiragino Sans;
+  color: #555E67;
+  font-size: 13.55px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.calendar-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 443px;
+  height: 417px;
+  background-color: white;
+  z-index: 1001;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-container {
+  width: 100%;
+  height: 100%;
+}  
+
+.hidden-date {
+  color: #ddd; /* 색상을 흐리게 하여 표시되지 않도록 */
+  pointer-events: none; /* 클릭 이벤트를 비활성화 */
+}
+
+.container-div {
+  width: 400px;
+  height: 245px;
+  gap:11.3px;
+  padding-bottom: 27px;
+  display: grid;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between; /* 두 div를 양쪽 끝으로 배치 */
+  gap: 18px; /* 두 div 사이의 간격을 추가 */
+}
+
+label {
+  text-align: left;
+  display: block;
+  margin-bottom: 11px;
+  width: 190px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+input {
+  border: none;
+  outline: none; 
+  width:137px;
+  height: 22px;
+}
+
+.inputdiv {
+  border : 1px solid #ecedf0;
+  background-color: #FAFAFA;
+}
+
+.btn1 {
+  width: 41.78px;
+  height: 41.78px;
+  background-color: #EFEFEF;
+  border : none;
+  border-radius: 7.9px;
+  font-size : 8px;
+}
+.day-div{
+  width: 400px;
+  height: 54.2px;
+  display: flex;
+  gap: 11.3px;
+}
+
+#startDate, #endDate {
+  font-family: Andika;
+  color: #555E67;
+  font-size: 13.55px;
+}
+
+.day-btn {
+  width:125px;
+  height: 54.2px;
+  border-radius: 13.55px;
+  border : 1.13px solid #ecedf0;
+  background-color: #fff;
+  font : Hiragino Sans;
+  color: #555E67;
+  font-size: 13.55px;
+}
+
+.day-div button:nth-child(1) {
+  background-color: #F3F0FF;
+}
+
+.sort-div {
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border : 1px solid #ecedf0;
+  background-color: #FAFAFA;
+  margin-bottom: 18px;
+}
+
+.sort-input {
+  font-family: ABeeZee;
+  font-size: 13.55px;
+  color: #555E67;
+}
+
 .sort-dropdown {
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 10px;
-    z-index: 10;
-  }
-  
-  .sort-dropdown button {
-    display: block;
-    width: 100%;
-    padding: 5px 10px;
-    border: none;
-    background: none;
-    cursor: pointer;
-  }
-  
-  .sort-dropdown button:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .hidden-date {
-    color: #ddd; /* 색상을 흐리게 하여 표시되지 않도록 */
-    pointer-events: none; /* 클릭 이벤트를 비활성화 */
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 10;
+  position: absolute;
+  width: 398px;
+}
+
+.sort-dropdown button:hover {
+  background-color: #f0f0f0;
+}
+
+.sort-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.button-container{
+  width: 399px;
+  height: 59px;
+  gap: 18px;
+  display: flex;
   }
 
-  .react-calendar__navigation__prev2-button {
-    display: none; /* 버튼 숨기기 */
-  }
+.button-container > button {
+  width: 190px;
+  height: 59px;
+  border-radius: 8px;
+  border : none;
+}
 
-  .react-calendar__navigation__next2-button {
-    display: none; /* 버튼 숨기기 */
-  }
+.reset-btn {
+  background-color: #F3F0FF;
+}
+
+.submit-btn {
+  background-color: #5A3D8B;
+  color: #fff;
+}
+
+/* calendar css 변경 */
+
+.react-calendar__navigation__prev2-button {
+  display: none; 
+}
+
+.react-calendar__navigation__next2-button {
+  display: none; 
+}
+
+.react-calendar__navigation{
+  height: 55px;
+  display: flex;
+  justify-content: space-evenly;
+  
+}
+
+.react-calendar__navigation button {
+  flex-grow:1;
+  border:none;
+  height: 100%;
+}
+
+.react-calendar__month-view__weekdays{
+  align-items: center;
+  height: 55px;
+}
+
+.react-calendar__month-view__weekdays__weekday{
+  display: flex;
+  justify-content: center;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr{
+  text-decoration: none;
+}
+
+.react-calendar__month-view__days{
+  height: 316px;
+}
+
+.react-calendar__month-view__days button{
+  border : none;
+}
+
+.react-calendar__year-view__months{
+  height: 371px;
+}
+
+.react-calendar__year-view__months button{
+  border : none;
+}
+
+.sunday {
+  color: red;
+}
+

@@ -35,6 +35,12 @@ public class PayRestController {
 	public ResponseEntity<?> getPayDetailById(@PathVariable("id") int id) {
 		return ResponseEntity.ok().body(payService.getPayDetailById(id));
 	}
+	
+	@GetMapping("/details/{pay_num}")
+	public ResponseEntity<?> getPayDetailByPayNum(@PathVariable("pay_num") Long pay_num){
+		
+		return ResponseEntity.ok().body(payService.getPayDetailByPayNum(pay_num));
+	}
 
 	@GetMapping("/datefilter")
 	public ResponseEntity<?> getdateFilter(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate){

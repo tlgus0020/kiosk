@@ -90,7 +90,7 @@
   z-index: 999;
 }
 
-.modal {
+.modal-date {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -176,9 +176,10 @@
 
 .pay-filters .date-btn {
   background-color: #fff;
-  border: 1px solid #000;
+  border: 1px solid #C6C2DE;
   width: 88px;
   height: 40px;
+  border-radius: 6px;
 }
 
 .pay-filters .search-input {
@@ -186,8 +187,11 @@
   width: 392px;
   height: 40px;
   padding: 0 10px;
-  border: solid 1px #000;
+  border: none;
   box-sizing: border-box;
+  border-radius: 6px;
+  font-family: inter;
+  font-size: 12px;
 }
 
 .pay-filters .place-btn {
@@ -211,11 +215,12 @@
   gap: 12px;
   margin-bottom: 16px;
   flex-wrap: wrap;
+  background-color: #fff;
 }
 
 .date-btn {
   background-color: #fff;
-  border: 1px solid #000;
+  border: 1px solid #C6C2DE;
   width: 88px;
   height: 40px;
 }
