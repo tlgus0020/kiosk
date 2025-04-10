@@ -115,7 +115,7 @@ const Pay = () => {
         </thead>
         <tbody>
           {filterPayList.map((item, index) => (
-            <tr key={item.id} onClick={() => navigate(`/pay/${item.id}`)}>
+            <tr key={item.id} onClick={() => navigate(`/pay/${item.pay_num}`)}>
               <td>{index + 1}</td>
               <td>{item.pay_method}</td>
               <td>{item.size}</td>

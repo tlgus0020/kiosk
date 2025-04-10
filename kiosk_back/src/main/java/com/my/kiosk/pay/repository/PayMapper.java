@@ -19,6 +19,7 @@ public interface PayMapper {
 	public Size findSizeById(int id);
 	public Place findPlaceById(int place_id);
 	public Pay findById(int id);
+	public List<Pay> findByPayNum(Long pay_num);
 	public List<PayDetail> findPayDetailByPayId(int id);
 	public String findMenuNameById(int menu_id);
 	public List<Pay> findPayByDate(@Param("start")LocalDateTime start,@Param("end") LocalDateTime end);

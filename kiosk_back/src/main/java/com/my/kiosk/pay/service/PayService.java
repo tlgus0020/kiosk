@@ -73,4 +73,30 @@ public class PayService {
 		return 0;
 	}
 	/***********************************************************************************/
+
+	public List<PayDetailDTO> getPayDetailByPayNum(Long pay_num) {
+		List<Pay> payList = payMapper.findByPayNum(pay_num);
+		List<PayDetailDTO> payDetailList = new ArrayList<PayDetailDTO>();
+		for(Pay pay:payList) {
+			PayDetailDTO payDetailDTO = new PayDetailDTO();
+			payDetailDTO.setId(pay.getId());
+			payDetailDTO.setPay_method(pay.getPay_method());
+			Size size = payMapper.findSizeById(pay.getSize_id());
+			payDetailDTO.setSize(size.getSize());
+			payDetailDTO.setPrice(size.getPrice());
+			payDetailDTO.setPay_date(pay.getPay_date());
+			payDetailDTO.setPay_place(payMapper.findPlaceById(pay.getPlace_id()).getName());
+			payDetailDTO.setPay_num(pay.getPay_num());
+
+			List<PayDetail> payDetails = payMapper.findPayDetailByPayId(pay.getId());
+			List<String> menuNames = new ArrayList<String>();
+			for (PayDetail payDetail : payDetails) {
+				menuNames.add(payMapper.findMenuNameById(payDetail.getMenu_id()));
+			}
+			payDetailDTO.setFlavor(menuNames);
+			payDetailList.add(payDetailDTO);
+		}
+		
+		return payDetailList;
+	}
 }
