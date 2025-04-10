@@ -70,9 +70,7 @@ const Pay = () => {
       {showDateFilter && (
         <>
           <div className="overlay" onClick={() => setShowDateFilter(false)}></div>
-          <div className="modal">
             <DateFilter onSubmit={handleDataSubmit} setShowDateFilter={setShowDateFilter} />
-          </div>
         </>
       )}
 
