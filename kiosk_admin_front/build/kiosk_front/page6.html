@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./page6.css" />
+
+</head>
+<body>
+<header>
+    <img id="logo" src="./images/images2/로고.png" alt="로고" />
+</header>
+
+<nav>
+    <div id="leftdiv">
+        <a class="STEP01" id="STEP">STEP01</a>
+        <a class="navname">포인트/할인</a>
+    </div>
+    <div id="rightdiv">
+        <a class="STEP01">STEP01</a>
+        <a class="navname">쿠폰/결제</a>
+    </div>
+</nav>
+
+<main>
+    <p id="p1">해피포인트 회원이신가요?</p>
+    <div id="maindiv">
+        <div id="div1">
+            <button id="btn"> 
+                <img src="./images/해피포인트.png" alt="해피포인트"> 
+                적립하기
+            </button>
+            <button id="btn">
+                <img src="./images/해피포인트.png" alt="해피포인트"> 
+                사용하기
+            </button>
+        </div>
+        <div id="div2">
+            <div>
+                <p id="p2">* 해피포인트 적립하기</p>
+                <p id="p3">해피포인트 적립을 선택하시면 결제완료 후 자동 적립됩니다.</p>
+            </div>
+            <div>
+                <p id="p2">* 해피포인트 사용하기</p>
+                <p id="p3">100포인트 이상 보유시 사용 가능합니다.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="maindiv">
+        <div id="div1">
+            <button id="btn">
+                <img src="./images/kt.png" alt="kt">
+                KT 멤버쉽할인
+            </button>
+            <button id="btn">
+                <img src="./images/임직원.png" alt="임직원로고">
+                임직원 할인
+            </button>
+        </div>
+        <div id="div2">
+            <p id="p2">* KT 더블할인</p>
+            <p id="p3">
+                상품이름에 KT가 붙어있는<br>
+                KT전용 상품만 할인가능합니다.<br>
+                제휴사 할인 적용시<br>
+                해피포인트는 동일하게 0.1% 적립 됩니다.
+            </p>
+        </div>
+    </div>
+    
+</main>
+
+<section>
+    <div id="sectiondiv1">
+        <span>최종 결제금액</span>
+        <span id="finalAmount">₩ 0</span> <!-- 총 금액을 여기에 표시 -->
+    </div>
+    <div id="sectiondiv2">
+        <span>총 주문금액</span>
+        <span id="finalAmountOrder">₩ 0</span>
+        <span>-</span>
+        <span>총 할인금액</span>
+        <span>\ 0</span>
+    </div>
+</section>
+
+<footer>
+    <div id="footerleft">
+        
+        <button id="before" onclick="location.href='page5.html'">
+            <img src="./images/왼쪽화살표.png" alt="이전" />
+            <span>이전</span>
+        </button>
+        
+    </div>
+    <div id="footerright">
+        <a href="./page7.html"><button id="next">다음단계(결제하기)</button></a>
+    </div>
+</footer>
+</body>
+<script src="page6.js"></script>
+
+</html>

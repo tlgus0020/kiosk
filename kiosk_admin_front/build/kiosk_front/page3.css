@@ -1,0 +1,163 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/* 전체 뷰 */
+.view{
+    width: 1024px;
+    height: 1562px;
+    background-color: lightblue;
+}
+
+/* 상단 메뉴 */
+.menu{
+    display: flex;
+}
+
+/* 이미지 파일이 담긴 div */
+#flavors{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: 1024px;
+    height: 795px;
+}
+
+/* 아이스 크림 이미지와 이름이 담긴 div */
+.icecream{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 256px;
+    height: 256px;
+}
+
+/* 아이스크림 이미지 파일 */
+.imagefile{
+    width: 145px;
+    height: 145px;
+}
+
+#choice-container{
+    background-color: rgb(241, 241, 241);
+    width: 1024px;
+    height: 464px;
+    padding-top: 1px;
+}
+
+#flavor-cart{
+    width: 990px;
+    height: 173px;
+    border-radius: 10px;
+    background-color: white;
+    margin-top: 30px;
+    margin-left: 17px;
+}
+
+#polygon{
+    margin-left: 35px;
+    margin-top: -5px;
+}
+
+.menu-container{
+    margin-top: 50px;
+    margin-left: 45px;
+}
+
+/* 하단 메뉴 */
+footer {
+    display: flex;
+    justify-content: space-around;
+}
+/* ✅ "이전" 버튼 스타일 */
+#back-button {
+  width: 471px;
+  height: 114px;
+  background-color: #fff;
+  color: #F20C93;
+  font-size: 30px;
+  border-radius: 99px;
+  border: 2px solid #F20C93;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  text-decoration: none;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+#back-button, #add-button{
+    margin-top: 50px;
+}
+
+#flavorChoice{
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+
+    overflow-y: hidden;
+}
+.icecream {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.moving-image {
+    position: absolute;
+    transition: top 0.8s ease-in-out, 
+                left 0.8s ease-in-out, 
+                transform 0.6s ease-in-out;
+    z-index: 1000;
+}
+
+.selected-icecream {
+    width: 145px;
+    height: 145px;
+}

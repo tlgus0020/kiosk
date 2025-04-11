@@ -1,0 +1,143 @@
+.imagefile{
+    width: 50px;
+    height: 50px;
+}
+
+#root{
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+
+#orderDiv{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    width: 1024px;
+    height: 1562px;
+}
+
+#top{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: white;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}  
+
+.imagetextbox {
+    position: relative;
+    display: inline-block;
+}
+
+.imagetextbox img {
+    display: block;
+    width: 100%; /* 필요하면 조정 */
+}
+
+.imagetextbox .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+.margin2{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+#sec{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: whitesmoke;
+    height: 10%;
+}
+#orders{
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    height: 60%;
+}
+
+#items{
+    list-style: none;
+}
+
+.item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.selectcount{
+    display: flex;
+    flex-direction: row;
+}
+.selectcount div{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+#bot{
+    margin: 0;
+    padding: 0;
+    background-color: whitesmoke;
+    height: 8%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#purchase{
+    margin: 0;
+    padding: 0;
+    background-color: whitesmoke;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+}
+
+#purchase a{
+}
+#purchase img{
+    width: 80%;
+    
+}
+
+#asdf{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+
+#dur{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#totalPrice{
+    font-size: 50px;
+    color: #F20C93;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 32px; /* 오른쪽 여백 */
+    margin-top: 6px;     /* 위쪽 살짝 정렬 맞춤 */
+}

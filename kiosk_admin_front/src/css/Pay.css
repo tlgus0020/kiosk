@@ -269,3 +269,17 @@
   background-color: #6b5ca5;
   border-radius: 50%;
 }
+
+.badge-sale {
+  background-color: #f2f1ff;
+  color: #5645d9;
+}
+
+.badge-stop {
+  background-color: #ffecec;
+  color: #d03c3c;
+}
+
+.dot.red {
+  background-color: #d03c3c;
+}

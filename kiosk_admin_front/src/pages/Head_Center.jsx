@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DateFilter from "../DateFilter";
 import axios from "axios";
 import { AddMenu } from "./AddMenu";
+import "../css/Pay.css"
 
 export function Head_Center(props){
     const [payList, setPayList] = useState([]);
@@ -74,7 +75,12 @@ export function Head_Center(props){
                 <td>{item.amount}</td>
                 <td>{item.flavor_name}</td>
                 <td>{item.place_name}</td>
-                <td>{item.selling? "판매중" : "판매중단"}</td>
+                <td>
+                  <span className={`badge ${item.selling ? 'badge-stop' : 'badge-sale'}`}>
+                    <span className={`dot ${item.selling ? 'red' : 'purple'}`} />
+                    {item.selling ? '판매중단' : '판매중'}
+                  </span>
+                </td>
                 <td id="orderState">
                   {item.inOrder == -1? null : 
                     <select onChange={(e) => handleChangeOrder(item.out_id,e)} id="orderState" defaultValue={item.inOrder}>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제 완료</title>
+    <link rel="stylesheet" href="./page8.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title">결제가 완료되었습니다.</div>
+        <div class="subtitle">영수증을 확인하세요</div>
+        <div class="number">154</div>
+        <div class="info-box">
+            <img src="./images/image/Frame 136.png">
+            <div class="buttons">
+                <button class="btn btn-agree" onclick="agreePoints()">네, 동의하고 적립할래요!</button>
+                <button class="btn btn-decline" onclick="declinePoints()">아니요, 적립 안할래요</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function agreePoints() {
+            alert("해피포인트 적립을 동의하셨습니다.");
+        }
+        function declinePoints() {
+            alert("해피포인트 적립을 거절하셨습니다.");
+        }
+    </script>
+</body>
+</html>

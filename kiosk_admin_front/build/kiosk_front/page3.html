@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>맛 선택</title>
+    <link href="./page3.css" rel="stylesheet">
+</head>
+<body>
+    <div class="view">
+        <div class="menu">
+            <img src="./images/image/Rectangle 22.png">
+            <img src="./images/image/Frame 91.png">
+        </div>
+
+        <div id="flavors"></div>
+        
+        <div id="choice-container">
+            <div id ="flavor-cart">1번 선택중! 0/1</div> 
+            <img src="./images/image/Polygon 1.png" id = "polygon">
+            <div id="flavorChoice"></div>
+        </div>
+        <footer>
+            <a href="#" id="back-button" onclick="history.back()">이전</a>
+            <a href="#" id="sender"><img src="./images/image/Group 28.png" id="add-button" ></a>
+        </footer>
+    </div>
+
+
+
+    <form method="get" id="send" action="page1-1.html" hidden>
+        <input id="history" name="history">
+        <input id="now" name="now">
+    </form>
+</body>
+<script type="module" src="page3.js"></script>
+</html>
+

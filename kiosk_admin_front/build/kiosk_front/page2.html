@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./page2.css">
+</head>
+<body>
+    <div class="container">
+    <div class="header">
+        <div class="header-box1">
+            <p class="text1">상품정보</p>
+        </div>
+        <div class="header-box2">
+            <p class="text2">플레이버</p>
+        </div>
+    </div>
+    <div class="main">
+        <div class="main_relative">
+            <img class="img_con" src="./images/콘-removebg-preview 2.png" alt="" />
+            <img class="img_cup" src="./images/컵-removebg-preview 1.png" alt="" />
+        </div>
+        <div class="main_box">
+            <p class="text3"></p>
+            <p class="text4"></p>
+        </div> 
+        <div class="main2">
+            <p class="text5"></p>
+        </div>
+</div>
+    
+
+    <div class="sidebar1">
+    <p class="text6"></p>
+    </div>
+    
+    <div class="sidebar2">
+        <div class="sidebarr2">
+        <p class="text7">★★ 본 제품은 포장이 불가합니다 ★★</p>
+        </div>
+        <form action="./page3.html" method="get" id="orderForm">
+            <div class="menu">
+                <button type="button" class="menu1">
+                    <img src="./images/컵-removebg-preview 11.png" alt="" style="width: 91px; height:101px;" />
+                    <p>컵(포장불가)</p>
+                    <p> 
+                        <span class="minus" style="margin-right: 10px;">-</span>
+                        <span class="quantity" style="margin-right: 10px;">0</span>
+                        <span class="plus">+</span>
+                    </p>
+                    <!-- 숨겨진 input 추가 -->
+                    <input type="hidden" name="cup" value="0">
+                </button>
+
+                <button type="button" class="menu2">
+                    <img src="./images/콘-removebg-preview 22.png" alt="" style="width: 69px; height:112px;" />
+                    <p>콘(포장불가)</p>
+                    <p>
+                        <span class="minus" style="margin-right: 10px;">-</span>
+                        <span class="quantity" style="margin-right: 10px;">0</span>
+                        <span class="plus">+</span>
+                    </p>
+                    <!-- 숨겨진 input 추가 -->
+                    <input type="hidden" name="cone" value="0">
+                </button>
+
+                <button type="button" class="menu3">
+                    <img src="./images/콘-removebg-preview 22.png" alt="" style="width: 69px; height:112px;" />
+                    <p>와플콘(포장불가)</p>
+                    <p>
+                        <span class="minus" style="margin-right: 10px;">-</span>
+                        <span class="quantity" style="margin-right: 10px;">0</span>
+                        <span class="plus">+</span>
+                    </p>
+                    <!-- 숨겨진 input 추가 -->
+                    <input type="hidden" name="waffleCone" value="0">
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="footer">
+        <a href="./page1-1.html" style="text-decoration: none;"> <button class="previous">
+            <span style="margin-right: 110px; width:28px; height:48px; font-size:60px; margin-top:-15px">&lt;</span>
+            <span style="margin-right: 130px;">이전</span>
+        </button></a>
+        <button class="flavor"> 플레이버(맛)선택</button>
+    </div>
+</div> 
+
+<script>
+    // 수량 객체 선언
+    let quantities = {
+        cup: 0,
+        cone: 0,
+        waffleCone: 0
+    };
+
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const size = urlParams.get('size');
+    const now = urlParams.get("now");
+            
+    window.onload = () => {
+            // URL에서 size 파라미터를 가져오기
+
+
+
+            // 텍스트와 가격을 변경할 변수들
+            let sizeName;
+            let price;
+
+            // size에 따른 텍스트와 가격 설정
+            switch(size) {
+                case '싱글레귤러':
+                    sizeName = '싱글레귤러';
+                    price = '₩3,200';
+                    sizeOptionText = '(콘/컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '싱글킹':
+                    sizeName = '싱글킹';
+                    price = '₩4,000';
+                    sizeOptionText = '(콘/컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '더블주니어':
+                    sizeName = '더블주니어';
+                    price = '₩4,300';
+                    sizeOptionText = '(콘/컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '더블레귤러':
+                    sizeName = '더블레귤러';
+                    price = '₩6,200';
+                    sizeOptionText = '(콘/컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '파인트':
+                    sizeName = '파인트';
+                    price = '₩8,200';
+                    sizeOptionText = '(컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '쿼터':
+                    sizeName = '쿼터';
+                    price = '₩15,500';
+                    sizeOptionText = '(컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '패밀리':
+                    sizeName = '패밀리';
+                    price = '₩22,000';
+                    sizeOptionText = '(컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+                case '하프갤런':
+                    sizeName = '하프갤런';
+                    price = '₩26,500';
+                    sizeOptionText = '(컵)';
+                    sidebarText = `원하는 맛의 아이스크림을 ${sizeName}로 즐기세요!`;
+                    break;
+            }
+
+            // 해당 값으로 텍스트 업데이트
+            document.querySelector('.text3').textContent = sizeName;
+            document.querySelector('.text4').textContent = sizeOptionText;
+            document.querySelector('.text5').textContent = price;
+            document.querySelector('.text6').textContent = sidebarText;
+
+        };
+
+    // 수량 감소 함수
+    function decreaseQuantity(button) {
+        const quantityElement = button.nextElementSibling;
+        let quantity = parseInt(quantityElement.textContent);
+        if (quantity > 0) {
+            quantity--;
+            quantityElement.textContent = quantity;
+            updateButtonState(button);
+            updateQuantities();
+        }
+    }
+
+    // 수량 증가 함수
+    function increaseQuantity(button) {
+        const quantityElement = button.previousElementSibling;
+        let quantity = parseInt(quantityElement.textContent);
+        quantity++;
+        quantityElement.textContent = quantity;
+        updateButtonState(button);
+        updateQuantities();
+    }
+
+    // 버튼 활성화/비활성화
+    function updateButtonState(button) {
+        const quantityElement = button.closest('button').querySelector('.quantity');
+        let quantity = parseInt(quantityElement.textContent);
+
+        if (quantity > 0) {
+            button.closest('button').classList.add('active');
+        } else {
+            button.closest('button').classList.remove('active');
+        }
+    }
+
+    // 수량 객체와 hidden input 동기화
+    function updateQuantities() {
+        quantities.cup = parseInt(document.querySelector('.menu1 .quantity').textContent);
+        quantities.cone = parseInt(document.querySelector('.menu2 .quantity').textContent);
+        quantities.waffleCone = parseInt(document.querySelector('.menu3 .quantity').textContent);
+
+        document.querySelector('input[name="cup"]').value = quantities.cup;
+        document.querySelector('input[name="cone"]').value = quantities.cone;
+        document.querySelector('input[name="waffleCone"]').value = quantities.waffleCone;
+    }
+
+    // -, + 버튼 이벤트 연결
+    document.querySelectorAll('.minus').forEach(button => {
+        button.addEventListener('click', () => decreaseQuantity(button));
+    });
+
+    document.querySelectorAll('.plus').forEach(button => {
+        button.addEventListener('click', () => increaseQuantity(button));
+    });
+
+    // 플레이버 선택 버튼 클릭 시
+    document.querySelector('.flavor').addEventListener('click', () => {
+        updateQuantities();
+
+        const totalCount = quantities.cup + quantities.cone + quantities.waffleCone;
+        if (totalCount === 0) {
+            alert("하나 이상 선택해주세요!");
+            return;
+        }
+
+        // GET 파라미터 구성
+        const queryParams = new URLSearchParams();
+        queryParams.set("size", size);
+        queryParams.set("now", encodeURIComponent(now));  // JSON 문자열 안전하게 전송
+        queryParams.set("count", totalCount);
+
+        // 이동
+        const url = `./page3.html?${queryParams.toString()}`;
+        window.location.href = url;
+    });
+</script>
+
+
+</body>
+</html>
+

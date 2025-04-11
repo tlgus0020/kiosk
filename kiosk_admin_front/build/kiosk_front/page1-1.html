@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./page1-1.css" />
+    <script src="./page1-1.js"></script>
+</head>
+<body>
+<header>
+    <img id="logo" src="./images/images2/로고.png" alt="로고" />
+    <div>
+        <img id="close" src="./images/images2/X.png" alt="닫기"/>
+        <img id="circle" src="./images/images2/동그라미.png" alt="동그라미"/>
+    </div>
+</header>
+
+<nav>
+    <div class="menu">
+        <a href="#" onclick="change(event, 'page1-2')">아이스크림</a>
+        <a href="#" onclick="change(event)">커피</a>
+        <a href="#" onclick="change(event)">음료</a>
+        <a href="#" onclick="change(event)">아이스모찌</a>
+        <a href="#" onclick="change(event)">아이스모찌</a>
+        <a href="#" onclick="change(event)">아이스모찌</a>
+        <a href="#" onclick="change(event)">아이스모찌</a>
+        <a href="#" onclick="change(event)">아이스모찌</a>
+    
+    </div>
+</nav>  
+
+<main>
+    <form id="a" method="get" hidden action="./page2.html">
+        <input id="size" name="size">
+        <input id="history" name="now">
+    </form>
+    
+<div id="content">
+</div>
+
+</main>
+<div class="mother"></div>
+
+<footer>
+    <div>
+        <button id="bagbtn">
+            <img id="bagimg" src="./images/images2/쇼핑백.png" alt="쇼핑백" />
+            <span id="cart-count" class="cart-badge" style="display: none;">0</span>
+        </button>    
+        <button id="payment">
+            <span id="payment-label">결제하기</span>
+            <img id="rightarrow" src="./images/images2/오른쪽화살표.png" alt="오른쪽화살표" />
+        </button>
+    </div>
+</footer>
+</body>
+
+
+</html>

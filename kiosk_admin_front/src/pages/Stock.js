@@ -89,7 +89,13 @@ const Stock = () => {
                   <span className="badge-outofstock"><span className="dot purple" /> 재고없음</span>
                 ) : item.stock_qty}
               </td>
-              <td>{item.product_state ? '판매중' : '판매중단'}</td>
+              <td>
+                <span className={`badge ${item.product_state ? 'badge-stop' : 'badge-sale'}`}>
+                  <span className={`dot ${item.product_state ? 'red' : 'purple'}`} />
+                  {item.product_state ? '판매중단' : '판매중'}
+                </span>
+              </td>
+
               <td>
                 {item.order_state == null ? null : (
                   Number(item.order_state) === 0 ? (
