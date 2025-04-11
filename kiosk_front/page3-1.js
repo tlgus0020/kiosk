@@ -115,28 +115,22 @@ export function flavorChoice(count) {
 export function reset() {
     const container = document.getElementById("flavor-cart");
     container.innerHTML = `${nowselecting + 1}번 선택중! ${select[nowselecting].length}/${selectcount}`;
-
     container.innerHTML += "<br/>";
+
     imgarr[nowselecting].forEach(ele => {
         container.appendChild(ele);
     });
 
     const flavorContainers = document.querySelectorAll("#flavorChoice .menu-container");
     flavorContainers.forEach((div, i) => {
-        const oldPreview = div.querySelector(".preview-image");
-        if (oldPreview) oldPreview.remove();
+        const img = div.querySelector("img");
 
         if (select[i].length < selectcount) {
             div.childNodes[0].nodeValue = `${i + 1}번 미선택`;
+            img.src = "./images/image/Rectangle 9.png"; // 선택 미완료: 기본 이미지
         } else {
             div.childNodes[0].nodeValue = `${i + 1}번 선택`;
-            const previewImg = document.createElement("img");
-            previewImg.src = `/images/images2/${size}.png`;
-            previewImg.classList.add("preview-image");
-            previewImg.style.width = "30px";
-            previewImg.style.height = "30px";
-            previewImg.style.marginLeft = "5px";
-            div.appendChild(previewImg);
+            img.src = `/images/images2/${size}.png`; // 선택 완료: 사이즈에 맞는 이미지로 변경
         }
     });
 }
