@@ -50,11 +50,24 @@ export function setDocument(preloadData = null) {
 
     if (preloadData) {
         const index = 0;
-        preloadData.flavor.forEach(name => {
-            select[index].push(name);
+        preloadData.flavor.forEach(item => {
+            let flavorObj;
+    
+            if (typeof item === 'string') {
+                flavorObj = { id: null, name: item };
+            } else {
+                flavorObj = {
+                    id: item.id ?? null,
+                    name: item.name
+                };
+            }
+    
+            select[index].push(flavorObj);
+    
             const img = document.createElement("img");
-            img.src = `./images/menuimage/${flavorToFilename(name)}`;
+            img.src = `./images/menuimage/${flavorToFilename(flavorObj.name)}`;
             img.classList.add("selected-icecream");
+    
             img.addEventListener("click", () => {
                 let idx = imgarr[index].indexOf(img);
                 if (idx !== -1) {
@@ -64,26 +77,29 @@ export function setDocument(preloadData = null) {
                     img.remove();
                 }
             });
+    
             imgarr[index].push(img);
-        });
+        });    
     }
+    
 
     reset();
 }
 
 // 맛 선택 UI에 보여줄 아이스크림 카드 생성 함수
-export function Flover(name, imagepath) {
+export function Flover(id ,name, imagepath) {
     const div = document.createElement("div");
     div.classList.add("icecream");
     div.innerHTML = `
         <img src="${imagepath}" alt="${name}" class="imagefile"/>
         <span>${name}</span>
+        <input type="hidden" value="${id}"/>
     `;
     div.addEventListener("click", (event) => {
         if (select[nowselecting].length < selectcount) {
             const imgElement = event.currentTarget.querySelector(".imagefile");
             const currentIndex = nowselecting;
-            select[currentIndex].push(name);
+            select[currentIndex].push({id, name});
             animateToContainer(imgElement, imagepath, select[currentIndex].length, currentIndex);
         }
     });
@@ -160,7 +176,7 @@ export function send() {
         select.forEach(element => {
             const id = uuidv4();
             obj[id] = {
-                flavor: element,
+                flavor: element.map(f => ({ id: f.id ?? null, name: f.name })),
                 size: size
             };
         });
