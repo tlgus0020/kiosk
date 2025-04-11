@@ -140,9 +140,6 @@ footer {
 #flavorChoice{
     display: flex;
     flex-direction: row;
-    overflow-x: scroll;
-
-    overflow-y: hidden;
 }
 .icecream {
     cursor: pointer;
