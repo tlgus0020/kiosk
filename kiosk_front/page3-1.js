@@ -139,39 +139,39 @@ export function reset() {
     const flavorContainers = document.querySelectorAll("#flavorChoice .menu-container");
 
     flavorContainers.forEach((div, i) => {
-        // 기존 preview 제거
-        const oldPreview = div.querySelector(".preview-image-overlay");
-        if (oldPreview) oldPreview.remove();
-    
-        const labelNode = Array.from(div.childNodes).find(n => n.nodeType === Node.TEXT_NODE);
-        if (select[i].length < selectcount) {
-            if (labelNode) labelNode.nodeValue = `${i + 1}번 미선택`;
-        } else {
-            if (labelNode) labelNode.nodeValue = `${i + 1}번 선택`;
-    
-            // 기존 이미지 가져오기
-            const baseImg = div.querySelector("img");
-    
-            // img-wrapper가 없으면 생성해서 이미지 감싸기
-            let imgWrapper = baseImg.closest(".img-wrapper");
-            if (!imgWrapper) {
-                imgWrapper = document.createElement("div");
-                imgWrapper.classList.add("img-wrapper");
-                imgWrapper.style.position = "relative";
-                imgWrapper.style.display = "inline-block";
-    
-                baseImg.replaceWith(imgWrapper);
-                imgWrapper.appendChild(baseImg);
-            }
-    
-            // 겹칠 size 이미지
-            const previewImg = document.createElement("img");
-            previewImg.src = `/images/images2/${size}.png`;
-            previewImg.classList.add("preview-image-overlay");
-            imgWrapper.appendChild(previewImg);
+    // 기존 preview 제거
+    const oldPreview = div.querySelector(".preview-image-overlay");
+    if (oldPreview) oldPreview.remove();
+
+    const labelNode = Array.from(div.childNodes).find(n => n.nodeType === Node.TEXT_NODE);
+    if (select[i].length < selectcount) {
+        if (labelNode) labelNode.nodeValue = `${i + 1}번 미선택`;
+    } else {
+        if (labelNode) labelNode.nodeValue = `${i + 1}번 선택`;
+
+        // 기존 이미지 가져오기
+        const baseImg = div.querySelector("img");
+
+        // img-wrapper가 없으면 생성해서 이미지 감싸기
+        let imgWrapper = baseImg.closest(".img-wrapper");
+        if (!imgWrapper) {
+            imgWrapper = document.createElement("div");
+            imgWrapper.classList.add("img-wrapper");
+            imgWrapper.style.position = "relative";
+            imgWrapper.style.display = "inline-block";
+
+            baseImg.replaceWith(imgWrapper);
+            imgWrapper.appendChild(baseImg);
         }
-    });
-    
+
+        // 겹칠 size 이미지
+        const previewImg = document.createElement("img");
+        previewImg.src = `/images/images2/${size}.png`;
+        previewImg.classList.add("preview-image-overlay");
+        imgWrapper.appendChild(previewImg);
+    }
+});
+
 }
 
 
