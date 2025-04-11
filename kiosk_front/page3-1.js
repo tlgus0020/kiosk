@@ -50,11 +50,24 @@ export function setDocument(preloadData = null) {
 
     if (preloadData) {
         const index = 0;
-        preloadData.flavor.forEach(name => {
-            select[index].push(name);
+        preloadData.flavor.forEach(item => {
+            let flavorObj;
+    
+            if (typeof item === 'string') {
+                flavorObj = { id: null, name: item };
+            } else {
+                flavorObj = {
+                    id: item.id ?? null,
+                    name: item.name
+                };
+            }
+    
+            select[index].push(flavorObj);
+    
             const img = document.createElement("img");
-            img.src = `./images/menuimage/${flavorToFilename(name)}`;
+            img.src = `./images/menuimage/${flavorToFilename(flavorObj.name)}`;
             img.classList.add("selected-icecream");
+    
             img.addEventListener("click", () => {
                 let idx = imgarr[index].indexOf(img);
                 if (idx !== -1) {
@@ -64,26 +77,29 @@ export function setDocument(preloadData = null) {
                     img.remove();
                 }
             });
+    
             imgarr[index].push(img);
-        });
+        });    
     }
+    
 
     reset();
 }
 
 // 맛 선택 UI에 보여줄 아이스크림 카드 생성 함수
-export function Flover(name, imagepath) {
+export function Flover(id ,name, imagepath) {
     const div = document.createElement("div");
     div.classList.add("icecream");
     div.innerHTML = `
         <img src="${imagepath}" alt="${name}" class="imagefile"/>
         <span>${name}</span>
+        <input type="hidden" value="${id}"/>
     `;
     div.addEventListener("click", (event) => {
         if (select[nowselecting].length < selectcount) {
             const imgElement = event.currentTarget.querySelector(".imagefile");
             const currentIndex = nowselecting;
-            select[currentIndex].push(name);
+            select[currentIndex].push({id, name});
             animateToContainer(imgElement, imagepath, select[currentIndex].length, currentIndex);
         }
     });
@@ -115,31 +131,49 @@ export function flavorChoice(count) {
 export function reset() {
     const container = document.getElementById("flavor-cart");
     container.innerHTML = `${nowselecting + 1}번 선택중! ${select[nowselecting].length}/${selectcount}`;
-
     container.innerHTML += "<br/>";
     imgarr[nowselecting].forEach(ele => {
         container.appendChild(ele);
     });
 
     const flavorContainers = document.querySelectorAll("#flavorChoice .menu-container");
-    flavorContainers.forEach((div, i) => {
-        const oldPreview = div.querySelector(".preview-image");
-        if (oldPreview) oldPreview.remove();
 
-        if (select[i].length < selectcount) {
-            div.childNodes[0].nodeValue = `${i + 1}번 미선택`;
-        } else {
-            div.childNodes[0].nodeValue = `${i + 1}번 선택`;
-            const previewImg = document.createElement("img");
-            previewImg.src = `/images/images2/${size}.png`;
-            previewImg.classList.add("preview-image");
-            previewImg.style.width = "30px";
-            previewImg.style.height = "30px";
-            previewImg.style.marginLeft = "5px";
-            div.appendChild(previewImg);
+    flavorContainers.forEach((div, i) => {
+    // 기존 preview 제거
+    const oldPreview = div.querySelector(".preview-image-overlay");
+    if (oldPreview) oldPreview.remove();
+
+    const labelNode = Array.from(div.childNodes).find(n => n.nodeType === Node.TEXT_NODE);
+    if (select[i].length < selectcount) {
+        if (labelNode) labelNode.nodeValue = `${i + 1}번 미선택`;
+    } else {
+        if (labelNode) labelNode.nodeValue = `${i + 1}번 선택`;
+
+        // 기존 이미지 가져오기
+        const baseImg = div.querySelector("img");
+
+        // img-wrapper가 없으면 생성해서 이미지 감싸기
+        let imgWrapper = baseImg.closest(".img-wrapper");
+        if (!imgWrapper) {
+            imgWrapper = document.createElement("div");
+            imgWrapper.classList.add("img-wrapper");
+            imgWrapper.style.position = "relative";
+            imgWrapper.style.display = "inline-block";
+
+            baseImg.replaceWith(imgWrapper);
+            imgWrapper.appendChild(baseImg);
         }
-    });
+
+        // 겹칠 size 이미지
+        const previewImg = document.createElement("img");
+        previewImg.src = `/images/images2/${size}.png`;
+        previewImg.classList.add("preview-image-overlay");
+        imgWrapper.appendChild(previewImg);
+    }
+});
+
 }
+
 
 // 선택 완료 시 데이터 저장 및 다음 페이지로 이동
 export function send() {
@@ -160,7 +194,7 @@ export function send() {
         select.forEach(element => {
             const id = uuidv4();
             obj[id] = {
-                flavor: element,
+                flavor: element.map(f => ({ id: f.id ?? null, name: f.name })),
                 size: size
             };
         });
