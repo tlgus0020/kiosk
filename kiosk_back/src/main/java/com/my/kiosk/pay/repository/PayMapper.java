@@ -29,5 +29,7 @@ public interface PayMapper {
 	//키오스크 결제시 내용저장 테스트
 	public int insert(Pay pay);
 	public int insertPayDetail(@Param("pay_id")int pay_id, @Param("menu")Integer menu);
+	public List<PayDTO> findAllPage(@Param("startnum")int startnum, @Param("pagesize") int pagesize);
+	public int countPayNum();
 
 }

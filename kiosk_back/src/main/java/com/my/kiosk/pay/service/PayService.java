@@ -13,6 +13,7 @@ import com.my.kiosk.pay.classes.PayDTO;
 import com.my.kiosk.pay.classes.PayDetail;
 import com.my.kiosk.pay.classes.PayDetailDTO;
 import com.my.kiosk.pay.classes.PayMentDTO;
+import com.my.kiosk.pay.classes.PayPageDTO;
 import com.my.kiosk.pay.repository.PayMapper;
 
 @Service
@@ -98,5 +99,19 @@ public class PayService {
 		}
 		
 		return payDetailList;
+	}
+
+	public PayPageDTO getPayPage(int page) {
+		int total = payMapper.countPayNum();
+		int pagesize = 10;
+		int startnum = pagesize * (page-1) ;
+		int lastpage = (Integer)(total/pagesize) + 1;
+		
+		
+		PayPageDTO payPageDto = new PayPageDTO();
+		payPageDto.setPaydtoList(payMapper.findAllPage(startnum, pagesize));
+		payPageDto.setLastpage(lastpage);
+		
+		return payPageDto;
 	}
 }

@@ -66,4 +66,10 @@ public class PayRestController {
 		return ResponseEntity.badRequest().body("실패");
 	}
 	
+	@GetMapping("/page/{page}")
+	public ResponseEntity<?> getPayPage(@PathVariable("page") int page){
+		
+		return ResponseEntity.ok().body(payService.getPayPage(page));
+	}
+	
 }
