@@ -90,10 +90,10 @@ const Stock = () => {
                 ) : item.stock_qty}
               </td>
               <td>
-                <span className={`badge ${item.product_state ? 'badge-stop' : 'badge-sale'}`}>
-                  <span className={`dot ${item.product_state ? 'red' : 'purple'}`} />
-                  {item.product_state ? '판매중단' : '판매중'}
-                </span>
+              <span className={`badge ${item.product_state === false ? 'badge-stop' : 'badge-sale'}`}>
+                <span className={`dot ${item.product_state === false ? 'red' : 'purple'}`} />
+                {item.product_state === false ? '판매중단' : '판매중'}
+              </span>
               </td>
 
               <td>
