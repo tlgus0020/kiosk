@@ -140,9 +140,6 @@ footer {
 #flavorChoice{
     display: flex;
     flex-direction: row;
-    overflow-x: scroll;
-
-    overflow-y: hidden;
 }
 .icecream {
     cursor: pointer;
@@ -160,4 +157,21 @@ footer {
 .selected-icecream {
     width: 145px;
     height: 145px;
+}
+
+.img-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.preview-image-overlay {
+    position: absolute;
+    top: 0px;   
+    left: 0px;
+    width: 132px;  
+    height: 126px;
+    border-radius: 12px;
+    object-fit: cover;
+    z-index: 10;
+    pointer-events: none;
 }
