@@ -166,7 +166,7 @@ export function reset() {
 
         // 겹칠 size 이미지
         const previewImg = document.createElement("img");
-        previewImg.src = `/images/images2/${size}.png`;
+        previewImg.src = `./images/images2/${size}.png`;
         previewImg.classList.add("preview-image-overlay");
         imgWrapper.appendChild(previewImg);
     }

@@ -27,64 +27,70 @@
         }
     
         function declinePoints() {
-        const rawData = sessionStorage.getItem("now");
-        if (!rawData) {
-            alert("주문 정보가 없습니다.");
-            return;
+            const btnDecline = document.querySelector(".btn-decline");
+            btnDecline.disabled = true; // 버튼 비활성화
+
+            const rawData = sessionStorage.getItem("now");
+            if (!rawData) {
+                alert("주문 정보가 없습니다.");
+                btnDecline.disabled = false; // 실패 시 다시 활성화
+                return;
+            }
+
+            const sizeMap = {
+                "싱글레귤러": 1,
+                "싱글킹": 2,
+                "더블주니어": 3,
+                "더블레귤러": 4,
+                "파인트": 5,
+                "쿼터": 6,
+                "패밀리": 7,
+                "하프갤런": 8
+            };
+            const normalize = str => str.replace(/\s/g, '');
+
+            const parsedData = JSON.parse(rawData);
+            const entries = Object.entries(parsedData);
+
+            const payNum = Date.now();
+
+            const requests = entries.map(([key, item]) => {
+                const dto = {
+                    place_id: 1,
+                    pay_num: payNum,
+                    menuList: item.flavor.map(f => parseInt(f.id)),
+                    size_id: sizeMap[normalize(item.size)],
+                    pay_method: "card"
+                };
+
+                return fetch("http://tomhoon.duckdns.org:8881/api/pay/payment", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(dto)
+                });
+            });
+
+            Promise.all(requests)
+                .then(responses => {
+                    const allSuccess = responses.every(res => res.ok);
+                    if (allSuccess) {
+                        alert("주문이 성공적으로 전송되었습니다.");
+                    } else {
+                        alert("일부 주문 전송에 실패했습니다.");
+                    }
+                })
+                .catch(() => {
+                    alert("요청 중 에러가 발생했습니다.");
+                    btnDecline.disabled = false; // 실패 시 다시 활성화
+                })
+                .finally(() => {
+                    sessionStorage.removeItem("now");
+                    window.location.href = "page1-1.html";
+                });
         }
 
-        const sizeMap = {
-            "싱글레귤러": 1,
-            "싱글킹": 2,
-            "더블주니어": 3,
-            "더블레귤러": 4,
-            "파인트": 5,
-            "쿼터": 6,
-            "패밀리": 7,
-            "하프갤런": 8
-        };
-        const normalize = str => str.replace(/\s/g, '');
-
-        const parsedData = JSON.parse(rawData);
-        const entries = Object.entries(parsedData);
-
-        const payNum = Date.now(); // 여기서 한번만 호출
-
-        const requests = entries.map(([key, item]) => {
-            const dto = {
-                place_id: 1,
-                pay_num: payNum, // 모두 동일한 번호로 넣기
-                menuList: item.flavor.map(f => parseInt(f.id)),
-                size_id: sizeMap[normalize(item.size)],
-                pay_method: "card"
-            };
-
-            return fetch("http://tomhoon.duckdns.org:8881/api/pay/payment", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dto)
-            });
-        });
-
-        Promise.all(requests)
-            .then(responses => {
-                const allSuccess = responses.every(res => res.ok);
-                if (allSuccess) {
-                    alert("주문이 성공적으로 전송되었습니다.");
-                } else {
-                    alert("일부 주문 전송에 실패했습니다.");
-                }
-            })
-            .catch(() => {
-                alert("요청 중 에러가 발생했습니다.");
-            })
-            .finally(() => {
-                sessionStorage.removeItem("now");
-                window.location.href = "page1-1.html";
-            });
-}
 
     </script>
     
