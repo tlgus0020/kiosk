@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.kiosk.login.UserMapper">
+	 <insert id="insertUser">
+        INSERT INTO user (userid, userpwd, role, placeid)
+        VALUES (#{userid}, #{userpwd}, #{role}, #{placeid})
+    </insert>
+
+    <select id="findByUserid" resultType="com.my.kiosk.stock.classes.User">
+        SELECT * FROM user WHERE userid = #{userid}
+    </select>
+</mapper>

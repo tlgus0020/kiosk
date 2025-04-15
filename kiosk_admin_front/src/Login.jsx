@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../src/css/login.module.css'
+import { useNavigate } from 'react-router-dom';
 
 const REST = process.env.REACT_APP_REST;
 
 function Login({ onLoginSuccess,checkAdmin }) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,6 +66,9 @@ function Login({ onLoginSuccess,checkAdmin }) {
             />
           </div>
           <button type="submit">로그인</button>
+          <button onClick={() => navigate("/register")}>
+        회원가입
+      </button>
         </form>
       </div>
     </div>  
