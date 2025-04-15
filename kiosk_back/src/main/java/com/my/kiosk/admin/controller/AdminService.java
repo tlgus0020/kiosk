@@ -151,7 +151,7 @@ public class AdminService {
 	    String fileFullPath = path + File.separator + originalName;
 
 	    // 클라이언트가 접근할 수 있는 이미지 URL 경로
-	    String fileLink = "http://localhost:8080/admin/img/" + originalName;
+	    String fileLink = "http://tomhoon.duckdns.org:8881/admin/img/" + originalName;
 
 	    try {
 	        File destfile = new File(fileFullPath);
