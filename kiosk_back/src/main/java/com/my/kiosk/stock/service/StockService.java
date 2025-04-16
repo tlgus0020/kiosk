@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.my.kiosk.stock.classes.Menu;
@@ -25,6 +26,8 @@ public class StockService {
 
 	@Autowired
 	StockMapper stockmapper;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	public List<Stock> getStock(int place_id) {
 		return stockmapper.findByPlaecID(place_id);
@@ -117,7 +120,7 @@ public class StockService {
 		if(user == null) {
 			return null;
 		} 
-		if(!user.getUserpwd().equals(userpwd)) {
+		if(!passwordEncoder.matches(userpwd, user.getUserpwd())) {
             return null;
         }
 
