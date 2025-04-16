@@ -30,9 +30,6 @@ window.onload = () => {
     } else {
       paymentLabel.textContent = `결제하기`;
     }
-    paymentLabel.addEventListener("click", () => {
-      window.location.href = "./page5.html";
-    });
   }
 
   // 장바구니 배지 표시
