@@ -103,6 +103,7 @@ public class StockRestController {
 	        
 	        System.out.println(userid);
 	        System.out.println(userpwd);
+	        System.out.println(captchaToken);
 	        
 	        User user = stockService.login(userid, userpwd, captchaToken);
 	        System.out.println(user);

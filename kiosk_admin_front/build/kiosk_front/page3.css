@@ -53,6 +53,8 @@ table {
     width: 1024px;
     height: 1562px;
     background-color: lightblue;
+    position: relative;
+      
 }
 
 /* 상단 메뉴 */
@@ -175,3 +177,56 @@ footer {
     z-index: 10;
     pointer-events: none;
 }
+
+/* flavors 위에 겹쳐서 버튼 얹히는 레이어 */
+#pagination-overlay {
+    position: absolute;
+    width: 1024px; /* flavors와 동일 */
+    top: 485px; /* flavors 기준 위에 붙여짐 */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    pointer-events: none;
+    height: 0; /* 자체 높이 없음 */
+  }
+  
+  /* 버튼 공통 스타일 */
+  #pagination-overlay button {
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%); /* flavors 위에 딱 얹힘 */
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50%;
+    background-color: #ff69b4;
+    color: white;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease;
+  }
+  
+  /* 좌우 배치 */
+  #prevPage {
+    left: 0;
+  }
+  
+  #loadMore {
+    right: 0;
+  }
+  
+  /* 상태별 스타일 */
+  #pagination-overlay button:hover {
+    background-color: #ff1493;
+  }
+  
+  #pagination-overlay button:disabled {
+    background-color: #ccc;
+    color: #888;
+    cursor: not-allowed;
+  }
+  
+  
