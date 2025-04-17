@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../src/css/login.module.css'
 import { useNavigate } from 'react-router-dom';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const REST = process.env.REACT_APP_REST;
 
@@ -9,39 +10,39 @@ function Login({ onLoginSuccess,checkAdmin }) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [captchaToken, setCaptchaToken] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!captchaToken) {
+      alert("로봇 검증을 완료해주세요.");
+      return;
+    }
     doLogin();
-    
-  }
+  };
   
-  function doLogin(){
-    console.log(userId);
-    console.log(password);
+  function doLogin() {
     axios({
       method: 'POST',
       url: `${REST}/api/login`,
       data: {
-        userid : userId,
-        userpwd : password,
-        
+        userid: userId,
+        userpwd: password,
+        captchaToken: captchaToken   // ← 추가됨
       }
     })
     .then((res) => {
       console.log('로그인 성공');
       const role = res.data.role;
-
-      console.log('받은 role:', role);
-      onLoginSuccess(role); 
+      onLoginSuccess(role);
     })
     .catch((err) => {
       console.error('로그인 실패:', err);
     });
-    
   }
   
-  ;
+
+  
   return (
     <div className={styles.loginbody}>
       <div className={styles.Logincontainer}>
@@ -65,6 +66,15 @@ function Login({ onLoginSuccess,checkAdmin }) {
               required
             />
           </div>
+
+          <ReCAPTCHA
+            sitekey="6LeuQxsrAAAAAIN8cw9AYY0zopINOiUPLMKL70eV" 
+            onChange={(value) => {
+              console.log("Captcha value:", value);
+              setCaptchaToken(value);
+            }}
+          />
+
           <button type="submit">로그인</button>
           <button onClick={() => navigate("/register")}>
         회원가입

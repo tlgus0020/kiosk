@@ -7,10 +7,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import com.my.kiosk.stock.classes.Menu;
 import com.my.kiosk.stock.classes.MerchDTO;
 import com.my.kiosk.stock.classes.Place_SellDTO;
+import com.my.kiosk.stock.classes.RecaptchaResponse;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockDTO;
 import com.my.kiosk.stock.classes.StockIn;
@@ -114,7 +118,12 @@ public class StockService {
     	return result;
     }
     
-    public User login(String userid,String userpwd) {
+    public User login(String userid,String userpwd, String captchaToken) {
+    	
+        if (!verifyCaptcha(captchaToken)) {
+            return null;
+        }
+        
     	User user= stockmapper.findByUserId(userid);
     	System.out.println("서비스 : "+user);
 		if(user == null) {
@@ -126,6 +135,26 @@ public class StockService {
 
         return user; // 로그인 성공
     }
+    
+    public boolean verifyCaptcha(String captchaToken) {
+        String secretKey = "6LeuQxsrAAAAAFuju-1T7ZTVNH2y5ulKrnoy3sJu";
+        String url = "https://www.google.com/recaptcha/api/siteverify";
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("secret", secretKey);
+        params.add("response", captchaToken);
+
+        try {
+            RecaptchaResponse response = restTemplate.postForObject(url, params, RecaptchaResponse.class);
+            return response != null && response.isSuccess();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     
     public List<placeDTO> getPlaceList(){
     	List<String> s = stockmapper.getPlaceNames();

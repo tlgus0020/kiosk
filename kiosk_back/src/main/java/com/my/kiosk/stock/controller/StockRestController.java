@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.my.kiosk.stock.classes.LoginDTO;
 import com.my.kiosk.stock.classes.MerchDTO;
 import com.my.kiosk.stock.classes.Stock;
 import com.my.kiosk.stock.classes.StockDTO;
@@ -94,14 +95,16 @@ public class StockRestController {
 	    }
 	    
 	    @PostMapping("/login")
-	    public ResponseEntity<?> login(@RequestBody User userinfo) {
+	    public ResponseEntity<?> login(@RequestBody LoginDTO userinfo) {
 	        String userid = userinfo.getUserid();
 	        String userpwd = userinfo.getUserpwd();
+	        String captchaToken = userinfo.getCaptchaToken();
+	        
 	        
 	        System.out.println(userid);
 	        System.out.println(userpwd);
 	        
-	        User user = stockService.login(userid, userpwd);
+	        User user = stockService.login(userid, userpwd, captchaToken);
 	        System.out.println(user);
 	        
 	        if (user == null) {
