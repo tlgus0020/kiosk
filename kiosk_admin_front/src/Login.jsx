@@ -67,18 +67,21 @@ function Login({ onLoginSuccess,checkAdmin }) {
             />
           </div>
 
-          <ReCAPTCHA
-            sitekey="6Le9bRwrAAAAAFVOExLQhQPPE8U_0iDsI9s3EyD7" 
-            onChange={(value) => {
-              console.log("Captcha value:", value);
-              setCaptchaToken(value);
-            }}
-          />
+          <div className={styles.recaptchaWrap}>
+            <ReCAPTCHA
+                  sitekey="6Le9bRwrAAAAAFVOExLQhQPPE8U_0iDsI9s3EyD7" 
+                  onChange={(value) => {
+                    console.log("Captcha value:", value);
+                    setCaptchaToken(value);
+                  }}
+                />
+          </div>
 
           <button type="submit">로그인</button>
           <button onClick={() => navigate("/register")}>
-        회원가입
-      </button>
+            회원가입
+          </button>
+          
         </form>
       </div>
     </div>  

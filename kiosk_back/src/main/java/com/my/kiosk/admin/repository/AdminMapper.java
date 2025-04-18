@@ -9,4 +9,5 @@ import com.my.kiosk.stock.classes.StockFullDTO;
 @Mapper
 public interface AdminMapper {
 	public List<StockFullDTO> getFullStocks();
+
 }

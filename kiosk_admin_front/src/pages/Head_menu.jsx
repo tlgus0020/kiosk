@@ -36,17 +36,33 @@ export const Head_menu = () => {
           </tr>
         </thead>
         <tbody>
-          {menus.map(menu => (
-            <tr key={menu.id}>
-              <td>{menu.id}</td>
-              <td>{menu.name}</td>
-              <td>{menu.code}</td>
-              <td>{menu.img}</td>
-              <td>{menu.state ? '활성' : '비활성'}</td>
-              <td></td>
-            </tr>
-          ))}
-        </tbody>
+        {menus.map(menu => (
+          <tr key={menu.id}>
+            <td>{menu.id}</td>
+            <td>{menu.name}</td>
+            <td>{menu.code}</td>
+            <td>{menu.img}</td>
+            <td>
+            <input
+              type="checkbox"
+              checked={menu.state}
+              onChange={async () => {
+                const newState = menu.state ? 0 : 1;
+                try {
+                  await axios.put(`${REST}/admin/menu/state/${menu.id}`, { state: newState });
+                  setTimeout(() => {
+                    fetchMenus();
+                  }, 200);
+                } catch (err) {
+                  console.error('상태 변경 실패:', err);
+                }
+              }}
+            />
+            </td>
+            <td></td>
+          </tr>
+        ))}
+      </tbody>
       </table>
     </div>
   );

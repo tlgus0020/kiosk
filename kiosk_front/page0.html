@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>키오스크 대기화면</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom right, #fff0f5, #ffe4e1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+    }
+    .title {
+      font-size: 2.5rem;
+      color: #ff69b4;
+      margin-bottom: 50px;
+    }
+    .start-btn {
+      padding: 20px 60px;
+      font-size: 1.8rem;
+      border: none;
+      border-radius: 15px;
+      background-color: #ff8ac7;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .start-btn:hover {
+      background-color: #ff5aaa;
+    }
+    @keyframes jump {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+#icecream {
+  display: inline-block;
+  animation: jump 1s infinite ease-in-out;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">어서오세요!  <span id="icecream">🍨</span></div>
+    <button class="start-btn" onclick="location.href='/kiosk_front/page1-1.html'">주문하러 가기</button>
+  </div>
+</body>
+</html>

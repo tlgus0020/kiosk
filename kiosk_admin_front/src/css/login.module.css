@@ -45,6 +45,7 @@
     width: 100%;
     padding: 14px;
     background-color: #d2bcf7;
+    margin-top:10px;
     color: white;
     border: none;
     border-radius: 10px;
@@ -58,4 +59,8 @@
     background-color: #c5aef4;
     transform: scale(1.02);
   }
-  
+  .recaptchaWrap {
+    margin: 5px 0;
+    transform: scale(0.9); /* 👈 살짝 축소해도 예쁨 */
+    transform-origin: center;
+  }

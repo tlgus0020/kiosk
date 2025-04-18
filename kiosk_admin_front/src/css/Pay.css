@@ -175,7 +175,7 @@
 }
 
 .pay-filters .date-btn {
-  background-color: #fff;
+
   border: 1px solid #C6C2DE;
   width: 88px;
   height: 40px;
@@ -215,7 +215,7 @@
   gap: 12px;
   margin-bottom: 16px;
   flex-wrap: wrap;
-  background-color: #fff;
+
 }
 
 .date-btn {

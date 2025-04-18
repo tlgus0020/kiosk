@@ -81,6 +81,12 @@
 		select name from menu where id=#{param1};	
 	</select>
 	
+	<update id="updateMenu">
+	    UPDATE menu
+	    SET state = #{state}
+	    WHERE id = #{id}
+	</update>
+	
 	<update id="setRetire">
 		UPDATE menu
 		SET state = CASE state

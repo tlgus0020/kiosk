@@ -171,6 +171,12 @@ public class AdminService {
 
 	    return 0;
 	}
+	
+	@Transactional
+	public void updateState(int id, int state) {
+		stockmapper.updateMenu(id , state);
+		
+	}
 
 	/****************** 메뉴 기능 *********************/
 
@@ -186,5 +192,8 @@ public class AdminService {
 		}
 		
 	}
+
+
+
 	
 }

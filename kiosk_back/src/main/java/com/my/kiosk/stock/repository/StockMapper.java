@@ -73,6 +73,8 @@ public interface StockMapper {
 	public void increaseStockQty(@Param("menuid") int menuId,@Param("placeid") int placeId,@Param("amount") int amount);
 	void insertOrder(@Param("out_id") int out_id, @Param("amount") int amount);
 
+	public void updateMenu(@Param("id") int id, @Param("state") int state);
+
 
 
 }
