@@ -24,6 +24,8 @@
     <script>
         function agreePoints() {
             alert("해피포인트 적립을 동의하셨습니다. (결제정보 기능 구현은 거절 하였을 때 나옴)");
+            sessionStorage.removeItem("now"); // ← 세션 초기화 추가
+            window.location.href = "page1-1.html";
         }
     
         function declinePoints() {
