@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 메뉴 불러오기 함수
     function loadPage(page) {
-        fetch(`http://localhost:8080/menu/page/${page}`)
+        fetch(`http://tomhoon.duckdns.org:8881/menu/page/${page}`)
             .then(res => res.json())
             .then(data => {
                 if (!data || data.length === 0) {
