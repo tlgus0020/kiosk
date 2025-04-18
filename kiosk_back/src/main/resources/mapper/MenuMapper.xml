@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.kiosk.menu.MenuMapper">
+	<select id="findPageMenu" resultType="com.my.kiosk.menu.GetMenuDTO">
+		SELECT id, name, img
+		FROM (
+		    SELECT 
+		        id, name, img,
+		        ROW_NUMBER() OVER (ORDER BY id) AS rn
+		    FROM menu
+		    WHERE state = 1
+		) AS temp
+		WHERE rn BETWEEN #{startnum} AND #{endnum}
+	</select>
+</mapper>
