@@ -1,1 +1,2 @@
-import './page8.css'
+const finalAmount = sessionStorage.getItem("finalAmount");
+const finalAmountOrder = sessionStorage.getItem("finalAmountOrder");
