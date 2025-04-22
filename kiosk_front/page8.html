@@ -56,16 +56,16 @@
 
             const payNum = Date.now();
 
+            const finalAmount = parseInt(sessionStorage.getItem('finalAmount')) || 0;
+
             const requests = entries.map(([key, item]) => {
                 const dto = {
-                    place_id: 1,
-                    pay_num: payNum,
-                    menuList: item.flavor.map(f => parseInt(f.id)),
-                    size_id: sizeMap[normalize(item.size)],
-                    pay_method: "card"
+                    store: "강서지점",
+                    details: item.flavor.map(f => f.name),
+                    amount: finalAmount
                 };
 
-                return fetch("http://tomhoon.duckdns.org:8881/api/pay/payment", {
+                return fetch("http://192.168.0.10:4242/print", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -89,7 +89,7 @@
                 })
                 .finally(() => {
                     sessionStorage.removeItem("now");
-                    window.location.href = "page1-1.html";
+                    window.location.href = "page0.html";
                 });
         }
 
