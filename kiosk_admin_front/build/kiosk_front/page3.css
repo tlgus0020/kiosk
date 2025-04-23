@@ -52,14 +52,19 @@ table {
 .view{
     width: 1024px;
     height: 1562px;
-    background-color: lightblue;
+    background-color: #fff;
     position: relative;
+    border: 1px solid  rgba(31, 30, 30, 0.1);
       
 }
 
 /* 상단 메뉴 */
 .menu{
     display: flex;
+}
+.ad{
+    width: 512px;
+    height: 100px;
 }
 
 /* 이미지 파일이 담긴 div */

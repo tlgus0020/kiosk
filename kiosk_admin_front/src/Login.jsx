@@ -69,7 +69,7 @@ function Login({ onLoginSuccess,checkAdmin }) {
 
           <div className={styles.recaptchaWrap}>
             <ReCAPTCHA
-                  sitekey="6Le9bRwrAAAAAFVOExLQhQPPE8U_0iDsI9s3EyD7" 
+                  sitekey="6LfxLiErAAAAAC_malpyltCxVoN56OAGzltm0jqw" 
                   onChange={(value) => {
                     console.log("Captcha value:", value);
                     setCaptchaToken(value);

@@ -1,100 +1,125 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>결제 완료</title>
-    <link rel="stylesheet" href="./page8.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>결제 완료</title>
+  <link rel="stylesheet" href="./page8.css" />
 </head>
 <body>
-    <div class="container">
-        <div class="title">결제가 완료되었습니다.</div>
-        <div class="subtitle">영수증을 확인하세요</div>
-        <div class="number">154</div>
-        <div class="info-box">
-            <img src="./images/image/Frame 136.png">
-            <div class="buttons">
-                <button class="btn btn-agree" onclick="agreePoints()">네, 동의하고 적립할래요!</button>
-                <button class="btn btn-decline" onclick="declinePoints()">아니요, 적립 안할래요</button>
-            </div>
-        </div>
+  <div class="container">
+    <div class="title">결제가 완료되었습니다.</div>
+    <div class="subtitle">영수증을 확인하세요</div>
+    <div class="number">154</div>
+    <div class="info-box">
+      <img src="./images/image/Frame 136.png" />
+      <div class="buttons">
+        <button class="btn btn-agree" onclick="printReceipt()">네, 동의하고 적립할래요!</button>
+        <button class="btn btn-decline" onclick="sendPayment()">아니요, 적립 안할래요</button>
+      </div>
     </div>
+  </div>
 
+  <script>
+    const rawData = sessionStorage.getItem("now");
+    const finalAmount = parseInt(sessionStorage.getItem("finalAmount")) || 0;
+    const storeName = "강서지점";
 
-    <script>
-        function agreePoints() {
-            alert("해피포인트 적립을 동의하셨습니다. (결제정보 기능 구현은 거절 하였을 때 나옴)");
-            sessionStorage.removeItem("now"); // ← 세션 초기화 추가
-            window.location.href = "page1-1.html";
-        }
-    
-        function declinePoints() {
-            const btnDecline = document.querySelector(".btn-decline");
-            btnDecline.disabled = true; // 버튼 비활성화
+    function normalize(str) {
+      return str.replace(/\s/g, '');
+    }
 
-            const rawData = sessionStorage.getItem("now");
-            if (!rawData) {
-                alert("주문 정보가 없습니다.");
-                btnDecline.disabled = false; // 실패 시 다시 활성화
-                return;
+    function printReceipt() {
+      if (!rawData) {
+        alert("주문 정보가 없습니다.");
+        return;
+      }
+
+      const parsedData = JSON.parse(rawData);
+      const entries = Object.entries(parsedData);
+
+      const requests = entries.map(([_, item]) => {
+        const dto = {
+          store: storeName,
+          details: item.flavor.map(f => f.name),
+          amount: finalAmount
+        };
+
+        return fetch("http://192.168.0.10:4242/print", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(dto)
+        });
+      });
+
+      Promise.all(requests)
+        .finally(() => {
+          sessionStorage.removeItem("now");
+          sessionStorage.removeItem("finalAmount");
+          window.location.href = "page0.html";
+        });
+    }
+
+    function sendPayment() {
+      if (!rawData) {
+        alert("주문 정보가 없습니다.");
+        return;
+      }
+
+      const parsedData = JSON.parse(rawData);
+      const entries = Object.entries(parsedData);
+
+      const sizeMap = {
+        "싱글레귤러": 1,
+        "싱글킹": 2,
+        "더블주니어": 3,
+        "더블레귤러": 4,
+        "파인트": 5,
+        "쿼터": 6,
+        "패밀리": 7,
+        "하프갤런": 8
+      };
+
+      const payNum = Date.now();
+
+      const requests = entries.map(([_, item]) => {
+        const dto = {
+          place_id: 1,
+          pay_num: payNum,
+          menuList: item.flavor.map(f => parseInt(f.id)),
+          size_id: sizeMap[normalize(item.size)],
+          pay_method: "card"
+        };
+
+        return fetch("http://tomhoon.duckdns.org:8881/api/pay/payment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(dto)
+        });
+      });
+
+      Promise.all(requests)
+        .then(responses => {
+          const allSuccess = responses.every(res => res.ok);
+          if (allSuccess) {
+            alert("주문이 성공적으로 전송되었습니다."); // ✅ 복구됨!
+            } else {
+            alert("일부 주문 전송에 실패했습니다.");
             }
-
-            const sizeMap = {
-                "싱글레귤러": 1,
-                "싱글킹": 2,
-                "더블주니어": 3,
-                "더블레귤러": 4,
-                "파인트": 5,
-                "쿼터": 6,
-                "패밀리": 7,
-                "하프갤런": 8
-            };
-            const normalize = str => str.replace(/\s/g, '');
-
-            const parsedData = JSON.parse(rawData);
-            const entries = Object.entries(parsedData);
-
-            const payNum = Date.now();
-
-            const finalAmount = parseInt(sessionStorage.getItem('finalAmount')) || 0;
-
-            const requests = entries.map(([key, item]) => {
-                const dto = {
-                    store: "강서지점",
-                    details: item.flavor.map(f => f.name),
-                    amount: finalAmount
-                };
-
-                return fetch("http://192.168.0.10:4242/print", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(dto)
-                });
-            });
-
-            Promise.all(requests)
-                .then(responses => {
-                    const allSuccess = responses.every(res => res.ok);
-                    if (allSuccess) {
-                        alert("주문이 성공적으로 전송되었습니다.");
-                    } else {
-                        alert("일부 주문 전송에 실패했습니다.");
-                    }
-                })
-                .catch(() => {
-                    alert("요청 중 에러가 발생했습니다.");
-                    btnDecline.disabled = false; // 실패 시 다시 활성화
-                })
-                .finally(() => {
-                    sessionStorage.removeItem("now");
-                    window.location.href = "page0.html";
-                });
-        }
-
-
-    </script>
-    
+        })
+        .catch(() => {
+          alert("요청 중 에러가 발생했습니다.");
+        })
+        .finally(() => {
+          sessionStorage.removeItem("now");
+          sessionStorage.removeItem("finalAmount");
+          window.location.href = "page0.html";
+        });
+    }
+  </script>
 </body>
 </html>
