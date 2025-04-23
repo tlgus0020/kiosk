@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.my.kiosk.stock.classes.Menu;
 import com.my.kiosk.stock.classes.Stock;
+import com.my.kiosk.stock.classes.StockDTO;
 import com.my.kiosk.stock.classes.StockIn;
 import com.my.kiosk.stock.classes.StockListDTO;
 import com.my.kiosk.stock.classes.StockOut;
@@ -75,6 +76,8 @@ public interface StockMapper {
 
 	public void updateMenu(@Param("id") int id, @Param("state") int state);
 
+	public int countStockNum();
+	public List<StockDTO> findAllPage(@Param("startnum")int startnum, @Param("pagesize") int pagesize);
 
 
 }

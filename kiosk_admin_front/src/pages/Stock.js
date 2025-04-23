@@ -11,6 +11,9 @@ const Stock = () => {
   const [showOrderModal, setShowOrderModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterPlaces, setFilterPlaces] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
   const REST = process.env.REACT_APP_REST;
 
   useEffect(() => {
@@ -33,12 +36,25 @@ const Stock = () => {
       list = list.filter(item => filterPlaces.includes(item.place_name));
     }
     setFilteredList(list);
+    setCurrentPage(1); // 필터 변경 시 1페이지로 초기화
   }, [searchTerm, filterPlaces, stockList]);
 
   const handlePlaceFilter = (place) => {
     setFilterPlaces(prev =>
       prev.includes(place) ? prev.filter(p => p !== place) : [...prev, place]
     );
+  };
+
+  // 페이징 계산
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredList.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredList.length / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
   };
 
   return (
@@ -64,7 +80,7 @@ const Stock = () => {
       </div>
 
       {/* 테이블 */}
-      <table className="pay-table">
+      <table className="stock-table">
         <thead>
           <tr>
             <th>NO</th>
@@ -78,9 +94,9 @@ const Stock = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredList.map((item, index) => (
+          {currentItems.map((item, index) => (
             <tr key={`${item.menu_id}-${item.place_id}`}>
-              <td>{index + 1}</td>
+              <td>{indexOfFirstItem + index + 1}</td>
               <td>{item.place_name}</td>
               <td>{item.menu_name}</td>
               <td>{item.img_path}</td>
@@ -90,12 +106,11 @@ const Stock = () => {
                 ) : item.stock_qty}
               </td>
               <td>
-              <span className={`badge ${item.product_state === false ? 'badge-stop' : 'badge-sale'}`}>
-                <span className={`dot ${item.product_state === false ? 'red' : 'purple'}`} />
-                {item.product_state === false ? '판매중단' : '판매중'}
-              </span>
+                <span className={`badge ${item.product_state === false ? 'badge-stop' : 'badge-sale'}`}>
+                  <span className={`dot ${item.product_state === false ? 'red' : 'purple'}`} />
+                  {item.product_state === false ? '판매중단' : '판매중'}
+                </span>
               </td>
-
               <td>
                 {item.order_state == null ? null : (
                   Number(item.order_state) === 0 ? (
@@ -119,6 +134,18 @@ const Stock = () => {
         </tbody>
       </table>
 
+      {/* 페이징 버튼 */}
+      <div className="pagination-controls">
+        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+          이전
+        </button>
+  
+        <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+          다음
+        </button>
+      </div>
+
+      {/* 모달 */}
       {showOrderModal && selectedItem && (
         <OrderModal
           item={selectedItem}

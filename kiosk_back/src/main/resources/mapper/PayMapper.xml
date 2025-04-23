@@ -76,6 +76,10 @@
 		SELECT COUNT(DISTINCT pay_num) AS total_count FROM pay
 	</select>
 	
+	<select id="countPayNum">
+		SELECT COUNT(DISTINCT pay_num) AS total_count FROM stock
+	</select>
+	
 	<select id="findPayFastByDate" resultType="com.my.kiosk.pay.classes.PayDTO" parameterType="map">
 	  SELECT 
 	    p.id,

@@ -126,4 +126,11 @@ public class StockRestController {
 	    	return stockService.getStockTotalList();
 	    }
 
+	    @GetMapping("/page/{page}")
+		public ResponseEntity<?> getStockPage(@PathVariable("page") int page){
+			
+			return ResponseEntity.ok().body(stockService.getStockPage(page));
+		}
+	    
+	    
 }

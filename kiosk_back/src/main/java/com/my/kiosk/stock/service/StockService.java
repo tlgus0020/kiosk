@@ -20,6 +20,7 @@ import com.my.kiosk.stock.classes.StockDTO;
 import com.my.kiosk.stock.classes.StockIn;
 import com.my.kiosk.stock.classes.StockListDTO;
 import com.my.kiosk.stock.classes.StockOut;
+import com.my.kiosk.stock.classes.StockPageDTO;
 import com.my.kiosk.stock.classes.User;
 import com.my.kiosk.stock.classes.placeDTO;
 import com.my.kiosk.stock.repository.StockMapper;
@@ -205,5 +206,19 @@ public class StockService {
 
 	public List<StockListDTO> getStockTotalList() {
 		return stockmapper.getStockTotalList();
+	}
+	
+	public StockPageDTO getStockPage(int page) {
+		int total = stockmapper.countStockNum();
+		int pagesize = 10;
+		int startnum = pagesize * (page-1) ;
+		int lastpage = (Integer)(total/pagesize) + 1;
+		
+		 
+		StockPageDTO stockPageDto = new StockPageDTO();
+		stockPageDto.setStockdtoList(stockmapper.findAllPage(startnum, pagesize));
+		stockPageDto.setLastpage(lastpage);
+		
+		return stockPageDto;
 	}
 }

@@ -10,10 +10,33 @@
 	select * from stock where place_id=#{place_id}
 	</select>
 
-	<select id="findAll" resultType="com.my.kiosk.stock.classes.Stock">
-	    SELECT * FROM stock
-	</select>
+	<select id="findAllPage" resultType="com.my.kiosk.stock.classes.Stock">
+	    	SELECT 
+	    p.name AS place_name,
+	    m.name AS menu_name,
+	    m.img AS img_path,
+	    s.stock_qty,
+	    m.state AS product_state,
+	    o.state AS order_state,
+	    s.menu_id,
+    	s.place_id
+		FROM stock s
+		JOIN menu m ON s.menu_id = m.id
+		JOIN place p ON s.place_id = p.id
+		LEFT JOIN (
+		    SELECT so.menu_id, so.place_id, MAX(mo.id) AS latest_order_id
+		    FROM menu_order mo
+		    JOIN stock_out so ON mo.out_id = so.id
+		    GROUP BY so.menu_id, so.place_id
+		) lo ON s.menu_id = lo.menu_id AND s.place_id = lo.place_id
+		LEFT JOIN menu_order o ON o.id = lo.latest_order_id
+		ORDER BY s.place_id DESC, s.menu_id DESC
+		LIMIT #{startnum}, #{pagesize}
+		</select>
 
+	<select id="countStockNum">
+			SELECT COUNT(DISTINCT pay_num) AS total_count FROM stock
+		</select>
 	<select id="getStock" resultType="com.my.kiosk.stock.classes.Stock">
 	    SELECT * FROM stock WHERE menu_id = #{menu_id} AND place_id = #{place_id}
 	</select>
