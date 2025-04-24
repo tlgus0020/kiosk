@@ -30,6 +30,11 @@
   font-size: 14px;
 }
 
+.admin-pay-table thead tr th{
+  cursor: pointer; /* 클릭 가능한 느낌을 줌 */
+
+}
+
 .pay-table th,
 .pay-table td {
   padding: 12px 16px;
