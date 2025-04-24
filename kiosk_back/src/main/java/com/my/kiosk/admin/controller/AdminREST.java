@@ -108,7 +108,7 @@ public class AdminREST {
     }
     
     @PutMapping("/menu/state/{id}")
-    public ResponseEntity<?> updateMenuState(@PathVariable("id") int id, @RequestBody Map<String, Integer> body) {
+    public ResponseEntity<Void> updateMenuState(@PathVariable("id") int id, @RequestBody Map<String, Integer> body) {
         int state = body.get("state");
         serv.updateState(id, state);
         return ResponseEntity.ok().build();

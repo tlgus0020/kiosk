@@ -138,7 +138,7 @@ public class StockService {
     }
     
     public boolean verifyCaptcha(String captchaToken) {
-        String secretKey = ""; // 캡챠 비밀키!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        String secretKey = "6LfxLiErAAAAAFTKBXa4MVTH_evFgHMthyi1SXm4"; // 캡챠 비밀키!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         String url = "https://www.google.com/recaptcha/api/siteverify";
 
         RestTemplate restTemplate = new RestTemplate();

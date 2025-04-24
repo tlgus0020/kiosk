@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -133,6 +134,22 @@ public class AdminService {
 	    if (menudto.getImg().isEmpty()) {
 	        return 0;
 	    }
+	    
+	    String originalName = menudto.getImg().getOriginalFilename();
+	    String ext = originalName.substring(originalName.lastIndexOf(".")+1).toLowerCase();
+	    
+	    if(!List.of("jpg","jpeg","png","gif").contains(ext)) {
+	    	System.out.println(" 허용되지 않은 확장자:"+ext);
+	    	return 0;
+	    }
+	    
+	    String mimeType=menudto.getImg().getContentType();
+	    if(mimeType == null || !mimeType.startsWith("image/")) {
+	    	System.out.println("이미지 MIME 타입 아님: "+ mimeType);
+	    	return 0;
+	    }
+	    
+	    String newFileName = UUID.randomUUID().toString() + "." + ext;
 
 	    // 실행 환경 기준 상대 경로 설정 (src/main/resources/static/img)
 	    String path = System.getProperty("user.dir") + File.separator +
@@ -147,16 +164,14 @@ public class AdminService {
 	        System.out.println("이미지 저장 경로 생성됨: " + path);
 	    }
 
-	    String originalName = menudto.getImg().getOriginalFilename();
 	    String fileFullPath = path + File.separator + originalName;
-
+	    File destfile = new File(fileFullPath);
 	    // 클라이언트가 접근할 수 있는 이미지 URL 경로
 	    String fileLink = "http://tomhoon.duckdns.org:8881/admin/img/" + originalName;
 
 	    try {
-	        File destfile = new File(fileFullPath);
+	       
 	        menudto.getImg().transferTo(destfile);  // 실제 파일 저장
-
 	        Menu menu = new Menu();
 	        menu.setName(menudto.getName());
 	        menu.setCode(menudto.getCode());
