@@ -37,12 +37,14 @@
 
       const parsedData = JSON.parse(rawData);
       const entries = Object.entries(parsedData);
-
+      const strdate=new Date().toISOString();
+      console.log(strdate)
       const requests = entries.map(([_, item]) => {
         const dto = {
           store: storeName,
           details: item.flavor.map(f => f.name),
-          amount: finalAmount
+          amount: finalAmount,
+          orderDate:strdate,
         };
 
         return fetch("http://192.168.0.10:4242/print", {
