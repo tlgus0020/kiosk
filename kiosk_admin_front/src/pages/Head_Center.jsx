@@ -6,17 +6,19 @@ import "../css/Pay.css";
 
 export function Head_Center(props) {
   const [payList, setPayList] = useState([]);
-  const REST = process.env.REACT_APP_REST;
-  const navigate = useNavigate();
-
-
+  const [filteredList, setFilteredList] = useState([]);
   const [showDateFilter, setShowDateFilter] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterPlaces, setFilterPlaces] = useState([]);
   const [placeNames, setPlaceNames] = useState([]);
-  const [sortState, setSortState] = useState("null")
-  const [sortToggle,setSortToggle] = useState(false);
+  const [sortState, setSortState] = useState("null");
+  const [sortToggle, setSortToggle] = useState(false);
   const [reRender, setReRender] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const REST = process.env.REACT_APP_REST;
+  const navigate = useNavigate();
+
   const handleDataSubmit = (filteredData) => {
     setPayList(filteredData);
     setShowDateFilter(false);
@@ -47,11 +49,11 @@ export function Head_Center(props) {
     );
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setFilteredList(payList
       .filter(item => item.flavor_name?.toLowerCase().includes(searchTerm.toLowerCase()))
-      .filter(item => filterPlaces.length === 0 || filterPlaces.includes(item.place_name))) 
-  },[filterPlaces])
+      .filter(item => filterPlaces.length === 0 || filterPlaces.includes(item.place_name)));
+  }, [filterPlaces, searchTerm]);
 
   useEffect(() => {
     fetch(`${REST}/admin/GetStock`)
@@ -67,88 +69,88 @@ export function Head_Center(props) {
       });
   }, []);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     setFilteredList(payList
       .filter(item => item.flavor_name?.toLowerCase().includes(searchTerm.toLowerCase()))
-      .filter(item => filterPlaces.length === 0 || filterPlaces.includes(item.place_name)))
-  },payList)
-  // 필터링
-  const [filteredList,setFilteredList] = useState([])
-  function doSort(type,e) {
+      .filter(item => filterPlaces.length === 0 || filterPlaces.includes(item.place_name)));
+  }, [payList]);
+
+  const doSort = (type, e) => {
     document.querySelectorAll("#menuname").forEach(element => {
-      // 요소의 텍스트에서 ▽ 문자를 제거
       element.textContent = element.textContent.replace("▽", "");
       element.textContent = element.textContent.replace("△", "");
     });
-    if(type !== sortState && sortState !== null){
-      console.log('eh');
+
+    if (type !== sortState && sortState !== null) {
       setFilteredList(payList
         .filter(item => item.flavor_name?.toLowerCase().includes(searchTerm.toLowerCase()))
-        .filter(item => filterPlaces.length === 0 || filterPlaces.includes(item.place_name)))
+        .filter(item => filterPlaces.length === 0 || filterPlaces.includes(item.place_name)));
       setSortToggle(false);
       setSortState(null);
       return;
     }
+
     let sorted;
-  
+
     if (!sortToggle) {
-      // 내림차순 정렬
       sorted = filteredList.slice().sort((a, b) => {
         if (type === "place_name") {
-          return b.place_name.localeCompare(a.place_name);  // 내림차순
+          return b.place_name.localeCompare(a.place_name);
         } else if (type === "flavor_name") {
-          return b.flavor_name.localeCompare(a.flavor_name);  // 내림차순
+          return b.flavor_name.localeCompare(a.flavor_name);
         } else if (type === "amount") {
-          return b.amount - a.amount;  // 내림차순 (숫자 비교)
+          return b.amount - a.amount;
         } else if (type === "selling") {
-          return b.selling - a.selling;  // 내림차순 (false < true)
+          return b.selling - a.selling;
         } else if (type === "inOrder") {
-          return b.inOrder - a.inOrder;  // 내림차순 (숫자 비교)
+          return b.inOrder - a.inOrder;
         } else {
-          return 0; // 기본적으로 정렬 안 함
+          return 0;
         }
       });
     } else {
-      // 오름차순 정렬
       sorted = filteredList.slice().sort((a, b) => {
         if (type === "place_name") {
-          return a.place_name.localeCompare(b.place_name);  // 오름차순
+          return a.place_name.localeCompare(b.place_name);
         } else if (type === "flavor_name") {
-          return a.flavor_name.localeCompare(b.flavor_name);  // 오름차순
+          return a.flavor_name.localeCompare(b.flavor_name);
         } else if (type === "amount") {
-          return a.amount - b.amount;  // 오름차순 (숫자 비교)
+          return a.amount - b.amount;
         } else if (type === "selling") {
-          return a.selling - b.selling;  // 오름차순 (false < true)
+          return a.selling - b.selling;
         } else if (type === "inOrder") {
-          return a.inOrder - b.inOrder;  // 오름차순 (숫자 비교)
+          return a.inOrder - b.inOrder;
         } else {
-          return 0; // 기본적으로 정렬 안 함
+          return 0;
         }
       });
     }
 
-    if(sortToggle){
-      e.target.innerHTML += "▽"
+    if (sortToggle) {
+      e.target.innerHTML += "▽";
+    } else {
+      e.target.innerHTML += "△";
     }
-    else{
-      e.target.innerHTML += "△"
 
-    }
-    // 새 참조 배열 만들어서 강제로 리렌더링 유도
     setFilteredList(sorted.map(item => ({ ...item })));
     setSortState(type);
-    setSortToggle(!sortToggle);  // 오름차순/내림차순 토글
-    setReRender(!reRender);      // 리렌더링을 유도
-  }
-  
-  
-  useEffect(()=>{
-    console.log(filteredList);
-  },[filteredList])
+    setSortToggle(!sortToggle);
+    setReRender(!reRender);
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredList.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredList.length / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
   return (
     <div className="admin-pay-container">
-     
       {showDateFilter && (
         <>
           <div className="admin-overlay" onClick={() => setShowDateFilter(false)}></div>
@@ -158,10 +160,8 @@ export function Head_Center(props) {
         </>
       )}
 
-      {/* 필터 영역 */}
       <div className="pay-filters">
         <button className="date-btn" onClick={() => setShowDateFilter(true)}>DATE</button>
-
         <input
           type="text"
           placeholder="메뉴명을 입력해주세요."
@@ -185,17 +185,17 @@ export function Head_Center(props) {
         <thead>
           <tr>
             <th>NO</th>
-            <th onClick={(e)=> doSort('amount',e)} id="menuname">재고량</th>
-            <th onClick={(e)=> doSort('flavor_name',e)} id="menuname">메뉴이름</th>
-            <th onClick={(e)=> doSort('place_name',e)} id="menuname">지점명</th>
-            <th onClick={(e)=> doSort('selling',e)} id="menuname">판매상태</th>
+            <th onClick={(e) => doSort('amount', e)} id="menuname">재고량</th>
+            <th onClick={(e) => doSort('flavor_name', e)} id="menuname">메뉴이름</th>
+            <th onClick={(e) => doSort('place_name', e)} id="menuname">지점명</th>
+            <th onClick={(e) => doSort('selling', e)} id="menuname">판매상태</th>
             <th>발주상태</th>
           </tr>
         </thead>
         <tbody>
-          {filteredList.map((item, index) => (
+          {currentItems.map((item, index) => (
             <tr key={item.id}>
-              <td>{index + 1}</td>
+              <td>{indexOfFirstItem + index + 1}</td>
               <td>{item.amount}</td>
               <td>{item.flavor_name}</td>
               <td>{item.place_name}</td>
@@ -218,7 +218,17 @@ export function Head_Center(props) {
           ))}
         </tbody>
       </table>
-      {reRender? null:null}
+
+      <div className="pagination-controls">
+        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+          이전
+        </button>
+        <span> {currentPage} / {totalPages}</span>
+        <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+          다음
+        </button>
+      </div>
+      {reRender ? null : null}
     </div>
   );
 }
